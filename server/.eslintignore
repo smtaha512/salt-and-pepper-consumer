@@ -1,0 +1,10 @@
+node_modules
+.eslintrc
+.prettierrc
+readme.md
+package-lock.json
+yarn.lock
+package.json
+.env
+readme.md
+.gitignore

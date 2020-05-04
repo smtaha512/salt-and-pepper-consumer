@@ -1,0 +1,44 @@
+{
+  "name": "salt-n-pepper-be",
+  "version": "1.0.0",
+  "description": "salt and papper project backend, built with expressjs and love",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js",
+    "lint": "./node_modules/eslint/bin/eslint.js .",
+    "watch": "./node_modules/nodemon/bin/nodemon.js server",
+    "postinstall": "link-module-alias"
+  },
+  "_moduleAliases": {
+    "@gql": "./src/gql",
+    "@libs": "./src/utils/libs",
+    "@db": "./src/db",
+    "@routes": "./src/routes",
+    "@root": "./src",
+    "@services": "./src/services",
+    "@utils": "./src/utils"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "body-parser": "^1.19.0",
+    "cors": "^2.8.5",
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1",
+    "jsonwebtoken": "^8.5.1",
+    "lodash": "^4.17.15",
+    "mongoose": "^5.9.11",
+    "morgan": "^1.10.0",
+    "pino": "^6.2.1",
+    "validator": "^13.0.0"
+  },
+  "devDependencies": {
+    "@types/mongoose": "^5.7.14",
+    "babel-eslint": "^10.1.0",
+    "eslint": "^6.8.0",
+    "link-module-alias": "^1.2.0",
+    "nodemon": "^2.0.3"
+  }
+}
