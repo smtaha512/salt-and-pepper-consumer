@@ -1,0 +1,8 @@
+{
+  "appId": "com.saltandpapper.app",
+  "appName": "salt-and-pepper",
+  "bundledWebRuntime": false,
+  "npmClient": "npm",
+  "webDir": "www",
+  "cordova": {}
+}

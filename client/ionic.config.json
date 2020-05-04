@@ -1,0 +1,7 @@
+{
+  "name": "salt-and-pepper",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}
