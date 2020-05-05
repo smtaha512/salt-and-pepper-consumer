@@ -11,13 +11,7 @@
     "postinstall": "link-module-alias"
   },
   "_moduleAliases": {
-    "@gql": "./src/gql",
-    "@libs": "./src/utils/libs",
-    "@db": "./src/db",
-    "@routes": "./src/routes",
-    "@root": "./src",
-    "@services": "./src/services",
-    "@utils": "./src/utils"
+    "@src": "./src"
   },
   "author": "",
   "license": "ISC",
