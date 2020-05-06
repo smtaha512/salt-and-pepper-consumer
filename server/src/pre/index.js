@@ -1,6 +1,6 @@
 const BodyParser = require('body-parser');
 const dbConnections = require('@src/pre/db-connection');
-const envConfig = require('@src/utils/configs/env.config');
+const envConfig = require('@utils/configs/env.config');
 
 module.exports = function preInitialization(app) {
   // * Condition for enviroment.

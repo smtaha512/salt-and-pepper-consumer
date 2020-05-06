@@ -1,8 +1,8 @@
 const router = require('express').Router();
 
 const { verify } = require('@src/repositories/users');
-const { RES_MSGS, USER_TYPES } = require('@utils/constants');
-const Utils = require('@utils');
+const { RES_MSGS, USER_TYPES } = require('@src/utils/constants');
+const Utils = require('@src/utils');
 
 router.post('/login/admin', (request, response) => {
   response.status(200).send(request.body);
