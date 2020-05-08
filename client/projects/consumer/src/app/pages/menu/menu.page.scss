@@ -1,0 +1,16 @@
+ion-card:after {
+  content: '20 min';
+  height: 60px;
+  width: 70px;
+  background: var(--ion-color-tertiary);
+  position: absolute;
+  top: 0;
+  right: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  font-weight: bold;
+  border: 0;
+  border-radius: 0 0px 0 5px;
+}
