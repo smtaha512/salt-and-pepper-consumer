@@ -3,7 +3,7 @@
     <div [ngClass]="{'show-border': true}" [ngStyle]="getTransform(selectedTab$ | async )"></div>
     <ion-tab-button *ngFor="let tab of tabs" [tab]="tab.tab">
       <ion-icon color="light" @tabAnimation *ngIf="(selectedTab$ | async)?.tab !== tab.tab" [name]="tab.icon"></ion-icon>
-      <ion-label color="secondary" @tabAnimation *ngIf="(selectedTab$ | async)?.tab === tab.tab">{{tab.label}}</ion-label>
+      <ion-label color="primary" @tabAnimation *ngIf="(selectedTab$ | async)?.tab === tab.tab">{{tab.label}}</ion-label>
     </ion-tab-button>
   </ion-tab-bar>
 </ion-tabs>
