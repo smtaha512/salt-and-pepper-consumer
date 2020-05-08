@@ -6,8 +6,15 @@ import { TabsPage } from './tabs.page';
 const routes: Routes = [
   {
     path: '',
-    component: TabsPage
-  }
+    component: TabsPage,
+    children: [
+      { path: '', redirectTo: 'menu' },
+      {
+        path: 'menu',
+        loadChildren: () => import('../menu/menu.module').then((m) => m.MenuPageModule),
+      },
+    ],
+  },
 ];
 
 @NgModule({
