@@ -12,7 +12,7 @@ export class TabsPage implements OnInit {
   readonly tabs = [
     { tab: 'orders-history', icon: 'calendar-outline', label: 'Recent orders' },
     { tab: 'menu', icon: 'menu-outline', label: 'Menu' },
-    { tab: 'cart', icon: 'cart-outline', label: 'Cart' },
+    { tab: 'cart', icon: 'cart-outline', label: 'Cart', showBadge: true },
   ];
 
   readonly selectedTab$: BehaviorSubject<Record<'tab', string>> = new BehaviorSubject(this.tabs[0]);
