@@ -12,7 +12,6 @@ export class TabsPage implements OnInit {
   readonly tabs = [
     { tab: 'orders-history', icon: 'calendar-outline', label: 'Recent orders' },
     { tab: 'menu', icon: 'menu-outline', label: 'Menu' },
-    { tab: 'history', icon: 'calendar-outline', label: 'Recent orders' },
     { tab: 'cart', icon: 'cart-outline', label: 'Cart' },
   ];
 
