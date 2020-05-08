@@ -10,8 +10,8 @@ import { BehaviorSubject } from 'rxjs';
 })
 export class TabsPage implements OnInit {
   readonly tabs = [
-    { tab: 'menu', icon: 'menu-outline', label: 'Menu' },
     { tab: 'history', icon: 'calendar-outline', label: 'Recent orders' },
+    { tab: 'menu', icon: 'menu-outline', label: 'Menu' },
     { tab: 'cart', icon: 'cart-outline', label: 'Cart', showBadge: true },
   ];
 
