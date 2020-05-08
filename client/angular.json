@@ -105,11 +105,6 @@
                 "glob": "favicon.ico",
                 "input": "src/",
                 "output": "/"
-              },
-              {
-                "glob": "**/*",
-                "input": "src/assets",
-                "output": "/assets"
               }
             ]
           },
@@ -123,11 +118,7 @@
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
-            "tsConfig": [
-              "tsconfig.app.json",
-              "tsconfig.spec.json",
-              "e2e/tsconfig.json"
-            ],
+            "tsConfig": ["tsconfig.app.json", "tsconfig.spec.json", "e2e/tsconfig.json"],
             "exclude": ["**/node_modules/**"]
           }
         },
@@ -194,10 +185,26 @@
             "aot": false,
             "assets": [
               "projects/consumer/src/favicon.ico",
-              "projects/consumer/src/assets"
+              "projects/consumer/src/assets",
+              {
+                "glob": "**/*",
+                "input": "src/assets",
+                "output": "/assets"
+              },
+              {
+                "glob": "**/*.svg",
+                "input": "node_modules/ionicons/dist/ionicons/svg",
+                "output": "./svg"
+              }
             ],
             "styles": [
-              "projects/consumer/src/styles.scss"
+              "projects/consumer/src/styles.scss",
+              {
+                "input": "src/theme/variables.scss"
+              },
+              {
+                "input": "src/global.scss"
+              }
             ],
             "scripts": []
           },
@@ -257,13 +264,8 @@
             "polyfills": "projects/consumer/src/polyfills.ts",
             "tsConfig": "projects/consumer/tsconfig.spec.json",
             "karmaConfig": "projects/consumer/karma.conf.js",
-            "assets": [
-              "projects/consumer/src/favicon.ico",
-              "projects/consumer/src/assets"
-            ],
-            "styles": [
-              "projects/consumer/src/styles.scss"
-            ],
+            "assets": ["projects/consumer/src/favicon.ico", "projects/consumer/src/assets"],
+            "styles": ["projects/consumer/src/styles.scss"],
             "scripts": []
           }
         },
@@ -275,9 +277,7 @@
               "projects/consumer/tsconfig.spec.json",
               "projects/consumer/e2e/tsconfig.json"
             ],
-            "exclude": [
-              "**/node_modules/**"
-            ]
+            "exclude": ["**/node_modules/**"]
           }
         },
         "e2e": {
