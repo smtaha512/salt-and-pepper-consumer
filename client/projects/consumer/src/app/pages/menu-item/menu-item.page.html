@@ -1,0 +1,69 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/tabs/menu"></ion-back-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <ion-grid>
+    <ion-row>
+      <ion-col size="12" sizeSm="10" offsetSm="1" sizeMd="8" offsetMd="2" sizeLg="6" offsetLg="3">
+        <img src="https://loremflickr.com/300/200/food?random=1" height="200" alt="" class="w-100" />
+        <ion-text color="light"><h1 class="font-weight-bolder">Dish name</h1></ion-text>
+        <ion-list class="ion-no-padding">
+          <ion-radio-group name="preference" value="mild">
+            <ion-list-header>
+              <ion-label>Choose Spice level</ion-label>
+            </ion-list-header>
+            <ion-item>
+              <ion-label color="success">Mild</ion-label>
+              <ion-radio slot="start" color="success" value="mild"></ion-radio>
+            </ion-item>
+            <ion-item>
+              <ion-label color="warning">Spicy</ion-label>
+              <ion-radio slot="start" color="warning" value="spicy"></ion-radio>
+            </ion-item>
+            <ion-item>
+              <ion-label color="danger">Hot</ion-label>
+              <ion-radio slot="start" color="danger" value="hot"></ion-radio>
+            </ion-item>
+          </ion-radio-group>
+
+          <ion-item>
+            <ion-label position="inline">Notes</ion-label>
+            <ion-textarea color="light" placeholder="Enter any special instructions here"></ion-textarea>
+          </ion-item>
+        </ion-list>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>
+<ion-footer>
+  <ion-grid>
+    <ion-row>
+      <ion-col size="12" sizeSm="10" offsetSm="1" sizeMd="8" offsetMd="2" sizeLg="6" offsetLg="3">
+        <ion-grid>
+          <ion-row>
+            <ion-col size="6" class="d-flex justify-content-around align-items-center">
+              <ion-button fill="clear">
+                <ion-icon slot="icon-only" color="danger" name="remove-outline"></ion-icon>
+              </ion-button>
+              <ion-text color="light">1</ion-text>
+              <ion-button fill="clear">
+                <ion-icon slot="icon-only" color="success" name="add-outline"></ion-icon>
+              </ion-button>
+            </ion-col>
+            <ion-col size="6">
+              <ion-button fill="outline" expand="block" [routerLink]="['/checkout-success']">
+                <ion-icon slot="start" name="cart-outline"></ion-icon>
+                Add to cart
+              </ion-button>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-footer>
