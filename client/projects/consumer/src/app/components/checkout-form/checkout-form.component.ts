@@ -1,4 +1,5 @@
-import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import { IonInput } from '@ionic/angular';
 
 @Component({
   selector: 'app-checkout-form',
@@ -10,4 +11,16 @@ export class CheckoutFormComponent implements OnInit {
   constructor() {}
 
   ngOnInit() {}
+
+  openMonthYearSelector(ionInput: IonInput) {
+    ionInput.getInputElement().then((elem) => elem.click());
+  }
+
+  getValue(value: string = '') {
+    return value
+      .split('-')
+      .map((item) => item.slice(0, 2))
+      .reverse()
+      .join('/');
+  }
 }
