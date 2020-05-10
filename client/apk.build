@@ -34,9 +34,11 @@ build(){
     ng build --project=$project $ngOpts;
 
     # Stashing files that should not be removed during this process. Unstashing will be done at end automatically
-    git add .;
-    git stash;
-
+    changedFiles = $(git diff --cached --numstat | wc -l);
+    if [[ $changedFiles != '0' ]]; then
+        git add .;
+        git stash;
+    fi
     cp ./capacitor.config.json ./capacitor.config.temp.json;
 
     echo '>> Do not remove temp file. It will be deleted automatically at the end';
@@ -66,7 +68,9 @@ build(){
     git add .
     git reset HEAD --hard;
     # Unstashing previously stashed files 
-    git stash pop stash@{0};
+    if [[ $changedFiles != '0' ]]; then
+        git stash pop stash@{0};
+    fi
 }
 
 
