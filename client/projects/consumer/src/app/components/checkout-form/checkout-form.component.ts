@@ -16,8 +16,9 @@ export class CheckoutFormComponent implements OnInit {
     ionInput.getInputElement().then((elem) => elem.click());
   }
 
-  getValue(value: string = '') {
+  getValue(value: number | string = ''): string {
     return value
+      .toString()
       .split('-')
       .map((item) => item.slice(0, 2))
       .reverse()
