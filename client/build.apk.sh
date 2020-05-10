@@ -14,7 +14,10 @@ do
 done
 
 echo ">> ng build --project=$project $ngOpts" ;
-# ng build --project=$project $ngOpts;
+ng build --project=$project $ngOpts;
+
+git add .;
+git stash;
 
 cp ./capacitor.config.json ./capacitor.config.temp.json;
 
@@ -41,4 +44,6 @@ cp -r ./projects/$project/android/app/src/main/java ./android/app/src/main
  echo '>> Installing APK' && ./gradlew installDebug\
 );
 
-git reset HEAD --hard
+git add .
+git reset HEAD --hard;
+git stash pop stash@{0};
