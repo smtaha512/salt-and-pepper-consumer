@@ -10,7 +10,7 @@
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
-    "build:consumer": "./build.apk.sh project='consumer' ngOpts='--prod --stats-json'"
+    "build:consumer": "./apk.build project='consumer' ngOpts='--prod --stats-json'"
   },
   "private": true,
   "dependencies": {
