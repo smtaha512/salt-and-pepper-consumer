@@ -5,7 +5,7 @@ import { Component, OnInit, Input, ChangeDetectionStrategy } from '@angular/core
   template: `
     <ion-row class="mt-2">
       <ion-col size="12">
-        <ion-item lines="none" *ngFor="let item of orderItems; let isLast = last; trackBy: item?._id">
+        <ion-item lines="none" *ngFor="let item of orderItems; let isLast = last; trackBy: trackBy">
           <ion-label>
             <ion-row class="py-2 my-1 align-items-center" [ngClass]="{ 'border-bottom': !isLast }">
               <ion-col class="ion-text-wrap">{{ item.name }} very very long</ion-col>
@@ -24,4 +24,8 @@ export class MyOrdersItemsListBodyComponent implements OnInit {
   constructor() {}
 
   ngOnInit() {}
+
+  trackBy(index: number, item: any): number {
+    return (item && item._id) || index;
+  }
 }
