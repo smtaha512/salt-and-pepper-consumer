@@ -1,7 +1,13 @@
 {
-  "name": "salt-and-pepper",
-  "integrations": {
-    "capacitor": {}
-  },
-  "type": "angular"
+  "defaultProject": "consumer",
+  "projects": {
+    "consumer": {
+      "name": "Salt and pepper consumer app",
+      "integrations": {
+        "capacitor": {}
+      },
+      "type": "angular",
+      "root": "projects/consumer"
+    }
+  }
 }
