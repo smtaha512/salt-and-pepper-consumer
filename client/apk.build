@@ -30,15 +30,11 @@ build(){
         return;
     fi
 
+    read -p ">> Please stash or commit your changes before continuing. This script may reset your changes. Do you want to continue?  (Y/N): " confirm && [[ $confirm == [yY] || $confirm == [yY][eE][sS] ]] || return 0
+
     echo ">> ng build --project=$project $ngOpts" ;
     ng build --project=$project $ngOpts;
 
-    # Stashing files that should not be removed during this process. Unstashing will be done at end automatically
-    changedFiles = $(git diff --cached --numstat | wc -l);
-    if [[ $changedFiles != '0' ]]; then
-        git add .;
-        git stash;
-    fi
     cp ./capacitor.config.json ./capacitor.config.temp.json;
 
     echo '>> Do not remove temp file. It will be deleted automatically at the end';
@@ -67,10 +63,6 @@ build(){
     # Resetting stage to reset any extra files generated/updated/deleted during build process
     git add .
     git reset HEAD --hard;
-    # Unstashing previously stashed files 
-    if [[ $changedFiles != '0' ]]; then
-        git stash pop stash@{0};
-    fi
 }
 
 
