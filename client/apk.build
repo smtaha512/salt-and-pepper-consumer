@@ -30,7 +30,7 @@ build(){
         return;
     fi
 
-    read -p ">> Please stash or commit your changes before continuing. This script may reset your changes. Do you want to continue?  (Y/N): " confirm && [[ $confirm == [yY] || $confirm == [yY][eE][sS] ]] || return 0
+    read -p ">> Please stash or commit your changes before continuing. This script may reset your changes. Do you want to continue?  (y/N): " confirm && [[ $confirm == [yY] || $confirm == [yY][eE][sS] ]] || return 0
 
     echo ">> ng build --project=$project $ngOpts" ;
     ng build --project=$project $ngOpts;
