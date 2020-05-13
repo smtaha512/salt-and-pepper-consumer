@@ -1,0 +1,57 @@
+<form>
+  <ion-grid>
+    <ion-row>
+      <ion-col size="12">
+        <ion-item>
+          <ion-label position="floating">Name on card</ion-label>
+          <ion-input required type="text"></ion-input>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col size="12">
+        <ion-item>
+          <ion-label position="floating">Card number</ion-label>
+          <ion-input required type="text" inputmode="tel"></ion-input>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col size="6">
+        <ion-item>
+          <ion-label position="floating">MM / YY</ion-label>
+          <ion-input
+            #mmdd
+            class="h-0 w-0 ion-no-padding ion-no-margin"
+            name="month"
+            required
+            style="--padding-bottom: 0; --padding-top: 0;"
+            type="month"
+          ></ion-input>
+          <ion-input [value]="getValue(mmdd.value)" name="text" readonly (click)="openMonthYearSelector(mmdd)"></ion-input>
+        </ion-item>
+      </ion-col>
+      <ion-col size="6">
+        <ion-item>
+          <ion-label position="floating">CVC</ion-label>
+          <ion-input required type="text" inputmode="tel"></ion-input>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col size="12">
+        <ion-item>
+          <ion-label position="floating">Mobile number</ion-label>
+          <ion-input required type="tel" inputmode="tel"></ion-input>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col size="12" size-sm="10" size-md="8" size-lg="6" offset-lg="3" offset-md="2" offset-sm="1">
+        <ion-button [routerLink]="['/checkout-success']" color="success" expand="block" fill="outline">
+          Checkout
+        </ion-button>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</form>
