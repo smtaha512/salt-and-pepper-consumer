@@ -1,0 +1,36 @@
+<ion-header class="ion-no-border ion-margin-top">
+  <ion-toolbar>
+    <ion-grid>
+      <ion-row>
+        <ion-col size="2">
+          <ion-buttons><ion-back-button defaultHref="/tabs/orders-history"></ion-back-button></ion-buttons>
+        </ion-col>
+        <ion-col size="10"><ion-title mode="ios" size="large" color="light">Order Details</ion-title></ion-col>
+      </ion-row>
+    </ion-grid>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div class="sticky-top" style="top: 0; background-color: var(--ion-color-dark);">
+    <ion-card>
+      <ion-card-header class="d-flex justify-content-between">
+        <ion-card-subtitle color="light">
+          Order id: 145bf <br />
+          Date: {{ 1 | date }}
+        </ion-card-subtitle>
+        <div>
+          <ion-badge color="secondary" mode="ios">Preparing</ion-badge>
+        </div>
+      </ion-card-header>
+    </ion-card>
+    <ion-segment value="pricing" (ionChange)="segmentChange($event.detail.value)">
+      <ion-segment-button value="instructions"><ion-label>Instructions</ion-label></ion-segment-button>
+      <ion-segment-button value="pricing"><ion-label class="ion-padding-horizontal">Pricing</ion-label></ion-segment-button>
+    </ion-segment>
+  </div>
+  <ng-container [ngSwitch]="currentSegment$ | async">
+    <app-order-instructions *ngSwitchCase="'instructions'"></app-order-instructions>
+    <app-my-orders-items-list *ngSwitchCase="'pricing'"></app-my-orders-items-list>
+  </ng-container>
+</ion-content>
