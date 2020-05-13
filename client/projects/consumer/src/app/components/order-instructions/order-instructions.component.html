@@ -1,0 +1,17 @@
+<ion-card *ngFor="let item of [1, 2, 3, 4, 5, 6]; let even = even; let first = first">
+  <ion-card-header class="d-flex justify-content-between">
+    <ion-card-title class="d-flex flex-column">
+      <ion-text>Dish name</ion-text>
+    </ion-card-title>
+    <div>
+      <ion-badge color="medium" mode="ios" class="ion-padding-horizontal ion-text-center" style="width: 4rem;">
+        <ion-text [color]="first ? 'danger' : even ? 'warning' : 'success'">
+          {{ first ? 'Hot' : even ? 'Spicy' : 'Mild' }}
+        </ion-text>
+      </ion-badge>
+    </div>
+  </ion-card-header>
+  <ion-card-content>
+    Lorem ipsum dolor sit amet consectetur, adipisicing elit. Delectus eligendi modi.
+  </ion-card-content>
+</ion-card>
