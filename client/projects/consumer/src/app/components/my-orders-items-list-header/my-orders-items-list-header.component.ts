@@ -3,7 +3,7 @@ import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 @Component({
   selector: 'app-my-orders-items-list-header',
   template: `
-    <ion-item mode="ios">
+    <ion-item lines="full">
       <ion-label>
         <ion-row class="border-bottom">
           <ion-col
