@@ -8,7 +8,7 @@
   <ion-grid>
     <ion-row>
       <ion-col size="12" sizeSm="6" sizeMd="4" *ngFor="let item of [1,2,3,4,5,6,7,8,9,10,11,12,13]; let i = index">
-        <ion-card style="max-height: 35vh;" button>
+        <ion-card style="max-height: 35vh;" button [routerLink]="['/order']">
           <ion-card-header class="d-flex justify-content-between">
             <ion-card-subtitle class="d-flex flex-column">
               <ion-text>{{1 | date: 'mediumDate'}}</ion-text> <br />
