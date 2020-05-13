@@ -1,0 +1,69 @@
+#!/bin/bash
+
+# Usage:
+# `$ ./build.apk.sh project=<project-name> ngOpts="--prod"`
+# For more ngOpts run 'ng build --help'
+
+# Extracting passsed arguments
+for ARGUMENT in "$@"
+    do
+
+        KEY=$(echo $ARGUMENT | cut -f1 -d=)
+        VALUE=$(echo $ARGUMENT | cut -f2 -d=)   
+
+        case "$KEY" in
+                project)   project=${VALUE} ;;
+                ngOpts)    ngOpts=${VALUE} ;;     
+                *)   
+        esac    
+
+
+    done
+
+build(){
+    if  [ -z "$ngOpts" ]; then
+        echo ">> You may want to specify options for 'ng build' command using ngOpts='<options>'. Run 'ng build --help' for all options.";
+    fi
+    
+    if [ -z "$project" ]; then
+        echo ">> Please specify project to build using 'project='<project-name>''."
+        return;
+    fi
+
+    read -p ">> Please stash or commit your changes before continuing. This script may reset your changes. Do you want to continue?  (y/N): " confirm && [[ $confirm == [yY] || $confirm == [yY][eE][sS] ]] || return 0
+
+    echo ">> ng build --project=$project $ngOpts" ;
+    ng build --project=$project $ngOpts;
+
+    cp ./capacitor.config.json ./capacitor.config.temp.json;
+
+    echo '>> Do not remove temp file. It will be deleted automatically at the end';
+
+    cp ./projects/$project/capacitor.config.json ./capacitor.config.json;
+
+    npx cap sync;
+    rm ./android/app/src/main/assets/public/stats.json
+    rm ./android/app/src/main/assets/public/stats-es2015.json
+
+    cp ./capacitor.config.temp.json ./capacitor.config.json;
+    rm ./capacitor.config.temp.json
+
+    cp ./projects/$project/android/app/build.gradle ./android/app/build.gradle
+    cp ./projects/$project/android/app/src/main/res/values/strings.xml ./android/app/src/main/res/values/strings.xml
+    cp ./projects/$project/android/app/src/main/AndroidManifest.xml ./android/app/src/main/AndroidManifest.xml
+    rm -r ./android/app/src/main/java
+    cp -r ./projects/$project/android/app/src/main/java ./android/app/src/main
+
+    (cd ./android/ && \
+     echo '>> Assembling APK' && ./gradlew assembleDebug && \
+     echo '>> Removing old APK from device' && adb uninstall com.saltandpapper.$project.app
+     echo '>> Installing APK' && ./gradlew installDebug\
+    );
+
+    # Resetting stage to reset any extra files generated/updated/deleted during build process
+    git add .
+    git reset HEAD --hard;
+}
+
+
+build;
