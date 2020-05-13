@@ -12,7 +12,7 @@ import { Component, OnInit, Input, ChangeDetectionStrategy } from '@angular/core
             [orderItems]="orderItems"
           ></app-my-orders-items-list-body>
           <ng-template #noItemsMessage>
-            <ion-item lines="full" class="ion-text-center"> <ion-label> No item to show </ion-label> </ion-item>
+            <ion-item lines="none" class="ion-text-center"> <ion-label> No item to show </ion-label> </ion-item>
           </ng-template>
         </ion-item-group>
       </ion-list>
