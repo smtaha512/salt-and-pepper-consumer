@@ -18,27 +18,17 @@
               <ion-badge color="secondary" mode="ios">Preparing</ion-badge>
             </div>
           </ion-card-header>
-          <ion-card-content class="d-block h-75">
-            <ion-grid class="h-100">
-              <ion-row class="h-75">
-                <ion-col size="12">
-                  <h2>
-                    <ng-container *ngFor="let item of [1,2,3,4,5,6]; let last = last">
-                      Dish name {{item}}<ng-container *ngIf="!last">, </ng-container>
-                    </ng-container>
-                  </h2>
-                </ion-col>
-              </ion-row>
-              <ion-row class="h-25">
-                <ion-col size="6" push="6">
-                  <ion-button fill="outline">
-                    <ion-icon slot="start" name="reload" expand="block"></ion-icon>
-                    Reorder
-                  </ion-button>
-                </ion-col>
-              </ion-row>
-            </ion-grid>
+          <ion-card-content class="d-block h-75 border-bottom">
+            <h2>
+              <ng-container *ngFor="let item of [1,2,3,4,5,6]; let last = last">
+                Dish name {{item}}<ng-container *ngIf="!last">, </ng-container>
+              </ng-container>
+            </h2>
           </ion-card-content>
+          <ion-button size="large" expand="block" fill="none">
+            <ion-icon color="primary" slot="start" name="reload" expand="block"></ion-icon>
+            <ion-text color="primary">Reorder</ion-text>
+          </ion-button>
         </ion-card>
       </ion-col>
     </ion-row>
