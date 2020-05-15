@@ -7,7 +7,7 @@ import { IonicModule } from '@ionic/angular';
 import { OrdersHistoryPageRoutingModule } from './orders-history-routing.module';
 
 import { OrdersHistoryPage } from './orders-history.page';
-import { OrderCardModule } from 'library/library';
+import { OrderCardModule } from 'dist/library';
 
 @NgModule({
   imports: [CommonModule, FormsModule, IonicModule, OrdersHistoryPageRoutingModule, OrderCardModule],
