@@ -7,29 +7,13 @@
 <ion-content>
   <ion-grid>
     <ion-row>
-      <ion-col size="12" sizeSm="6" sizeMd="4" *ngFor="let item of [1,2,3,4,5,6,7,8,9,10,11,12,13]; let i = index">
-        <ion-card style="max-height: 35vh;" button [routerLink]="['/order']">
-          <ion-card-header class="d-flex justify-content-between">
-            <ion-card-subtitle class="d-flex flex-column">
-              <ion-text>{{1 | date: 'mediumDate'}}</ion-text> <br />
-              <ion-text color="tertiary">{{ 220 | currency:'USD' }}</ion-text>
-            </ion-card-subtitle>
-            <div>
-              <ion-badge color="secondary" mode="ios">Preparing</ion-badge>
-            </div>
-          </ion-card-header>
-          <ion-card-content class="d-block h-75 border-bottom">
-            <h2>
-              <ng-container *ngFor="let item of [1,2,3,4,5,6]; let last = last">
-                Dish name {{item}}<ng-container *ngIf="!last">, </ng-container>
-              </ng-container>
-            </h2>
-          </ion-card-content>
-          <ion-button size="large" expand="block" fill="none">
+      <ion-col size="12" sizeSm="6" sizeMd="4" *ngFor="let order of [1,2,3,4,5,6,7,8,9,10,11,12,13]; let i = index">
+        <lib-order-card [order]="order">
+          <ion-button *ngTemplate (click)="onClick($event, order)" size="large" expand="block" fill="none">
             <ion-icon color="primary" slot="start" name="reload" expand="block"></ion-icon>
             <ion-text color="primary">Reorder</ion-text>
           </ion-button>
-        </ion-card>
+        </lib-order-card>
       </ion-col>
     </ion-row>
   </ion-grid>

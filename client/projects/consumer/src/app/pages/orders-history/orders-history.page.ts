@@ -10,4 +10,9 @@ export class OrdersHistoryPage implements OnInit {
   constructor() {}
 
   ngOnInit() {}
+
+  onClick(event: MouseEvent, order) {
+    event.preventDefault();
+    event.stopImmediatePropagation();
+  }
 }
