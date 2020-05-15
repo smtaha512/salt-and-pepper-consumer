@@ -1,0 +1,49 @@
+<ion-header class="ion-no-border ion-margin-top">
+  <ion-toolbar>
+    <ion-grid>
+      <ion-row>
+        <ion-col size="2" sizeMd="1">
+          <ion-buttons><ion-back-button defaultHref="/orders"></ion-back-button></ion-buttons>
+        </ion-col>
+        <ion-col size="10" sizeMd="10">
+          <ion-title mode="ios" size="large" color="light">
+            Orders History
+
+            <!-- This total will only be shown on large screens -->
+            <ion-text color="tertiary" class="d-none d-sm-block float-right">
+              <small>Total: {{ 0 | currency:'USD' }}</small>
+            </ion-text>
+          </ion-title>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-grid>
+    <ion-row>
+      <ion-col size="12" sizeMd="6">
+        <ion-title style="background-color: var(--ion-item-background);" class="ion-padding">
+          <small>
+            <ion-text>John Doe</ion-text> <br />
+            <ion-text>{{ 1 | date:'fullDate' }}</ion-text> <br />
+            <ion-text>Order id: 123b5</ion-text> <br />
+          </small>
+        </ion-title>
+        <lib-orders-items-list class="d-block ion-padding-bottom ion-margin-bottom" [orderItems]="orderItems"></lib-orders-items-list>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
+  <ion-fab vertical="bottom" horizontal="end" slot="fixed" class="above-fixed">
+    <ion-fab-button>
+      <ion-icon name="cloud-download-outline"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+
+  <!-- This total will only be shown on small screens -->
+  <ion-title class="fixed-bottom d-sm-none ion-background">
+    <ion-text color="tertiary" class="ion-padding-vertical float-left">Total: {{ 0 | currency:'USD' }}</ion-text>
+  </ion-title>
+</ion-content>
