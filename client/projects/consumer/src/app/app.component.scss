@@ -1,0 +1,15 @@
+.animate {
+  opacity: 0;
+  animation-name: slide-in;
+  animation-duration: 2s;
+  animation-iteration-count: 1;
+  animation-timing-function: ease-out;
+  animation-delay: 3s;
+  animation-fill-mode: forwards;
+}
+
+@keyframes slide-in {
+  to {
+    opacity: 1;
+  }
+}
