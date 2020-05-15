@@ -15,6 +15,4 @@ export class OrdersPage implements OnInit {
   onClick(event: MouseEvent, order) {
     event.preventDefault();
     event.stopImmediatePropagation();
-    this.router.navigate([`/order/${order}`]);
   }
-}
