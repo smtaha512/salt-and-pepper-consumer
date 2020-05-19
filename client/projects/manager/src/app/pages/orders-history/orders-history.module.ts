@@ -7,10 +7,10 @@ import { IonicModule } from '@ionic/angular';
 import { OrdersHistoryPageRoutingModule } from './orders-history-routing.module';
 
 import { OrdersHistoryPage } from './orders-history.page';
-import { OrdersItemsListModule } from 'dist/library';
+import { OrdersItemsListModule, DateRangePickerModule } from 'dist/library';
 
 @NgModule({
-  imports: [CommonModule, FormsModule, IonicModule, OrdersHistoryPageRoutingModule, OrdersItemsListModule],
+  imports: [CommonModule, FormsModule, IonicModule, OrdersHistoryPageRoutingModule, OrdersItemsListModule, DateRangePickerModule],
   declarations: [OrdersHistoryPage],
 })
 export class OrdersHistoryPageModule {}
