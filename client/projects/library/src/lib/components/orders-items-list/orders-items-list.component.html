@@ -1,7 +1,14 @@
 <ion-list mode="ios">
-  <ion-item-group>
-    <lib-orders-items-list-header></lib-orders-items-list-header>
-    <lib-orders-items-list-body *ngIf="orderItems?.length; else noItemsMessage" [orderItems]="orderItems"></lib-orders-items-list-body>
+  <ion-item-group class="d-flex flex-column justify-content-start align-items-around h-35vh">
+    <div class="stick-to-top">
+      <ng-content select=".metadata"></ng-content>
+      <lib-orders-items-list-header></lib-orders-items-list-header>
+    </div>
+    <lib-orders-items-list-body
+      *ngIf="orderItems?.length; else noItemsMessage"
+      [orderItems]="orderItems"
+      class="pb-5"
+    ></lib-orders-items-list-body>
 
     <ng-template #noItemsMessage>
       <ion-item lines="none" class="ion-text-center"> <ion-label> No item to show </ion-label> </ion-item>
