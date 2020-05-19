@@ -1,15 +1,13 @@
-import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-
 import { IonicModule } from '@ionic/angular';
 
-import { CartPageRoutingModule } from './cart-routing.module';
-
-import { CartPage } from './cart.page';
-import { MyOrdersItemsListModule } from '../../components/my-orders-items-list/my-orders-items-list.module';
-import { MyOrderDetailsBillModule } from '../../components/my-order-details-bill/my-order-details-bill.module';
+import { OrdersItemsListModule } from 'dist/library';
 import { CheckoutFormModule } from '../../components/checkout-form/checkout-form.module';
+import { MyOrderDetailsBillModule } from '../../components/my-order-details-bill/my-order-details-bill.module';
+import { CartPageRoutingModule } from './cart-routing.module';
+import { CartPage } from './cart.page';
 
 @NgModule({
   imports: [
@@ -17,9 +15,9 @@ import { CheckoutFormModule } from '../../components/checkout-form/checkout-form
     FormsModule,
     IonicModule,
     CartPageRoutingModule,
-    MyOrdersItemsListModule,
     MyOrderDetailsBillModule,
     CheckoutFormModule,
+    OrdersItemsListModule,
   ],
   declarations: [CartPage],
 })
