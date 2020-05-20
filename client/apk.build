@@ -56,7 +56,7 @@ build(){
 
     (cd ./android/ && \
      echo '>> Assembling APK' && ./gradlew assembleDebug && \
-     echo '>> Removing old APK from device' && adb uninstall com.saltandpapper.$project.app
+     echo '>> Removing old APK from device' && adb uninstall com.saltandpepper.$project.app
      echo '>> Installing APK' && ./gradlew installDebug\
     );
 
