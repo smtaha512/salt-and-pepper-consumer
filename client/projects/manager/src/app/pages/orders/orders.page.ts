@@ -1,4 +1,5 @@
 import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-orders',
@@ -7,12 +8,13 @@ import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class OrdersPage implements OnInit {
-  constructor() {}
+  constructor(private readonly router: Router) {}
 
   ngOnInit() {}
 
   onClick(event: MouseEvent, order) {
     event.preventDefault();
     event.stopImmediatePropagation();
+    this.router.navigate([`/order/${order}`]);
   }
 }
