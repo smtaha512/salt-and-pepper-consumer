@@ -1,4 +1,4 @@
-package com.saltandpapper.consumer.app;
+package com.saltandpepper.consumer.app;
 
 import android.os.Bundle;
 
