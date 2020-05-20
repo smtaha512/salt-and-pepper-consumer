@@ -1,1 +1,9 @@
 /* You can add global styles to this file, and also import other style files */
+
+.ion-button-background-primary {
+  --button-background: var(--ion-color-primary);
+}
+
+.ion-button-text-color-light {
+  --button-color: var(--ion-color-light);
+}
