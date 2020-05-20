@@ -14,3 +14,6 @@ export * from './lib/components/orders-items-list/orders-items-list.module';
 
 export * from './lib/components/date-range-picker/date-range-picker.component';
 export * from './lib/components/date-range-picker/date-range-picker.module';
+
+export * from './lib/components/order-details/order-details.component';
+export * from './lib/components/order-details/order-details.module';
