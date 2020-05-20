@@ -1,4 +1,4 @@
-package com.saltandpapper.app;
+package com.saltandpepper.app;
 
 import android.os.Bundle;
 
