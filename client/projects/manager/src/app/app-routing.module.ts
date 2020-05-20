@@ -6,7 +6,11 @@ const routes: Routes = [
   { path: 'orders', loadChildren: () => import('./pages/orders/orders.module').then((m) => m.OrdersPageModule) },
   {
     path: 'orders-history',
-    loadChildren: () => import('./pages/orders-history/orders-history.module').then( m => m.OrdersHistoryPageModule)
+    loadChildren: () => import('./pages/orders-history/orders-history.module').then((m) => m.OrdersHistoryPageModule),
+  },
+  {
+    path: 'order',
+    loadChildren: () => import('./pages/order/order.module').then((m) => m.OrderPageModule),
   },
 ];
 
