@@ -4,6 +4,8 @@ import { StoreRouterConnectingModule, routerReducer } from '@ngrx/router-store';
 import { Action, ActionReducerMap, MetaReducer, StoreModule } from '@ngrx/store';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 
+import { clearStateMetaReducer } from './meta-reducers/clear-state.metareducer';
+
 export function SetupNgRx<Environment extends { production: boolean }, State = any>({
   effects,
   environment,
@@ -19,7 +21,7 @@ export function SetupNgRx<Environment extends { production: boolean }, State = a
     StoreModule.forRoot(
       { ...reducers, router: routerReducer },
       {
-        metaReducers: metaReducers || [],
+        metaReducers: [...(metaReducers || []), clearStateMetaReducer],
         runtimeChecks: { strictStateImmutability: true, strictActionImmutability: true },
       }
     ),
