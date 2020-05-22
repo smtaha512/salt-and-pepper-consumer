@@ -10,8 +10,8 @@
       <ion-col size="12" sizeSm="6" sizeMd="4" *ngFor="let order of [1,2,3,4,5,6,7,8,9,10,11,12,13]; let i = index">
         <lib-order-card [order]="order">
           <ion-button *ngTemplate (click)="onClick($event, order)" expand="block" fill="none">
-            <ion-icon color="primary" slot="start" name="reader-outline"></ion-icon>
-            <ion-text color="primary">View Details</ion-text>
+            <ion-icon color="tertiary" slot="start" name="reader-outline"></ion-icon>
+            <ion-text color="tertiary">View Details</ion-text>
           </ion-button>
         </lib-order-card>
       </ion-col>
@@ -22,7 +22,9 @@
   <ion-grid>
     <ion-row>
       <ion-col size="12" sizeSm="6" sizeMd="4" offsetSm="3" offsetMd="4">
-        <ion-button [routerLink]="['/orders-history']" routerDirection="forward" expand="block" fill="outline">Orders History</ion-button>
+        <ion-button color="light" [routerLink]="['/orders-history']" routerDirection="forward" expand="block" fill="outline">
+          Orders History
+        </ion-button>
       </ion-col>
     </ion-row>
   </ion-grid>

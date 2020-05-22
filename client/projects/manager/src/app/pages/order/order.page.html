@@ -23,12 +23,16 @@
           <ion-card class="metadata">
             <ion-card-header class="d-flex justify-content-between">
               <ion-card-subtitle class="d-flex flex-column">
-                <ion-text class="mb-1" color="primary">John Doe</ion-text>
-                <ion-text class="mb-1">{{ 1 | date: 'mediumDate' }}</ion-text>
-                <ion-text color="tertiary">{{ 220 | currency: 'USD' }}</ion-text>
+                <ion-text class="mb-1" color="light">John Doe</ion-text>
+                <ion-text class="mb-1" color="light">{{ 1 | date: 'mediumDate' }}</ion-text>
+                <ion-text color="tertiary" color="light">{{ 220 | currency: 'USD' }}</ion-text>
               </ion-card-subtitle>
               <div>
-                <ion-badge color="secondary" mode="ios">Preparing</ion-badge>
+                <ion-badge color="light" mode="ios">
+                  <ion-text color="dark">
+                    Preparing
+                  </ion-text>
+                </ion-badge>
               </div>
             </ion-card-header>
             <ion-card-content>
@@ -53,7 +57,7 @@
           <ion-text color="light font-weight-bold">Order status: </ion-text>
           <ion-text color="secondary font-weight-bold">Preparing </ion-text>
         </div>
-        <ion-button color="success" fill="outline" size="small" (click)="changeOrderStatus()">Change</ion-button>
+        <ion-button color="light" fill="outline" size="small" (click)="changeOrderStatus()">Change</ion-button>
       </ion-col>
     </ion-row>
   </ion-grid>
