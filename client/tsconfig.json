@@ -20,10 +20,10 @@
     ],
     "paths": {
       "library": [
-        "dist/library"
+        "dist/library",
       ],
       "library/*": [
-        "dist/library/*"
+        "dist/library/*",
       ]
     }
   },
