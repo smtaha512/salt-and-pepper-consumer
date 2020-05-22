@@ -17,3 +17,5 @@ export * from './lib/components/date-range-picker/date-range-picker.module';
 
 export * from './lib/components/order-details/order-details.component';
 export * from './lib/components/order-details/order-details.module';
+
+export { SetupNgRx } from './lib/store/store-factory.module';
