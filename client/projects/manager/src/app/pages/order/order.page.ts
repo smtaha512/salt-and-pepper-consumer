@@ -18,6 +18,15 @@ export class OrderPage implements OnInit {
       header: 'Change order status',
       buttons: [
         {
+          text: 'Cancel',
+          role: 'destructive',
+          cssClass: 'ion-button-text-color-danger',
+          icon: 'trash-outline',
+          handler: () => {
+            console.log('Cancel clicked');
+          },
+        },
+        {
           text: 'Preparing',
           icon: 'flame-sharp',
           cssClass: 'ion-button-background-primary ion-button-text-color-light',
@@ -40,7 +49,7 @@ export class OrderPage implements OnInit {
           },
         },
         {
-          text: 'Cancel',
+          text: 'Close',
           icon: 'close',
           role: 'cancel',
           handler: () => {
