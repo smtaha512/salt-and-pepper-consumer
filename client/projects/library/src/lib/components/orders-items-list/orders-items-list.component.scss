@@ -3,3 +3,7 @@ lib-orders-items-list-body {
   overflow-y: scroll;
   display: block;
 }
+
+.border-bottom {
+  border-bottom: 1px solid var(--ion-color-step-150);
+}
