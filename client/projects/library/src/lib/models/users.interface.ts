@@ -8,12 +8,12 @@ export interface BaseUserInterface extends BaseEntityInterface {
 }
 
 export interface ConsumerInterface extends BaseUserInterface {
-  contact?: string;
+  contact: string;
 }
 
 export interface AdminInterface extends BaseUserInterface {
-  email?: string;
-  password?: string;
+  email: string;
+  password: string;
 }
 
 export type UsersInterface = ConsumerInterface | AdminInterface;
