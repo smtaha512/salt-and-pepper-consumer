@@ -1,19 +1,28 @@
 const router = require('express').Router();
 
-const { verify } = require('@src/repositories/users');
-const { RES_MSGS, USER_TYPES } = require('@src/utils/constants');
-const Utils = require('@src/utils');
+const { verify } = require('../../repositories/users/index');
+const dbModels = require('../../models/index');
+const { RES_MSGS, USER_TYPES } = require('../../utils/constants');
+const Utils = require('../../utils/index');
 
 router.post('/login/admin', (request, response) => {
-  response.status(200).send(request.body);
+  const creds = { ...request.body, type: USER_TYPES.admin };
+  verify(dbModels)(creds)
+    .then((user = {}) => {
+      const token = Utils.signJWT();
+      response.setHeader('Authorization', token);
+      response.status(200).send(user);
+    })
+    .catch((err) => void response.send(err.message));
 });
 
 router.post('/login/user', (request, response) => {
-  verify(request.body)
-    .then((foodie = {}) => {
+  const creds = { ...request.body, type: USER_TYPES.user };
+  verify(dbModels)(creds)
+    .then((user = {}) => {
       const token = Utils.signJWT();
       response.setHeader('Authorization', token);
-      response.status(200).send(foodie);
+      response.status(200).send(user);
     })
     .catch((err) => void response.send(err.message));
 });
