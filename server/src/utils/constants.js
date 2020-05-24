@@ -4,7 +4,7 @@ module.exports.USER_TYPES = {
 };
 
 module.exports.TIME_FORMATS = {
-  dateTimeDefault: 'DD MMM YYYY hh:mm:ss',
+  dateTimeDefault: 'dd MMM yyyy hh:mm:ss',
 };
 
 module.exports.RES_MSGS = {
@@ -23,5 +23,7 @@ module.exports.unsecureRoutes = ['/auth', '/graphql'];
 module.exports.MODEL_NAMES = {
   admin: 'admin',
   item: 'item',
+  menu: 'menu',
+  order: 'order',
   user: 'user',
 };

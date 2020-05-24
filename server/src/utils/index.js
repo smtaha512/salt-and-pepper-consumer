@@ -1,15 +1,15 @@
 // @ts-check
 const DateFns = require('date-fns');
 const fs = require('fs');
+const bcrypt = require('bcryptjs');
 const JWT = require('jsonwebtoken');
 
-const { TIME_FORMATS, unsecureRoutes } = require('@src/utils/constants');
-const { lodash: _ } = require('@src/utils/libs');
+const { TIME_FORMATS } = require('../utils/constants');
+const { lodash: _ } = require('../utils/libs/index');
 
 // TODO - FIX JWT PRIVATE PUBLIC KEYS
 // * Path is relative to Server.js file in base dir
-// const PRIVATE_KEY = fs.readFileSync('./certs/jwtRS256.key', 'utf8');
-// const PUBLIC_KEY = fs.readFileSync('./certs/jwtRS256.key.pub', 'utf8');
+const PRIVATE_KEY = fs.readFileSync('./certs/jwtRS256.key', 'utf8');
 
 function signJWT() {
   const lifespan = 3;
@@ -18,7 +18,7 @@ function signJWT() {
     signedAt: DateFns.format(new Date(), TIME_FORMATS.dateTimeDefault),
   };
   // TODO - FIX JWT PRIVATE KEY
-  return JWT.sign(jwtDetails, 'PRIVATEKEY', {
+  return JWT.sign(jwtDetails, PRIVATE_KEY, {
     algorithm: 'RS256',
     encoding: 'utf8',
     expiresIn: `${lifespan} days`,
@@ -50,34 +50,15 @@ function getNestedUpdateable(target, leadKey, holderType = 'array') {
 }
 
 /**
- * @param {String} pwdString
- * @returns {String | Promise.<String>} - returns argon2 hash
+ * @param {String} password
+ * @returns {String | Promise.<String> | Error} - returns bcrypt hash
  */
-function generateHash(pwdString) {
-  return pwdString;
+function generateHash(password) {
+  const salt = process.env.SAP_SALT;
+  if (!salt) return new Error('Missing Salt');
+  return bcrypt.hashSync(password, bcrypt.genSaltSync(8));
 }
 
-/**
- * @param {{global?: boolean}} config
- * @returns {function(): void}
- */
-
-function secureRoute(config = {}) {
-  /**
-   * @param {Request} request
-   * @param {Object} response
-   * @param { function():void } next
-   */
-  return function (request, response, next) {
-    if (config.global && unsecureRoutes.some((route) => new RegExp(`^${route}`, 'i').test(request.path))) return next();
-
-    const token = request.headers.authorization;
-    if (!token) return response.sendStatus(401);
-    // TODO - FIX PRIVATE KEY JWT KEY
-    if (!token) return response.sendStatus(401);
-    else JWT.verify(token, 'PRIVATE_KEY', (err) => void (err ? response.sendStatus(401) : next()));
-  };
-}
 /**
  * @param {{errors: any[]}} e
  * @param {Boolean} multi
@@ -117,6 +98,5 @@ module.exports.checkForSchemaErrors = checkForSchemaErrors;
 module.exports.generateHash = generateHash;
 module.exports.generateRandomString = generateRandomString;
 module.exports.getNestedUpdateable = getNestedUpdateable;
-module.exports.secureRoute = secureRoute;
 module.exports.signJWT = signJWT;
 module.exports.trimFirstAndLast = trimFirstAndLast;

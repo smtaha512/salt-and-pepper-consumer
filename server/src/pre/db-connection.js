@@ -10,6 +10,7 @@ const estDBConnection = function estDBConnection() {
       useCreateIndex: true,
       useFindAndModify: false,
       useNewUrlParser: true,
+      useUnifiedTopology: true,
     })
     .then(() => void console.log('⛓  - Database/MLab connection established'))
     .catch((err) => void console.error(`Error connecting to mLab: `, err));

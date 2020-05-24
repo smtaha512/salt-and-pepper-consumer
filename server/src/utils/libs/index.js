@@ -13,15 +13,8 @@ const isEmail = require('validator/lib/isEmail');
 const validator = {
   isEmail,
 };
-
 const logger = require('pino')();
 
 module.exports.lodash = lodash;
 module.exports.logger = logger;
 module.exports.validator = validator;
-
-module.exports = {
-  lodash,
-  logger,
-  validator,
-};

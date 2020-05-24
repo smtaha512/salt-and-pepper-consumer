@@ -1,6 +1,6 @@
 const Mongoose = require('mongoose');
 
-const { ItemSchemaObj } = require('@src/models/items');
+const { ItemSchemaObj } = require('../../models/items/index');
 
 const Schema = Mongoose.Schema;
 
@@ -21,7 +21,7 @@ const OrderSchema = new Schema(
     ],
     notes: { maxlength: 240, trim: true, type: String },
     status: {
-      enum: ['preparing', 'prepared', 'picked'],
+      enum: ['preparing', 'prepared', 'picked', 'cancelled'],
       trim: true,
       type: String,
     },
