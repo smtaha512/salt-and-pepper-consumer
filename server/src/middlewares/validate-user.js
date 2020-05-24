@@ -11,7 +11,7 @@ function validateUser(usertype) {
     const user = request.body;
 
     if (!validator.isEmail(user.email)) errors.push('Invalid Email');
-    if (!user.password) errors.push('Password Required');
+    if (!user.password) errors.push('Password is required');
     if (usertype === USER_TYPES.user && !/[0-9a-zA-Z]{4,16}/.test(user.username)) {
       errors.push('Invalid Username');
     }

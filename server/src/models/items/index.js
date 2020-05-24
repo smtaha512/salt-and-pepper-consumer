@@ -19,13 +19,11 @@ const ItemSchemaObj = {
     required: [true, 'Item price is required'],
     type: Number,
   },
-  timeToCook: { maxlength: 240, trim: true, type: String },
+  timeToCook: { required: true, type: Date },
 };
 const ItemSchema = new Schema(ItemSchemaObj, {
   timestamps: true,
 });
 
-const ItemModel = Mongoose.model('item', ItemSchema);
-
 module.exports.ItemSchemaObj = ItemSchemaObj;
-module.exports = ItemModel;
+module.exports.ItemSchema = ItemSchema;
