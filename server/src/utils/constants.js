@@ -27,3 +27,5 @@ module.exports.MODEL_NAMES = {
   order: 'order',
   user: 'user',
 };
+
+module.exports.ETAPattern = /^[0-9]{1,4} [M|H]$/;

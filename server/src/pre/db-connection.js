@@ -6,7 +6,6 @@ const estDBConnection = function estDBConnection() {
   if (!dbUrl) throw new Error('Must specify correct DB_URL');
   mongoose
     .connect(dbUrl, {
-      reconnectTries: 3,
       useCreateIndex: true,
       useFindAndModify: false,
       useNewUrlParser: true,

@@ -26,13 +26,13 @@ const OrderSchema = new Schema(
       type: String,
     },
     total: { max: 100000, min: 100, requried: true, type: Number },
-    userId: { ref: 'users', type: Schema.Types.ObjectId },
+    userId: { ref: 'User', type: Schema.Types.ObjectId },
   },
   {
     timestamps: true,
   }
 );
 
-const OrderModel = Mongoose.model('order', OrderSchema);
+const OrderModel = Mongoose.model('Order', OrderSchema);
 
 module.exports = OrderModel;
