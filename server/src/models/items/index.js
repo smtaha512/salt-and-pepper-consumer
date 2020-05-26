@@ -1,14 +1,15 @@
 const Mongoose = require('mongoose');
+const { ITEM_PREFERENCES, ETAPattern } = require('../../utils/constants');
 const Schema = Mongoose.Schema;
 
 const ItemSchemaObj = {
   categoryId: { ref: 'Menu.categories', type: Schema.Types.ObjectId },
   description: { maxlength: 240, trim: true, type: String },
-  eta: { match: /^[0-9]{1,4} [M|H]$/, required: true, type: String },
+  eta: { match: ETAPattern, required: true, type: String },
   image: { trim: true, type: String },
   menuId: { ref: 'Menu', type: Schema.Types.ObjectId },
   preferences: {
-    default: ['hot', 'mild', 'spicy'],
+    default: ITEM_PREFERENCES,
     type: [{ type: String }],
   },
   price: {

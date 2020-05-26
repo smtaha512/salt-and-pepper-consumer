@@ -18,13 +18,9 @@ function validateItem(request, response, next) {
   if (!ETAPattern.test(item.eta)) errors.push("Invalid ETA, It must be match '15 M, 60 M, 3 H' pattern");
   else {
     const now = new Date();
-    console.log('now: ', now);
     const [etaValue, etaUnit] = item.eta.split(' ');
-    console.log('etaValue, etaUnit: ', etaValue, etaUnit);
     const eta = addMinutes(new Date(), etaValue * (etaUnit === 'H' ? 60 : 1));
-    console.log('eta: ', eta);
     const minDiffLTE10 = differenceInMinutes(eta, now) <= 10;
-    console.log('differenceInMinutes: ', differenceInMinutes(eta, now), minDiffLTE10);
     if (minDiffLTE10) errors.push('Invalid ETA, It should take atleast 10 mins');
   }
 

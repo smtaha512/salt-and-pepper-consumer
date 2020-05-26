@@ -4,7 +4,7 @@ function isReqParamValidID(request, response, next) {
   const id = request.params.id;
   const errors = [];
 
-  if (id && !mongoose.isValidObjectId(id)) errors.push('Invalid item id');
+  if (id && !mongoose.isValidObjectId(id)) errors.push('Invalid ID in request params');
 
   if (errors.length > 0) {
     response.status(400).send(errors);

@@ -18,7 +18,7 @@ module.exports.RES_MSGS = {
   specifyUserType: 'Must specify login type',
 };
 
-module.exports.unsecureRoutes = ['/auth', '/graphql'];
+module.exports.UNSECURE_ROUTES = ['/auth', '/graphql'];
 
 module.exports.MODEL_NAMES = {
   admin: 'admin',
@@ -29,3 +29,5 @@ module.exports.MODEL_NAMES = {
 };
 
 module.exports.ETAPattern = /^[0-9]{1,4} [M|H]$/;
+module.exports.ORDER_STATUSES = ['preparing', 'prepared', 'picked', 'cancelled'];
+module.exports.ITEM_PREFERENCES = ['hot', 'mild', 'spicy'];
