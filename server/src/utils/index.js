@@ -71,6 +71,17 @@ function checkForSchemaErrors(e, multi = false) {
   return multi ? errors : errors[0];
 }
 
+function calcTimeDiff(from, to) {
+  const diffMs = from - to; // milliseconds between now & Christmas
+  const diffDays = Math.floor(diffMs / 86400000); // days
+  const diffHrs = Math.floor((diffMs % 86400000) / 3600000); // hours
+  const diffMins = Math.round(((diffMs % 86400000) % 3600000) / 60000); // minutes
+  return {
+    diffDays,
+    diffHrs,
+    diffMins,
+  };
+}
 /**
  * @param {Object} parent - MongoDB's document.
  * @param {{first?: Number, last?:Number}} args
@@ -99,4 +110,5 @@ module.exports.generateHash = generateHash;
 module.exports.generateRandomString = generateRandomString;
 module.exports.getNestedUpdateable = getNestedUpdateable;
 module.exports.signJWT = signJWT;
+module.exports.calcTimeDiff = calcTimeDiff;
 module.exports.trimFirstAndLast = trimFirstAndLast;

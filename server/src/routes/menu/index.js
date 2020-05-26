@@ -7,10 +7,11 @@ router.get('/menu', (request, response) => {
   menuRepository
     .getAllMenus(dbModels)()
     .then((menus = []) => void response.status(200).send(menus))
-    .catch((e) => void response.send('Unable to fetch menus'));
+    .catch(() => void response.send('Unable to fetch menus'));
 });
 
 router.post('/menu', validateMenu, (request, response) => {
+  // TODO - Transaction
   const addCategory = menuRepository.addCategory(dbModels);
   menuRepository
     .createMenu(dbModels)(request.body)
@@ -20,8 +21,6 @@ router.post('/menu', validateMenu, (request, response) => {
       let message = 'Unable to create menu';
       if (e && e.message.includes('E11000')) {
         message = 'Title already taken';
-        response.status(400).send(message);
-        return;
       }
       response.status(400).send(message);
     });

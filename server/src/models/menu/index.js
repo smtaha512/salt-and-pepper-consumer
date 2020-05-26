@@ -1,13 +1,11 @@
 const Mongoose = require('mongoose');
 const Schema = Mongoose.Schema;
 
-const { ItemSchema } = require('../items/index');
-
 const CategorySchema = new Schema(
   {
     description: { maxlength: 240, trim: true, type: String },
     image: { trim: true, type: String },
-    items: [ItemSchema],
+    items: [{ ref: 'Item', type: Schema.Types.ObjectId }],
     title: {
       lowercase: true,
       maxlength: [20, 'Menu title must be less than 20 characters'],
@@ -40,6 +38,6 @@ const MenuSchema = new Schema(
   }
 );
 
-const MenuModel = Mongoose.model('menu', MenuSchema);
+const MenuModel = Mongoose.model('Menu', MenuSchema);
 
 module.exports = MenuModel;
