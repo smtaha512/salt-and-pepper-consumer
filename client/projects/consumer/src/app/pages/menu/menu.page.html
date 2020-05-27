@@ -1,0 +1,25 @@
+<ion-header class="ion-no-border ion-margin-top">
+  <ion-toolbar>
+    <ion-title mode="ios" size="large" color="light">Our Menu</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-grid>
+    <ion-row>
+      <ion-col size="12" sizeSm="6" sizeMd="4" *ngFor="let item of [1,2,3,4,5,6,7,8,9,10,11,12,13]; let i = index">
+        <ion-card button [routerLink]="['/menu-item']">
+          <img [src]="'https://loremflickr.com/200/100/food?random='+ (i+1)" class="w-100" height="200" />
+          <ion-card-header>
+            <ion-card-title>
+              <ion-text color="light">
+                <h2 class="font-weight-bolder">Dish name</h2>
+              </ion-text>
+            </ion-card-title>
+            <ion-card-subtitle>Serves: 5 person</ion-card-subtitle>
+          </ion-card-header>
+        </ion-card>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>

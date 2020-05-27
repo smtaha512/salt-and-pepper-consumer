@@ -1,0 +1,47 @@
+<ion-grid>
+  <ion-row>
+    <ion-col size="6">
+      <ion-item lines="none" (click)="fromInput.click()" class="ion-text-wrap">
+        <ion-label>
+          From:
+        </ion-label>
+        <!-- 
+            Do not move ngModel below ngModelChange otherwise it will set previous value always 
+            because ngModelChange will be called earler 
+          -->
+        <input
+          #fromInput
+          [(ngModel)]="from"
+          (ngModelChange)="onValueChange()"
+          [disabled]="disabled"
+          class="w-0 h-0 opacity-0"
+          placeholder="Select date"
+          type="date"
+        />
+        <ion-text>{{ from }}</ion-text>
+      </ion-item>
+    </ion-col>
+
+    <ion-col size="6">
+      <ion-item lines="none" (click)="toInput.click()" class="ion-text-wrap">
+        <ion-label>
+          To:
+        </ion-label>
+        <!-- 
+            Do not move ngModel below ngModelChange otherwise it will set previous value always 
+            because ngModelChange will be called earler 
+          -->
+        <input
+          #toInput
+          [(ngModel)]="to"
+          (ngModelChange)="onValueChange()"
+          [disabled]="disabled"
+          class="w-0 h-0 opacity-0"
+          placeholder="Select date"
+          type="date"
+        />
+        <ion-text>{{ to }}</ion-text>
+      </ion-item>
+    </ion-col>
+  </ion-row>
+</ion-grid>

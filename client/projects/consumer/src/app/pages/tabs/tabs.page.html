@@ -1,0 +1,10 @@
+<ion-tabs (ionTabsDidChange)="selectedTab$.next($event)">
+  <ion-tab-bar slot="bottom">
+    <div [ngClass]="{'show-border': true}" [ngStyle]="getTransform(selectedTab$ | async )"></div>
+    <ion-tab-button *ngFor="let tab of tabs" [tab]="tab.tab">
+      <ion-badge color="danger" mode="md" *ngIf="tab.showBadge" style="font-size: 10px;">42</ion-badge>
+      <ion-icon [color]="((selectedTab$ | async)?.tab === tab.tab) ? 'tertiary' : 'light'" [name]="tab.icon"></ion-icon>
+      <ion-label [color]="((selectedTab$ | async)?.tab === tab.tab) ? 'tertiary' : 'light'">{{tab.label}} </ion-label>
+    </ion-tab-button>
+  </ion-tab-bar>
+</ion-tabs>

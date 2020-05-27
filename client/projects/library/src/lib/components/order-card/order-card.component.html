@@ -1,0 +1,22 @@
+<ion-card style="max-height: 35vh;" button [routerLink]="['/order/1']">
+  <ion-card-header class="d-flex justify-content-between">
+    <ion-card-subtitle class="d-flex flex-column">
+      <ion-text class="mb-1" color="light">John Doe</ion-text>
+      <ion-text class="mb-1" color="light">{{ 1 | date: 'mediumDate' }}</ion-text>
+      <ion-text color="tertiary" color="light">{{ 220 | currency: 'USD' }}</ion-text>
+    </ion-card-subtitle>
+    <div>
+      <ion-badge style="--backgroud: var(--ion-color-light);" color="light" mode="ios">
+        <ion-text color="dark">Preparing</ion-text>
+      </ion-badge>
+    </div>
+  </ion-card-header>
+  <ion-card-content class="d-block h-75 border-bottom">
+    <h2>
+      <ng-container *ngFor="let item of [1, 2, 3, 4, 5, 6]; let last = last">
+        Dish name {{ item }}<ng-container *ngIf="!last">, </ng-container>
+      </ng-container>
+    </h2>
+  </ion-card-content>
+  <ng-container *ngTemplateOutlet="button; context: { $implicit: order }"></ng-container>
+</ion-card>

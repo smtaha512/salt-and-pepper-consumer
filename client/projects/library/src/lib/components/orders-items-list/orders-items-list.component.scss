@@ -1,0 +1,9 @@
+lib-orders-items-list-body {
+  height: 60vh;
+  overflow-y: scroll;
+  display: block;
+}
+
+.border-bottom {
+  border-bottom: 1px solid var(--ion-color-step-150);
+}

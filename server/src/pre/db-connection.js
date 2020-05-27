@@ -6,10 +6,10 @@ const estDBConnection = function estDBConnection() {
   if (!dbUrl) throw new Error('Must specify correct DB_URL');
   mongoose
     .connect(dbUrl, {
-      reconnectTries: 3,
       useCreateIndex: true,
       useFindAndModify: false,
       useNewUrlParser: true,
+      useUnifiedTopology: true,
     })
     .then(() => void console.log('⛓  - Database/MLab connection established'))
     .catch((err) => void console.error(`Error connecting to mLab: `, err));

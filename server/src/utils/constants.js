@@ -4,7 +4,7 @@ module.exports.USER_TYPES = {
 };
 
 module.exports.TIME_FORMATS = {
-  dateTimeDefault: 'DD MMM YYYY hh:mm:ss',
+  dateTimeDefault: 'dd MMM yyyy hh:mm:ss',
 };
 
 module.exports.RES_MSGS = {
@@ -18,10 +18,16 @@ module.exports.RES_MSGS = {
   specifyUserType: 'Must specify login type',
 };
 
-module.exports.unsecureRoutes = ['/auth', '/graphql'];
+module.exports.UNSECURE_ROUTES = ['/auth', '/graphql'];
 
 module.exports.MODEL_NAMES = {
   admin: 'admin',
   item: 'item',
+  menu: 'menu',
+  order: 'order',
   user: 'user',
 };
+
+module.exports.ETAPattern = /^[0-9]{1,4} [M|H]$/;
+module.exports.ORDER_STATUSES = ['preparing', 'prepared', 'picked', 'cancelled'];
+module.exports.ITEM_PREFERENCES = ['hot', 'mild', 'spicy'];
