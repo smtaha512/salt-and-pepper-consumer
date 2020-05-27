@@ -8,11 +8,20 @@ const routes: Routes = [
     path: '',
     component: TabsPage,
     children: [
-      { path: '', redirectTo: 'menu' },
+      { path: '', pathMatch: 'full', redirectTo: 'menu' },
       {
         path: 'menu',
         loadChildren: () => import('../menu/menu.module').then((m) => m.MenuPageModule),
       },
+      {
+        path: 'cart',
+        loadChildren: () => import('../cart/cart.module').then((m) => m.CartPageModule),
+      },
+      {
+        path: 'orders-history',
+        loadChildren: () => import('../orders-history/orders-history.module').then((m) => m.OrdersHistoryPageModule),
+      },
+      { path: '**', redirectTo: 'menu' },
     ],
   },
 ];

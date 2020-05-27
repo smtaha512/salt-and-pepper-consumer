@@ -1,0 +1,9 @@
+{
+  "appId": "com.saltanpepper.consumer.app",
+  "appName": "Salt and pepper",
+  "bundledWebRuntime": false,
+  "npmClient": "npm",
+  "webDir": "dist/consumer",
+  "cordova": {},
+  "linuxAndroidStudioPath": "/home/taha/Downloads/Compressed/android-studio/bin/studio.sh"
+}
