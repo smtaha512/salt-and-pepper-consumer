@@ -17,3 +17,4 @@ export class OrdersPage implements OnInit {
     event.stopImmediatePropagation();
     this.router.navigate([`/order/${order}`]);
   }
+}
