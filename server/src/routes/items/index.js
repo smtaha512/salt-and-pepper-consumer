@@ -1,8 +1,8 @@
 const router = require('express').Router();
-const mongoose = require('mongoose');
 
 const middlewares = require('../../middlewares/index');
 const dbModels = require('../../models/index');
+const { logger, formatLog } = require('../../utils/logger');
 const repositories = require('../../repositories/index');
 
 /**
@@ -12,9 +12,12 @@ router.get('/items/:id?', middlewares.isReqParamValidID, (request, response) => 
   const itemId = request.params.id;
   repositories.item
     .getItem(dbModels)(itemId)
-    .then((items) => void response.status(200).send(items))
+    .then((items) => {
+      logger.info(formatLog(request.method, request.originalUrl, 'response', 'body', items));
+      response.status(200).send(items);
+    })
     .catch((e) => {
-      console.log('items/:id error: ', e);
+      logger.error(formatLog(request.method, request.originalUrl, 'response', 'error', e.message));
       response.status(400).send('Unable to fetch items');
     });
 });
@@ -25,8 +28,14 @@ router.delete('/items/:id', middlewares.isReqParamValidID, (request, response) =
   repositories.item
     .deleteItem(dbModels)(itemId)
     .then((item) => repositories.menu.popRefFromCategory(dbModels)(item))
-    .then(() => void response.sendStatus(200))
-    .catch(() => void response.status(400).send('Unable to delete item'));
+    .then(() => {
+      logger.info(formatLog(request.method, request.originalUrl, 'response', 'body', 'OK'));
+      response.sendStatus(200);
+    })
+    .catch((e) => {
+      logger.error(formatLog(request.method, request.originalUrl, 'response', 'error', e.message));
+      response.status(400).send('Unable to delete item');
+    });
 });
 
 router.post('/items', middlewares.validateItem, async (request, response) => {
@@ -38,8 +47,12 @@ router.post('/items', middlewares.validateItem, async (request, response) => {
       item = itemDoc.toObject();
       return repositories.menu.pushRefToCategory(dbModels)(item);
     })
-    .then(() => response.status(201).send(item))
+    .then(() => {
+      logger.info(formatLog(request.method, request.originalUrl, 'response', 'body', 'OK'));
+      response.status(201).send(item);
+    })
     .catch((e) => {
+      logger.error(formatLog(request.method, request.originalUrl, 'response', 'error', e.message));
       let message = 'Unable to add item';
       if (e && e.message.includes('E11000')) {
         message = 'Item title already';

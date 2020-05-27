@@ -71,6 +71,13 @@ function checkForSchemaErrors(e, multi = false) {
   return multi ? errors : errors[0];
 }
 
+function stringifyPayload(payload) {
+  const premitives = ['string', 'boolean', 'number', 'undefined'];
+  if (premitives.find((p) => p === typeof payload)) return payload;
+  else if (typeof payload === 'object') return JSON.stringify(payload);
+  else throw new Error('Invalid Payload, Unable to serialize');
+}
+
 function calcTimeDiff(from, to) {
   const diffMs = from - to; // milliseconds between now & Christmas
   const diffDays = Math.floor(diffMs / 86400000); // days
@@ -110,5 +117,6 @@ module.exports.generateHash = generateHash;
 module.exports.generateRandomString = generateRandomString;
 module.exports.getNestedUpdateable = getNestedUpdateable;
 module.exports.signJWT = signJWT;
+module.exports.stringifyPayload = stringifyPayload;
 module.exports.calcTimeDiff = calcTimeDiff;
 module.exports.trimFirstAndLast = trimFirstAndLast;

@@ -2,10 +2,11 @@ const mongoose = require('mongoose');
 const addMinutes = require('date-fns/addMinutes');
 const differenceInMinutes = require('date-fns/differenceInMinutes');
 const { ORDER_STATUSES, ETAPattern } = require('../utils/constants');
+const { logger, formatLog } = require('../utils/logger');
 
 function validateOrder(request, response, next) {
+  logger.info(formatLog(request.method, request.originalUrl, 'request', 'body', request.body));
   const order = request.body;
-  console.log('order validate: ', order);
   const errors = [];
 
   if (Object.keys(order).length === 0) {
@@ -23,8 +24,8 @@ function validateOrder(request, response, next) {
     const minDiffLTE10 = differenceInMinutes(eta, now) <= 10;
     if (minDiffLTE10) errors.push('Invalid ETA, It should take atleast 10 mins');
   }
-  console.log('errors: ', errors);
   if (errors.length > 0) {
+    logger.error(formatLog(request.method, request.originalUrl, 'response', 'error', errors));
     response.status(400).send(errors);
     return;
   }
@@ -32,6 +33,7 @@ function validateOrder(request, response, next) {
 }
 
 function validateOrderUpdate(request, response, next) {
+  logger.info(formatLog(request.method, request.originalUrl, 'request', 'body', request.body));
   const order = request.body;
   const errors = [];
 
@@ -55,6 +57,7 @@ function validateOrderUpdate(request, response, next) {
   }
 
   if (errors.length > 0) {
+    logger.error(formatLog(request.method, request.originalUrl, 'response', 'error', errors));
     response.status(400).send(errors);
     return;
   }
