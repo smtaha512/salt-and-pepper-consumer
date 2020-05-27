@@ -3,8 +3,10 @@ const mongoose = require('mongoose');
 const addMinutes = require('date-fns/addMinutes');
 const differenceInMinutes = require('date-fns/differenceInMinutes');
 const { ETAPattern } = require('../utils/constants');
+const { logger, formatLog } = require('../utils/logger');
 
 function validateItem(request, response, next) {
+  logger.info(formatLog(request.method, request.originalUrl, 'request', 'body', request.body));
   const item = request.body;
   const errors = [];
 
@@ -25,6 +27,7 @@ function validateItem(request, response, next) {
   }
 
   if (errors.length > 0) {
+    logger.info(formatLog(request.method, request.originalUrl, 'response', 'error', errors));
     response.status(400).send(errors);
     return;
   }
