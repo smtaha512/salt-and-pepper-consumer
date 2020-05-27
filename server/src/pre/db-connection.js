@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
-const { lodash: _ } = require('@src/utils/libs');
+const { lodash: _ } = require('../utils/libs/index');
+const { logger } = require('../utils/logger');
 
 const estDBConnection = function estDBConnection() {
   const dbUrl = _.get(global, 'app.envConfig.dbUrl');
@@ -11,7 +12,10 @@ const estDBConnection = function estDBConnection() {
       useNewUrlParser: true,
       useUnifiedTopology: true,
     })
-    .then(() => void console.log('⛓  - Database/MLab connection established'))
+    .then(() => {
+      logger.info(`⛓  - Database/MLab connection established: ${dbUrl}`);
+      console.log('⛓  - Database/MLab connection established');
+    })
     .catch((err) => void console.error(`Error connecting to mLab: `, err));
 };
 

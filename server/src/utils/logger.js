@@ -2,7 +2,9 @@ const pino = require('pino');
 const { stringifyPayload } = require('../utils/index');
 const logger = pino(
   {
-    useLevelLabels: true,
+    formatters: {
+      level: (l) => ({ type: l }),
+    },
   },
   pino.destination({
     dest: './log-debug',
@@ -21,8 +23,6 @@ const logger = pino(
 function formatLog(apiVerb, routePath, channel, elem, payload) {
   return `${apiVerb} ${routePath} ${channel} ${elem} ${stringifyPayload(payload)}`;
 }
-
-logger.info('App Initialized');
 
 module.exports.formatLog = formatLog;
 module.exports.logger = logger;
