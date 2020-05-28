@@ -24,7 +24,7 @@ module.exports = {
     return {
       ...defaultConfig,
       dbUrl,
-      port: 4000,
+      port: 80,
       self: 'production',
     };
   })(),
