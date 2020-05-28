@@ -12,7 +12,7 @@ const { lodash: _ } = require('../utils/libs/index');
 const PRIVATE_KEY = fs.readFileSync('./certs/jwtRS256.key', 'utf8');
 
 function signJWT() {
-  const lifespan = 3;
+  const lifespan = 1;
   const jwtDetails = {
     expiresIn: DateFns.format(DateFns.addDays(new Date(), lifespan), TIME_FORMATS.dateTimeDefault),
     signedAt: DateFns.format(new Date(), TIME_FORMATS.dateTimeDefault),
