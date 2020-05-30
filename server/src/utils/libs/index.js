@@ -1,10 +1,12 @@
 const get = require('lodash/get');
 const isEmpty = require('lodash/isEmpty');
+const isEqual = require('lodash/isEqual');
 const unionBy = require('lodash/unionBy');
 
 const lodash = {
   get,
   isEmpty,
+  isEqual,
   unionBy,
 };
 
