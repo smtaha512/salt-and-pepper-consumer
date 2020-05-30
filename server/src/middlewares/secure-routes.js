@@ -3,20 +3,28 @@ const fs = require('fs');
 
 const { logger, formatLog } = require('../utils/logger');
 const { API_VERBS } = require('../utils/constants');
-const { idifyRoute } = require('../utils/index');
+const { _ } = require('../utils/libs/index');
 
 const PUBLIC_KEY = fs.readFileSync('./certs/jwtRS256.key.pub', 'utf8');
 
 const unprotectedRoutes = [
   {
     method: API_VERBS.GET,
+    params: null,
     qs: null,
-    url: idifyRoute('/api/menus'),
+    url: '/api/orders',
   },
   {
     method: API_VERBS.GET,
+    params: null,
     qs: null,
-    url: idifyRoute('/api/items'),
+    url: '/api/menus',
+  },
+  {
+    method: API_VERBS.GET,
+    params: null,
+    qs: null,
+    url: '/api/items',
   },
 ];
 /**
@@ -25,22 +33,16 @@ const unprotectedRoutes = [
 function secureRoute() {
   return function (request, response, next) {
     logger.info(formatLog(request.method, request.originalUrl, 'request', 'headers', request.headers));
-    
-    const isGETCall = request.method === API_VERBS.GET;
-    if (isGETCall) {
-      next();
-      return;
-    }
-
-    const isUnprotected = unprotectedRoutes.find((r) => {
-      const sameUrl = r.url.test(request.originalUrl);
-      const sameMethod = r.method === request.method;
-      // * To compare params and qs, _ is lodash, uncomment next two lines
-      // const sameParams = _.isEqual(r.params, request.params)
-      // const sameQuery = _.isEqual(r.qs, request.query)
-      return sameUrl && sameMethod;
-    });
-    if (isUnprotected) {
+    if (
+      unprotectedRoutes.find((r) => {
+        const sameUrl = r.url === request.originalUrl;
+        const sameMethod = r.method === request.method;
+        // * To compare params and qs, uncomment next two lines
+        // const sameParams = _.isEqual(r.params, request.params)
+        // const sameQuery = _.isEqual(r.qs, request.query)
+        return sameUrl && sameMethod;
+      })
+    ) {
       next();
       return;
     }
