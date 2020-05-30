@@ -31,3 +31,11 @@ module.exports.MODEL_NAMES = {
 module.exports.ETAPattern = /^[0-9]{1,4} [M|H]$/;
 module.exports.ORDER_STATUSES = ['preparing', 'prepared', 'picked', 'cancelled'];
 module.exports.ITEM_PREFERENCES = ['hot', 'mild', 'spicy'];
+
+module.exports.API_VERBS = {
+  DELETE: "DELETE",
+  GET: "GET",
+  PATCH: "PATCH",
+  POST: "POST",
+  PUT: "PUT",
+}
