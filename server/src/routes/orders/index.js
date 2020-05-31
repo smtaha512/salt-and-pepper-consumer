@@ -3,12 +3,23 @@ const router = require('express').Router();
 const repositories = require('../../repositories/index');
 const middlewares = require('../../middlewares/index');
 const { logger, formatLog } = require('../../utils/logger');
+const { lodash: _, dateFns } = require('../../utils/libs/index');
 const dbModels = require('../../models/index');
 
 router.get('/orders/:id?', middlewares.isReqParamValidID, (request, response) => {
+  console.log('query: ', request.query);
   const orderId = request.params.id;
+  const query = _.pick(request.query, ['from', 'to', 'userId', 'date']);
+  if (query.from) query.from = dateFns.startOfDay(dateFns.parseISO(query.from));
+  if (query.to) query.to = dateFns.endOfDay(dateFns.parseISO(query.to));
+  if (query.date) {
+    query.from = dateFns.startOfDay(dateFns.parseISO(query.date));
+    query.to = dateFns.endOfDay(dateFns.parseISO(query.date));
+    delete query.date;
+  }
+
   repositories.orders
-    .getOrders(dbModels)(orderId)
+    .getOrders(dbModels)(orderId, query)
     .then((orders) => {
       logger.info(formatLog(request.method, request.originalUrl, 'response', 'body', orders));
       response.status(200).send(orders);

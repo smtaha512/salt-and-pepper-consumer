@@ -1,10 +1,11 @@
 // @ts-check
-const DateFns = require('date-fns');
+
 const fs = require('fs');
 const bcrypt = require('bcryptjs');
 const JWT = require('jsonwebtoken');
 
 const { TIME_FORMATS } = require('../utils/constants');
+const { dateFns } = require('../utils/libs/index');
 const { lodash: _ } = require('../utils/libs/index');
 
 // TODO - FIX JWT PRIVATE PUBLIC KEYS
@@ -14,8 +15,8 @@ const PRIVATE_KEY = fs.readFileSync('./certs/jwtRS256.key', 'utf8');
 function signJWT() {
   const lifespan = 1;
   const jwtDetails = {
-    expiresIn: DateFns.format(DateFns.addDays(new Date(), lifespan), TIME_FORMATS.dateTimeDefault),
-    signedAt: DateFns.format(new Date(), TIME_FORMATS.dateTimeDefault),
+    expiresIn: dateFns.format(dateFns.addDays(new Date(), lifespan), TIME_FORMATS.dateTimeDefault),
+    signedAt: dateFns.format(new Date(), TIME_FORMATS.dateTimeDefault),
   };
   // TODO - FIX JWT PRIVATE KEY
   return JWT.sign(jwtDetails, PRIVATE_KEY, {

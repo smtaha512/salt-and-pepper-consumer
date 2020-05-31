@@ -1,9 +1,8 @@
 const mongoose = require('mongoose');
 
-const addMinutes = require('date-fns/addMinutes');
-const differenceInMinutes = require('date-fns/differenceInMinutes');
 const { ETAPattern } = require('../utils/constants');
 const { logger, formatLog } = require('../utils/logger');
+const { dateFns } = require('../utils/libs/index');
 
 function validateItem(request, response, next) {
   logger.info(formatLog(request.method, request.originalUrl, 'request', 'body', request.body));
@@ -21,8 +20,8 @@ function validateItem(request, response, next) {
   else {
     const now = new Date();
     const [etaValue, etaUnit] = item.eta.split(' ');
-    const eta = addMinutes(new Date(), etaValue * (etaUnit === 'H' ? 60 : 1));
-    const minDiffLTE10 = differenceInMinutes(eta, now) <= 10;
+    const eta = dateFns.addMinutes(new Date(), etaValue * (etaUnit === 'H' ? 60 : 1));
+    const minDiffLTE10 = dateFns.differenceInMinutes(eta, now) <= 10;
     if (minDiffLTE10) errors.push('Invalid ETA, It should take atleast 10 mins');
   }
 

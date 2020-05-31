@@ -1,12 +1,27 @@
 /**
+ * @typedef {import('mongoose').Document} Doc
  * @param {import('../../models/index')} models
- * @returns
- */
+ * @returns {(
+ *  orderId: string,
+ *  query: {from: Date, to: Date, userId: string}
+ * ) => Promise<Doc | Doc[]>}
+ **/
 function getOrders(models) {
-  return function (orderId) {
-    if (orderId) {
-      return models.OrderModel.findById(orderId).exec();
+  return function (orderId, query) {
+    const { userId, ...dateRange } = query;
+    if (orderId) return models.OrderModel.findById(orderId).exec();
+
+    if (query.from && query.to) {
+      return models.OrderModel.find({
+        createdAt: {
+          $gte: dateRange.from,
+          $lt: dateRange.to,
+        },
+      }).exec();
     }
+
+    if (query.userId) return models.OrderModel.find({ userId }).exec();
+
     return models.OrderModel.find({}).exec();
   };
 }
