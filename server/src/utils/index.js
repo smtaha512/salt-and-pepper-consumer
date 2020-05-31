@@ -112,11 +112,21 @@ function trimFirstAndLast(parent, args, field) {
   return parent[field];
 }
 
+/**
+ * @param {string} route
+ * @returns
+ */
+function idifyRoute(route) {
+  if (route.charAt(route.length - 1) === '/') route = route.slice(0, -1);
+  return new RegExp(`^${route}(/)?([0-9a-fA-F]{24})?$`);
+}
+
+module.exports.calcTimeDiff = calcTimeDiff;
 module.exports.checkForSchemaErrors = checkForSchemaErrors;
 module.exports.generateHash = generateHash;
 module.exports.generateRandomString = generateRandomString;
 module.exports.getNestedUpdateable = getNestedUpdateable;
+module.exports.idifyRoute = idifyRoute;
 module.exports.signJWT = signJWT;
 module.exports.stringifyPayload = stringifyPayload;
-module.exports.calcTimeDiff = calcTimeDiff;
 module.exports.trimFirstAndLast = trimFirstAndLast;
