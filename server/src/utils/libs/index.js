@@ -1,6 +1,7 @@
 const get = require('lodash/get');
 const isEmpty = require('lodash/isEmpty');
 const isEqual = require('lodash/isEqual');
+const pick = require('lodash/pick');
 const unionBy = require('lodash/unionBy');
 const groupBy = require('lodash/groupBy');
 
@@ -9,6 +10,11 @@ const lodash = {
   groupBy,
   isEmpty,
   isEqual,
+  pick,
+  unionBy,
+};
+
+const isEmail = require('validator/lib/isEmail');
 
 const validator = {
   isEmail,
