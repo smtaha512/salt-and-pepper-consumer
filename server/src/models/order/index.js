@@ -4,9 +4,6 @@ const { ItemSchemaObj } = require('../../models/items/index');
 const { ITEM_PREFERENCES, ORDER_STATUSES } = require('../../utils/constants');
 const Schema = Mongoose.Schema;
 
-const ItemSchema = JSON.parse(JSON.stringify(ItemSchemaObj));
-delete ItemSchema.preferences;
-
 const OrderSchema = new Schema(
   {
     eta: { match: /^[0-9]{1,4} [M]$/, required: true, type: String },
@@ -32,7 +29,8 @@ const OrderSchema = new Schema(
       trim: true,
       type: String,
     },
-    total: { max: 100000, min: 100, requried: true, type: String },
+    tip: { default: 0, min: 0, required: true, type: Number },
+    total: { max: 100000, min: 0, required: true, type: Number },
     userId: { ref: 'User', type: Schema.Types.ObjectId },
   },
   {

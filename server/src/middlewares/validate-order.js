@@ -16,6 +16,7 @@ function validateOrder(request, response, next) {
   if (!order.items || order.items.length <= 0) errors.push('Order has no items associated');
   if (!order.userId || !mongoose.isValidObjectId(order.userId)) errors.push('Invalid or missing user ID');
   if (!order.total || parseFloat(order.total) <= 0) errors.push("Missing order's total amount");
+  if (order.tip && Number.isNaN(parseFloat(order.tip))) errors.push("Invalid order's total amount");
   if (!ETAPattern.test(order.eta)) errors.push("Invalid ETA, It must be match '15 M, 60 M, 3 H' pattern");
   else {
     const now = new Date();
