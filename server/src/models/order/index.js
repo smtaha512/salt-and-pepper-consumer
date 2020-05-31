@@ -30,7 +30,7 @@ const OrderSchema = new Schema(
       type: String,
     },
     tip: { default: 0, min: 0, required: true, type: Number },
-    total: { max: 100000, min: 0, required: true, type: Number },
+    total: { max: 100000, min: 100, required: true, type: Number },
     userId: { ref: 'User', type: Schema.Types.ObjectId },
   },
   {
