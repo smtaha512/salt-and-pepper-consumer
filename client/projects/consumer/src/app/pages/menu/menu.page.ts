@@ -1,4 +1,7 @@
-import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import { Store } from '@ngrx/store';
+import { MenuInterface } from 'dist/library';
+import { loadMenus } from './+state/menu.actions';
 
 @Component({
   selector: 'app-menu',
@@ -7,7 +10,9 @@ import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class MenuPage implements OnInit {
-  constructor() {}
+  constructor(private readonly store: Store<MenuInterface>) {}
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.store.dispatch(loadMenus());
+  }
 }

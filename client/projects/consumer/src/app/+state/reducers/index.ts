@@ -2,7 +2,7 @@ import { routerReducer, RouterReducerState } from '@ngrx/router-store';
 import { ActionReducerMap, MetaReducer } from '@ngrx/store';
 
 import { environment } from '../../../environments/environment';
-import { menusFeatureKey, reducer as MenuReducers, State as MenuState } from '../../pages/menu/+state/menu.reducer';
+import { menusFeatureKey, State as MenuState, menuReducers } from '../../pages/menu/+state/menu.reducer';
 
 export interface State {
   [menusFeatureKey]: MenuState;
@@ -11,7 +11,7 @@ export interface State {
 
 export const reducers: ActionReducerMap<State> = {
   router: routerReducer,
-  [menusFeatureKey]: MenuReducers,
+  [menusFeatureKey]: menuReducers,
 };
 
 export const metaReducers: MetaReducer<State>[] = !environment.production ? [] : [];
