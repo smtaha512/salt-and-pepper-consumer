@@ -26,3 +26,5 @@ export { OrderInterface } from './lib/models/order.interface';
 export { PreferencesEnum } from './lib/models/preferences.enum';
 export { UserTypeEnum } from './lib/models/user-type.enum';
 export { AdminInterface, BaseUserInterface, ConsumerInterface, UsersInterface } from './lib/models/users.interface';
+
+export { BaseCrudService } from './lib/services/base-curd/base-crud.service';

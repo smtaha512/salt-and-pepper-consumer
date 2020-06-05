@@ -1,3 +1,4 @@
+import { HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -23,13 +24,14 @@ import { AppEffects } from './app.effects';
       { ...reducers },
       {
         metaReducers: [...(metaReducers || [])],
-        runtimeChecks: { strictStateImmutability: true, strictActionImmutability: true, },
+        runtimeChecks: { strictStateImmutability: true, strictActionImmutability: true },
       }
     ),
     StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: environment.production }),
     EffectsModule.forRoot([AppEffects]),
+    HttpClientModule,
   ],
   providers: [],
   bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}
