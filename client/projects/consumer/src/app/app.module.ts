@@ -7,6 +7,7 @@ import { EffectsModule } from '@ngrx/effects';
 import { StoreModule } from '@ngrx/store';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 
+import { InterceptorsModule } from 'dist/library';
 import { environment } from '../environments/environment';
 import { metaReducers, reducers } from './+state/reducers';
 import { AppRoutingModule } from './app-routing.module';
@@ -30,6 +31,7 @@ import { AppEffects } from './app.effects';
     StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: environment.production }),
     EffectsModule.forRoot([AppEffects]),
     HttpClientModule,
+    InterceptorsModule.forRoot({ baseUrl: environment.baseUrl }),
   ],
   providers: [],
   bootstrap: [AppComponent],

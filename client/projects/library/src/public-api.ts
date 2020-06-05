@@ -27,4 +27,5 @@ export { PreferencesEnum } from './lib/models/preferences.enum';
 export { UserTypeEnum } from './lib/models/user-type.enum';
 export { AdminInterface, BaseUserInterface, ConsumerInterface, UsersInterface } from './lib/models/users.interface';
 
+export { InterceptorsModule } from './lib/services/interceptors/interceptors.module';
 export { BaseCrudService } from './lib/services/base-curd/base-crud.service';
