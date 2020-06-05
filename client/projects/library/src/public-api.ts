@@ -18,8 +18,6 @@ export { DateRangePickerModule } from './lib/components/date-range-picker/date-r
 export { OrderDetailsComponent } from './lib/components/order-details/order-details.component';
 export { OrderDetailsModule } from './lib/components/order-details/order-details.module';
 
-export { SetupNgRx } from './lib/store/store-factory.module';
-
 export { BaseEntityInterface } from './lib/models/base-entity.interface';
 export { ItemInterface } from './lib/models/item.interface';
 export { MenuInterface } from './lib/models/menu.interface';
