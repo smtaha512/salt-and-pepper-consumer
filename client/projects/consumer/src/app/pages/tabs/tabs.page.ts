@@ -25,7 +25,7 @@ export class TabsPage implements OnInit {
 
   readonly selectedTab$: BehaviorSubject<Record<'tab', string>> = new BehaviorSubject(this.tabs[0]);
 
-  @ViewChild(IonTabButton, { static: false }) ionTabs: IonTabButton & { el: HTMLElement };
+  @ViewChild(IonTabButton) ionTabs: IonTabButton & { el: HTMLElement };
 
   constructor() {}
 
