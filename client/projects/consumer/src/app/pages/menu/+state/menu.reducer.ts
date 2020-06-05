@@ -1,5 +1,5 @@
 import { createEntityAdapter, EntityAdapter, EntityState } from '@ngrx/entity';
-import { createReducer, on } from '@ngrx/store';
+import { createReducer, on, Action } from '@ngrx/store';
 
 import { MenuInterface } from 'dist/library';
 import * as MenuActions from './menu.actions';
@@ -7,17 +7,18 @@ import * as MenuActions from './menu.actions';
 export const menusFeatureKey = 'menus';
 
 export interface State extends EntityState<MenuInterface> {
-  // additional entities state properties
+  ids: string[];
 }
 
-export const adapter: EntityAdapter<MenuInterface> = createEntityAdapter<MenuInterface>();
+export const adapter: EntityAdapter<MenuInterface> = createEntityAdapter<MenuInterface>({ selectId: (instance) => instance._id });
 
 export const initialState: State = adapter.getInitialState({
-  // additional entity state properties
+  ids: [],
 });
 
 export const reducer = createReducer(
   initialState,
+  on(MenuActions.loadMenusSuccess, (state, action) => adapter.addMany(action.menus, state)),
   on(MenuActions.addMenu, (state, action) => adapter.addOne(action.menu, state)),
   on(MenuActions.upsertMenu, (state, action) => adapter.upsertOne(action.menu, state)),
   on(MenuActions.addMenus, (state, action) => adapter.addMany(action.menus, state)),
@@ -31,3 +32,7 @@ export const reducer = createReducer(
 );
 
 export const { selectIds, selectEntities, selectAll, selectTotal } = adapter.getSelectors();
+
+export function menuReducers(state: State | undefined, action: Action) {
+  return reducer(state, action);
+}
