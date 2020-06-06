@@ -5,8 +5,11 @@ import { IonicModule } from '@ionic/angular';
 import { EffectsModule } from '@ngrx/effects';
 import { StoreModule } from '@ngrx/store';
 
-import * as fromMenu from './+state/menu.reducer';
+import { EtaPipeModule } from 'dist/library';
+import { DataEtaModule } from '../../components/data-eta/data-eta.module';
+import { MenuItemsEffects } from '../menu-item/+state/menu-item.effects';
 import { MenuEffects } from './+state/menu.effects';
+import * as fromMenu from './+state/menu.reducer';
 import { MenuPageRoutingModule } from './menu-routing.module';
 import { MenuPage } from './menu.page';
 
@@ -17,7 +20,9 @@ import { MenuPage } from './menu.page';
     IonicModule,
     MenuPageRoutingModule,
     StoreModule.forFeature(fromMenu.menusFeatureKey, fromMenu.menuReducers),
-    EffectsModule.forFeature([MenuEffects]),
+    EffectsModule.forFeature([MenuEffects, MenuItemsEffects]),
+    EtaPipeModule,
+    DataEtaModule,
   ],
   declarations: [MenuPage],
 })
