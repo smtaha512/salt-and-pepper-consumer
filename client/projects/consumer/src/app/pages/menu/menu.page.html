@@ -9,13 +9,7 @@
     <ion-row>
       <ion-col size="12" sizeSm="6" sizeMd="4" *ngFor="let item of menuItems$ | async; let i = index">
         <ion-card button [routerLink]="['/menu-item', item._id]">
-          <ion-skeleton-text
-            *ngIf="!item.imgLoaded"
-            [animated]="item.image"
-            class="w-100 ion-no-margin"
-            style="height: 200px;"
-          ></ion-skeleton-text>
-          <img [src]="item.image" class="w-100" height="200" (load)="item.imgLoaded = true" [hidden]="!item.imgLoaded" />
+          <lib-img-with-skeleton [alt]="item.title" [src]="item.image"></lib-img-with-skeleton>
           <ion-card-header [data-eta]="item.eta | eta">
             <ion-card-title>
               <ion-text color="light">
