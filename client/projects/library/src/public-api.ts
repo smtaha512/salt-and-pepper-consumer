@@ -12,6 +12,9 @@ export { OrdersItemsListBodyModule } from './lib/components/orders-items-list-bo
 export { OrdersItemsListComponent } from './lib/components/orders-items-list/orders-items-list.component';
 export { OrdersItemsListModule } from './lib/components/orders-items-list/orders-items-list.module';
 
+export { CounterInputModule } from './lib/components/counter-input/counter-input.module';
+export { CounterInputComponent } from './lib/components/counter-input/counter-input.component';
+
 export { DateRangePickerComponent } from './lib/components/date-range-picker/date-range-picker.component';
 export { DateRangePickerModule } from './lib/components/date-range-picker/date-range-picker.module';
 

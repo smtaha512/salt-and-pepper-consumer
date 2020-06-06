@@ -1,0 +1,62 @@
+import { ChangeDetectionStrategy, Component, forwardRef, Input, OnInit } from '@angular/core';
+import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
+import { BehaviorSubject, Subject, merge } from 'rxjs';
+import { takeUntil, tap, filter, first } from 'rxjs/operators';
+
+enum ClickStateEnum {
+  INCREMENT,
+  DECREMENT,
+}
+
+@Component({
+  selector: 'lib-counter-input',
+  templateUrl: './counter-input.component.html',
+  styleUrls: ['./counter-input.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  providers: [{ provide: NG_VALUE_ACCESSOR, useExisting: forwardRef(() => CounterInputComponent), multi: true }],
+})
+export class CounterInputComponent implements OnInit, ControlValueAccessor {
+  @Input() step = 1;
+  @Input() min = 0;
+  @Input() max = Number.MAX_SAFE_INTEGER;
+
+  private readonly currentValue$$ = new BehaviorSubject(0);
+  private readonly isDisabled$$ = new BehaviorSubject(false);
+  readonly value$ = this.currentValue$$.asObservable();
+  readonly clickState = ClickStateEnum;
+
+  onTouch: () => any = Function;
+  onChange: (value: number) => any = () => {};
+
+  writeValue(value: number): void {
+    this.currentValue$$.next(value);
+  }
+  registerOnChange(fn: any): void {
+    this.onChange = fn;
+  }
+  registerOnTouched(fn: any): void {
+    this.onTouch = fn;
+  }
+  setDisabledState?(isDisabled: boolean): void {
+    this.isDisabled$$.next(isDisabled);
+  }
+
+  onClick(state: ClickStateEnum) {
+    const change = state === ClickStateEnum.DECREMENT ? -this.step : +this.step;
+    const destroyed$ = new Subject();
+
+    const decrementer = this.value$.pipe(filter((value) => state === ClickStateEnum.INCREMENT && value < this.max));
+    const incrementer = this.value$.pipe(filter((value) => state === ClickStateEnum.DECREMENT && value > this.min));
+
+    merge(incrementer, decrementer)
+      .pipe(
+        first(),
+        tap((value) => this.currentValue$$.next(value + change)),
+        takeUntil(destroyed$),
+        tap((_) => destroyed$.next())
+      )
+      .subscribe();
+  }
+
+  ngOnInit() {}
+}
