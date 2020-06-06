@@ -18,14 +18,15 @@ export { DateRangePickerModule } from './lib/components/date-range-picker/date-r
 export { OrderDetailsComponent } from './lib/components/order-details/order-details.component';
 export { OrderDetailsModule } from './lib/components/order-details/order-details.module';
 
+export { AdminInterface, BaseUserInterface, ConsumerInterface, UsersInterface } from './lib/models/users.interface';
 export { BaseEntityInterface } from './lib/models/base-entity.interface';
 export { ItemInterface } from './lib/models/item.interface';
 export { MenuInterface } from './lib/models/menu.interface';
-export { OrderStatausEnum } from './lib/models/order-status.enum';
 export { OrderInterface } from './lib/models/order.interface';
+export { OrderStatausEnum } from './lib/models/order-status.enum';
 export { PreferencesEnum } from './lib/models/preferences.enum';
 export { UserTypeEnum } from './lib/models/user-type.enum';
-export { AdminInterface, BaseUserInterface, ConsumerInterface, UsersInterface } from './lib/models/users.interface';
+export { CategoriesInterface } from './lib/models/categories.interface';
 
 export { selectById, selectEntityByIndex, selectFirstEntity, selectLastEntity } from './lib/store/selectors/utils';
 

@@ -16,7 +16,7 @@ export function selectEntityByIndex<Result, State = Dictionary<Result>, S1 = Dic
   ids: Selector<State, S2>,
   index: number
 ): MemoizedSelector<State, Result> {
-  return entities[ids[index]];
+  return createSelector(entities, ids, (entitiez: S1, idz: S2) => entitiez[idz[index]]);
 }
 
 /** Selects first entity from entities list using ids */
