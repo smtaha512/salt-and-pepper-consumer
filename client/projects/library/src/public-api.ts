@@ -28,7 +28,12 @@ export { PreferencesEnum } from './lib/models/preferences.enum';
 export { UserTypeEnum } from './lib/models/user-type.enum';
 export { CategoriesInterface } from './lib/models/categories.interface';
 
+export { EtaPipeModule } from './lib/pipes/eta-pipe/eta-pipe.module';
+export { EtaPipe } from './lib/pipes/eta-pipe/eta.pipe';
+
 export { selectById, selectEntityByIndex, selectFirstEntity, selectLastEntity } from './lib/store/selectors/utils';
 
 export { InterceptorsModule } from './lib/services/interceptors/interceptors.module';
 export { BaseCrudService } from './lib/services/base-curd/base-crud.service';
+
+export { isNotEmpty } from './lib/utils/is-not-empty';

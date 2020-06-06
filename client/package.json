@@ -36,6 +36,7 @@
     "@ngrx/store-devtools": "^9.2.0",
     "bootstrap": "^4.4.1",
     "core-js": "^2.5.4",
+    "lodash-es": "^4.17.15",
     "rxjs": "~6.5.1",
     "tslib": "^1.10.0",
     "zone.js": "~0.10.2"
@@ -52,6 +53,7 @@
     "@schematics/angular": "^9.1.7",
     "@types/jasmine": "~3.3.8",
     "@types/jasminewd2": "~2.0.3",
+    "@types/lodash-es": "^4.17.3",
     "@types/node": "^12.11.1",
     "codelyzer": "^5.1.2",
     "jasmine-core": "~3.4.0",
