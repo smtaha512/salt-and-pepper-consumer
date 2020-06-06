@@ -1,0 +1,7 @@
+<ion-button (click)="onClick(clickState.DECREMENT)" [disabled]="(value$ | async) === min" fill="clear">
+  <ion-icon slot="icon-only" color="danger" name="remove-outline"></ion-icon>
+</ion-button>
+<ion-text color="light">{{ value$ | async }}</ion-text>
+<ion-button (click)="onClick(clickState.INCREMENT)" [disabled]="(value$ | async) === max" fill="clear">
+  <ion-icon slot="icon-only" color="success" name="add-outline"></ion-icon>
+</ion-button>
