@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, forwardRef, Input, OnInit } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
-import { BehaviorSubject, Subject, merge } from 'rxjs';
-import { takeUntil, tap, filter, first } from 'rxjs/operators';
+import { BehaviorSubject, merge, Subject } from 'rxjs';
+import { filter, first, map, takeUntil, tap } from 'rxjs/operators';
 
 enum ClickStateEnum {
   INCREMENT,
@@ -22,11 +22,11 @@ export class CounterInputComponent implements OnInit, ControlValueAccessor {
 
   private readonly currentValue$$ = new BehaviorSubject(0);
   private readonly isDisabled$$ = new BehaviorSubject(false);
-  readonly value$ = this.currentValue$$.asObservable();
   readonly clickState = ClickStateEnum;
+  readonly value$ = this.currentValue$$.asObservable();
 
   onTouch: () => any = Function;
-  onChange: (value: number) => any = () => {};
+  onChange: (value: number) => any = (value: number) => {};
 
   writeValue(value: number): void {
     this.currentValue$$.next(value);
@@ -51,7 +51,9 @@ export class CounterInputComponent implements OnInit, ControlValueAccessor {
     merge(incrementer, decrementer)
       .pipe(
         first(),
-        tap((value) => this.currentValue$$.next(value + change)),
+        map((value) => value + change),
+        tap((nextValue) => this.currentValue$$.next(nextValue)),
+        tap((value) => this.onChange(value)),
         takeUntil(destroyed$),
         tap((_) => destroyed$.next())
       )
