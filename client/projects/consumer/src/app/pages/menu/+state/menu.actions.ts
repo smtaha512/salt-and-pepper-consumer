@@ -3,7 +3,9 @@ import { Update } from '@ngrx/entity';
 
 import { MenuInterface } from 'dist/library';
 
-export const loadMenus = createAction('[Menu/API] Load Menus', props<{ menus: MenuInterface[] }>());
+export const loadMenus = createAction('[Menu/API] Load Menus');
+export const loadMenusSuccess = createAction('[Menu/API] Load Menu Success', props<{ menus: MenuInterface[] }>());
+export const loadMenusFailure = createAction('[Menu/API] Load Menu Failure', props<{ error: any }>());
 
 export const addMenu = createAction('[Menu/API] Add Menu', props<{ menu: MenuInterface }>());
 

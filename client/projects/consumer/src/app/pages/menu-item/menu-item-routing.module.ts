@@ -5,9 +5,9 @@ import { MenuItemPage } from './menu-item.page';
 
 const routes: Routes = [
   {
-    path: '',
-    component: MenuItemPage
-  }
+    path: ':id',
+    component: MenuItemPage,
+  },
 ];
 
 @NgModule({
