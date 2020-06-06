@@ -3,9 +3,11 @@ import { ModuleWithProviders, NgModule } from '@angular/core';
 
 import { Config, CONFIG } from '../../config/config';
 import { BaseUrlInterceptor } from './base-url/base-url.interceptor';
+import { LoaderInterceptor } from './loader.interceptor';
+import { LoaderService } from '../loader/loader.service';
 
 const baseUrlInterceptorFactory = (config: Config) => new BaseUrlInterceptor(config);
-
+const loaderInterceptorFactory = (config: Config, loaderService: LoaderService) => new LoaderInterceptor(config, loaderService);
 @NgModule()
 export class InterceptorsModule {
   static forRoot(config: Config): ModuleWithProviders {
@@ -13,6 +15,7 @@ export class InterceptorsModule {
       ngModule: InterceptorsModule,
       providers: [
         { provide: CONFIG, useValue: config },
+        { provide: HTTP_INTERCEPTORS, useClass: LoaderInterceptor, multi: true },
         { provide: HTTP_INTERCEPTORS, useFactory: baseUrlInterceptorFactory, multi: true, deps: [CONFIG] },
       ],
     };

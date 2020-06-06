@@ -57,3 +57,40 @@
 * {
   outline: none;
 }
+
+.animated-loader {
+  --background: transparent;
+
+  .loading-wrapper {
+    background-image: url('./assets/logo.svg');
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-size: contain;
+    min-height: 90px;
+    min-width: 90px;
+    animation: flip-animation 3s ease-out infinite;
+    box-shadow: none;
+  }
+}
+
+@keyframes flip-animation {
+  0% {
+    transform: scaleX(1);
+  }
+
+  25% {
+    transform: scaleX(0);
+  }
+
+  50% {
+    transform: scaleX(-1);
+  }
+
+  75% {
+    transform: scaleX(0);
+  }
+
+  100% {
+    transform: scaleX(1);
+  }
+}

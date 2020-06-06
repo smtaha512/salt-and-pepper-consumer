@@ -31,7 +31,7 @@ import { AppEffects } from './app.effects';
     StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: environment.production }),
     EffectsModule.forRoot([AppEffects]),
     HttpClientModule,
-    InterceptorsModule.forRoot({ baseUrl: environment.baseUrl }),
+    InterceptorsModule.forRoot({ baseUrl: environment.baseUrl, loaderExpemtedUrls: [] }),
   ],
   providers: [],
   bootstrap: [AppComponent],
