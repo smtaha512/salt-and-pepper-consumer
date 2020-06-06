@@ -8,6 +8,7 @@
     "@ngrx/effects": "^8.6.0",
     "@ngrx/router-store": "^8.6.0",
     "@ngrx/store": "^8.6.0",
-    "@ngrx/store-devtools": "^8.6.0"
+    "@ngrx/store-devtools": "^8.6.0",
+    "lodash-es": "lodash-es"
   }
 }
