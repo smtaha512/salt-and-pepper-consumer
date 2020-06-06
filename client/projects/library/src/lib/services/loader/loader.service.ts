@@ -1,13 +1,15 @@
 import { Injectable } from '@angular/core';
-import { LoadingController } from '@ionic/angular';
-import { from, of, EMPTY } from 'rxjs';
+import { AnimationController, LoadingController } from '@ionic/angular';
+import { EMPTY, from, of } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
+
+import { loaderAnimation } from './loader.animation';
 
 @Injectable({ providedIn: 'root' })
 export class LoaderService {
   private loaderInstanceCounter = 0;
 
-  constructor(private readonly loadingController: LoadingController) {}
+  constructor(private readonly loadingController: LoadingController, private readonly animationController: AnimationController) {}
 
   presentLoader() {
     this.loaderInstanceCounter++;
@@ -19,7 +21,13 @@ export class LoaderService {
         return from(
           this.loadingController
             .create({ backdropDismiss: false, keyboardClose: false, spinner: null, cssClass: ['animated-loader'] })
-            .then((newLoader) => newLoader.present().then(() => newLoader))
+            .then((newLoader) =>
+              newLoader.present().then(() => {
+                const animation = loaderAnimation(this.animationController, newLoader.querySelector('animated-loader'));
+                animation.play();
+                return newLoader;
+              })
+            )
         );
       })
     );
