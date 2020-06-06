@@ -15,6 +15,9 @@ export { OrdersItemsListModule } from './lib/components/orders-items-list/orders
 export { DateRangePickerComponent } from './lib/components/date-range-picker/date-range-picker.component';
 export { DateRangePickerModule } from './lib/components/date-range-picker/date-range-picker.module';
 
+export { ImgWithSkeletonModule } from './lib/components/img-with-skeleton/img-with-skeleton.module';
+export { ImgWithSkeletonComponent } from './lib/components/img-with-skeleton/img-with-skeleton.component';
+
 export { OrderDetailsComponent } from './lib/components/order-details/order-details.component';
 export { OrderDetailsModule } from './lib/components/order-details/order-details.module';
 

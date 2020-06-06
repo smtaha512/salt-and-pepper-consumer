@@ -1,0 +1,7 @@
+<ion-skeleton-text
+  *ngIf="!(isLoaded$ | async)"
+  [animated]="src"
+  [ngStyle]="{ height: height + 'px' }"
+  class="w-100 ion-no-margin"
+></ion-skeleton-text>
+<img [alt]="alt" [src]="src" class="w-100" [height]="height" (load)="imageLoaded()" [hidden]="!(isLoaded$ | async)" />
