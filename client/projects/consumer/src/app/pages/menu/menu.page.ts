@@ -17,7 +17,8 @@ import { firstMenu } from './+state/menu.selectors';
 })
 export class MenuPage implements OnInit {
   firstMenu$: Observable<MenuInterface>;
-  menuItems$: Observable<Array<ItemInterface & { imgLoaded?: boolean }>>;
+  menuItems$: Observable<Array<ItemInterface>>;
+
   constructor(private readonly store: Store<any>) {}
 
   ngOnInit() {
