@@ -206,7 +206,8 @@
                 "glob": "**/*.svg",
                 "input": "node_modules/ionicons/dist/ionicons/svg",
                 "output": "./svg"
-              }
+              },
+              "projects/consumer/src/manifest.webmanifest"
             ],
             "styles": [
               "projects/consumer/src/styles.scss",
@@ -235,7 +236,7 @@
               "extractLicenses": true,
               "vendorChunk": true,
               "buildOptimizer": true,
-              "statsJson": true,
+              "statsJson": false,
               "commonChunk": true,
               "budgets": [
                 {
@@ -248,7 +249,9 @@
                   "maximumWarning": "1kb",
                   "maximumError": "5kb"
                 }
-              ]
+              ],
+              "serviceWorker": true,
+              "ngswConfigPath": "projects/consumer/ngsw-config.json"
             }
           }
         },
@@ -276,7 +279,7 @@
             "polyfills": "projects/consumer/src/polyfills.ts",
             "tsConfig": "projects/consumer/tsconfig.spec.json",
             "karmaConfig": "projects/consumer/karma.conf.js",
-            "assets": ["projects/consumer/src/favicon.ico", "projects/consumer/src/assets"],
+            "assets": ["projects/consumer/src/favicon.ico", "projects/consumer/src/assets", "projects/consumer/src/manifest.webmanifest"],
             "styles": ["projects/consumer/src/styles.scss"],
             "scripts": []
           }
