@@ -1,6 +1,6 @@
 <ion-item lines="none" *ngFor="let item of orderItems; let isLast = last; trackBy: trackBy">
   <ion-label>
-    <ion-row class="py-2 my-1 align-items-center" [ngClass]="{ 'border-bottom': !isLast }">
+    <ion-row class="align-items-center ion-no-margin" [ngClass]="{ 'border-bottom': !isLast }">
       <ion-col class="ion-text-wrap">{{ item.name }} very very long</ion-col>
       <ion-col class="ion-text-center">{{ item.qty }} x {{ item.price }}</ion-col>
       <ion-col class="ion-text-end">{{ item.qty * item.price }}</ion-col>
