@@ -26,13 +26,14 @@ export { OrderDetailsModule } from './lib/components/order-details/order-details
 
 export { AdminInterface, BaseUserInterface, ConsumerInterface, UsersInterface } from './lib/models/users.interface';
 export { BaseEntityInterface } from './lib/models/base-entity.interface';
+export { CategoriesInterface } from './lib/models/categories.interface';
 export { ItemInterface } from './lib/models/item.interface';
 export { MenuInterface } from './lib/models/menu.interface';
 export { OrderInterface } from './lib/models/order.interface';
+export { OrderItemInterface } from './lib/models/order-item.interface';
 export { OrderStatausEnum } from './lib/models/order-status.enum';
 export { PreferencesEnum } from './lib/models/preferences.enum';
 export { UserTypeEnum } from './lib/models/user-type.enum';
-export { CategoriesInterface } from './lib/models/categories.interface';
 
 export { EtaPipeModule } from './lib/pipes/eta-pipe/eta-pipe.module';
 export { EtaPipe } from './lib/pipes/eta-pipe/eta.pipe';

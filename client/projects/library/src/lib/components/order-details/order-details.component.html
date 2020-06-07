@@ -8,6 +8,13 @@
   </ion-card>
 </div>
 <ng-container [ngSwitch]="currentSegment$ | async">
-  <lib-order-instructions *ngSwitchCase="'instructions'"></lib-order-instructions>
-  <lib-orders-items-list *ngSwitchCase="'pricing'"></lib-orders-items-list>
+  <lib-order-instructions *ngSwitchCase="'instructions'" [orderItems]="orderItems"></lib-order-instructions>
+  <lib-orders-items-list
+    *ngSwitchCase="'pricing'"
+    [orderItems]="orderItems"
+    [subTotal]="subTotal"
+    [tax]="tax"
+    [tip]="tip"
+    [total]="total"
+  ></lib-orders-items-list>
 </ng-container>
