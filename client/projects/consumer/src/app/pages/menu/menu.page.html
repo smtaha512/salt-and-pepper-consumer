@@ -8,7 +8,7 @@
   <ion-grid>
     <ion-row>
       <ion-col size="12" sizeSm="6" sizeMd="4" *ngFor="let item of menuItems$ | async; let i = index">
-        <ion-card button [routerLink]="['/menu-item', item._id]">
+        <ion-card button class="ion-no-margin" [routerLink]="['/menu-item', item._id]">
           <lib-img-with-skeleton [alt]="item.title" [src]="item.image"></lib-img-with-skeleton>
           <ion-card-header [data-eta]="item.eta | eta">
             <ion-card-title>
