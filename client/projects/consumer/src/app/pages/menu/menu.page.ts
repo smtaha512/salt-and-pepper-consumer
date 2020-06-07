@@ -1,13 +1,12 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { select, Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
-import { filter, pluck, switchMap } from 'rxjs/operators';
+import { filter } from 'rxjs/operators';
 
 import { ItemInterface, MenuInterface, isNotEmpty } from 'dist/library';
 import { loadMenuItems } from '../menu-item/+state/menu-item.actions';
-import { menuItemsByMenuId } from '../menu-item/+state/menu-item.selectors';
+import { menuItems } from '../menu-item/+state/menu-item.selectors';
 import { loadMenus } from './+state/menu.actions';
-import { firstMenu } from './+state/menu.selectors';
 
 @Component({
   selector: 'app-menu',
@@ -27,16 +26,13 @@ export class MenuPage implements OnInit {
   }
 
   dispatchInitalActions() {
+    // ! A wierd bug: Does not dispact success action for first action. In this case does not dispatch success action for loadMenus.
+    // ! Cause: Unknown
     this.store.dispatch(loadMenus());
     this.store.dispatch(loadMenuItems());
   }
 
   selectStates() {
-    this.firstMenu$ = this.store.pipe(select(firstMenu), filter(isNotEmpty));
-
-    this.menuItems$ = this.firstMenu$.pipe(
-      pluck('_id'),
-      switchMap((menuId: string) => this.store.pipe(select(menuItemsByMenuId(menuId)), filter(isNotEmpty)))
-    );
+    this.menuItems$ = this.store.pipe(select(menuItems), filter(isNotEmpty));
   }
 }
