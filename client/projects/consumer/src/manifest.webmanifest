@@ -1,8 +1,8 @@
 {
   "name": "Salt and pepper",
   "short_name": "Salt&Pepper",
-  "theme_color": "#1976d2",
-  "background_color": "#fafafa",
+  "theme_color": "#231f20",
+  "background_color": "#231f20",
   "display": "standalone",
   "scope": "./",
   "start_url": "./",
