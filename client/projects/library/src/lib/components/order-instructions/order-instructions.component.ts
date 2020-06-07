@@ -1,4 +1,6 @@
-import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy, Input } from '@angular/core';
+
+import { PreferencesEnum } from '../../models/preferences.enum';
 
 @Component({
   selector: 'lib-order-instructions',
@@ -7,6 +9,10 @@ import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class OrderInstructionsComponent implements OnInit {
+  @Input() orderItems: any[];
+
+  readonly preferences = PreferencesEnum;
+
   constructor() {}
 
   ngOnInit() {}

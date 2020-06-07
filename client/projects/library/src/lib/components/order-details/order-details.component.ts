@@ -1,4 +1,4 @@
-import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy, Input } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 
 @Component({
@@ -8,7 +8,13 @@ import { BehaviorSubject } from 'rxjs';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class OrderDetailsComponent implements OnInit {
-  currentSegment$: BehaviorSubject<string> = new BehaviorSubject('instructions');
+  @Input() orderItems: any[];
+  @Input() subTotal = 0;
+  @Input() tax = 0;
+  @Input() tip = 0;
+  @Input() total = 0;
+
+  readonly currentSegment$: BehaviorSubject<string> = new BehaviorSubject('instructions');
 
   constructor() {}
 

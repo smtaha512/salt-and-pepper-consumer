@@ -1,6 +1,9 @@
 import { ChangeDetectionStrategy, Component, OnInit, ViewChild } from '@angular/core';
 import { IonTabButton } from '@ionic/angular';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
+import { Store, select } from '@ngrx/store';
+
+import { totalCurrentOrderItems } from '../cart/+state/current-order-item.selectors';
 
 @Component({
   selector: 'app-tabs',
@@ -12,16 +15,19 @@ export class TabsPage implements OnInit {
   readonly tabs = [
     { tab: 'orders-history', icon: 'calendar-outline', label: 'Recent orders' },
     { tab: 'menu', icon: 'menu-outline', label: 'Menu' },
-    { tab: 'cart', icon: 'cart-outline', label: 'Cart' },
+    { tab: 'cart', icon: 'cart-outline', label: 'Cart', showBadge: true },
   ];
 
   readonly selectedTab$: BehaviorSubject<Record<'tab', string>> = new BehaviorSubject(this.tabs[0]);
+  totalItems$: Observable<number>;
 
   @ViewChild(IonTabButton) ionTabs: IonTabButton & { el: HTMLElement };
 
-  constructor() {}
+  constructor(private readonly store: Store<any>) {}
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.totalItems$ = this.store.pipe(select(totalCurrentOrderItems));
+  }
 
   getTransform(tab: Record<'tab', string>) {
     const nativeElement = this.ionTabs && this.ionTabs.el;

@@ -18,19 +18,19 @@
     <ion-item lines="none" class="ion-text-center">
       <ion-label>Sub Total: </ion-label>
       <ion-text>
-        {{ 200 | currency: 'USD' }}
+        {{ subTotal | currency: 'USD' }}
       </ion-text>
     </ion-item>
     <ion-item lines="full" class="ion-text-center">
       <ion-label>+ Tax (20%): </ion-label>
       <ion-text>
-        {{ 10 | currency: 'USD' }}
+        {{ tax | currency: 'USD' }}
       </ion-text>
     </ion-item>
     <ion-item lines="none" class="ion-text-center">
       <ion-label>Total: </ion-label>
       <ion-text>
-        {{ 220 | currency: 'USD' }}
+        {{ total | currency: 'USD' }}
       </ion-text>
     </ion-item>
   </ng-container>

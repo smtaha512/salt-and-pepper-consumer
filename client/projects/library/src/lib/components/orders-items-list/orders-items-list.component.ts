@@ -8,6 +8,11 @@ import { Component, OnInit, ChangeDetectionStrategy, Input } from '@angular/core
 })
 export class OrdersItemsListComponent implements OnInit {
   @Input() orderItems: any[]; // TODO: add type
+  @Input() subTotal: number;
+  @Input() tax: number;
+  @Input() tip: number;
+  @Input() total: number;
+
   constructor() {}
 
   ngOnInit() {}
