@@ -13,7 +13,7 @@
 
 <ion-content>
   <lib-order-details>
-    <ion-card class="metadata">
+    <ion-card class="metadata" [ngClass]="{'ion-no-margin ion-margin-horizontal': isiOS | async, 'mt-0': !(isiOS | async)}">
       <ion-card-header class="d-flex justify-content-between">
         <ion-card-subtitle color="light">
           Order id: 145bf <br />

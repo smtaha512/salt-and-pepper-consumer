@@ -1,4 +1,5 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import { Device } from '@capacitor/core';
 import { BehaviorSubject } from 'rxjs';
 
 @Component({
@@ -9,6 +10,8 @@ import { BehaviorSubject } from 'rxjs';
 })
 export class OrderPage implements OnInit {
   currentSegment$: BehaviorSubject<string> = new BehaviorSubject('pricing');
+  isiOS = Device.getInfo().then((info) => info.operatingSystem === 'ios');
+
   constructor() {}
 
   ngOnInit() {}
