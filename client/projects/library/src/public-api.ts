@@ -39,7 +39,8 @@ export { EtaPipe } from './lib/pipes/eta-pipe/eta.pipe';
 
 export { selectById, selectEntityByIndex, selectFirstEntity, selectLastEntity } from './lib/store/selectors/utils';
 
-export { InterceptorsModule } from './lib/services/interceptors/interceptors.module';
 export { BaseCrudService } from './lib/services/base-curd/base-crud.service';
+export { InterceptorsModule } from './lib/services/interceptors/interceptors.module';
+export { NetworkService } from './lib/services/network/network.service';
 
 export { isNotEmpty } from './lib/utils/is-not-empty';

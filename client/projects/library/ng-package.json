@@ -4,6 +4,7 @@
   "lib": {
     "entryFile": "src/public-api.ts",
     "umdModuleIds": {
+      "@capacitor/core": "@capacitor/core",
       "@ionic/angular": "@ionic/angular",
       "@ngrx/effects": "@ngrx/effects",
       "@ngrx/router-store": "@ngrx/router-store",
