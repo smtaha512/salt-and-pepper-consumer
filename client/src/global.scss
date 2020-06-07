@@ -57,17 +57,3 @@
 * {
   outline: none;
 }
-
-.animated-loader {
-  --background: transparent;
-
-  .loading-wrapper {
-    background-image: url('./assets/logo.svg');
-    background-position: center center;
-    background-repeat: no-repeat;
-    background-size: contain;
-    min-height: 25vh;
-    min-width: 25vh;
-    box-shadow: none;
-  }
-}
