@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { NetworkService } from 'dist/library';
+import { pluck } from 'rxjs/operators';
 
 @Component({
   selector: 'app-root',
@@ -7,6 +9,7 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'consumer';
+  readonly isConnected$ = this.networkService.networkStatus$.pipe(pluck('connected'));
 
-  constructor() {}
+  constructor(private readonly networkService: NetworkService) {}
 }

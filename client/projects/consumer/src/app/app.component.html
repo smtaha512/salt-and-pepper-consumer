@@ -1,3 +1,4 @@
 <ion-app>
-  <ion-router-outlet></ion-router-outlet>
+  <ion-router-outlet> </ion-router-outlet>
+  <ion-badge *ngIf="!(isConnected$ | async)" color="danger" mode="md">No internet connection</ion-badge>
 </ion-app>
