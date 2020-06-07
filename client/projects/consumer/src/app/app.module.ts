@@ -13,6 +13,7 @@ import { metaReducers, reducers } from './+state/reducers';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { AppEffects } from './app.effects';
+import { ServiceWorkerModule } from '@angular/service-worker';
 
 @NgModule({
   declarations: [AppComponent],
@@ -32,6 +33,7 @@ import { AppEffects } from './app.effects';
     EffectsModule.forRoot([AppEffects]),
     HttpClientModule,
     InterceptorsModule.forRoot({ baseUrl: environment.baseUrl, loaderExpemtedUrls: [] }),
+    ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production }),
   ],
   providers: [],
   bootstrap: [AppComponent],
