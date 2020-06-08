@@ -10,6 +10,7 @@
     "@ngrx/router-store": "^8.6.0",
     "@ngrx/store": "^8.6.0",
     "@ngrx/store-devtools": "^8.6.0",
-    "lodash-es": "lodash-es"
+    "lodash-es": "lodash-es",
+    "capacitor-data-storage-sqlite": "capacitor-data-storage-sqlite"
   }
 }

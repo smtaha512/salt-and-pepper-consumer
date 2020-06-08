@@ -36,6 +36,7 @@
     "@ngrx/store": "^9.2.0",
     "@ngrx/store-devtools": "^9.2.0",
     "bootstrap": "^4.4.1",
+    "capacitor-data-storage-sqlite": "^2.1.0",
     "core-js": "^2.5.4",
     "lodash-es": "^4.17.15",
     "rxjs": "~6.5.1",
