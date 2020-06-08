@@ -24,6 +24,8 @@ export { ImgWithSkeletonComponent } from './lib/components/img-with-skeleton/img
 export { OrderDetailsComponent } from './lib/components/order-details/order-details.component';
 export { OrderDetailsModule } from './lib/components/order-details/order-details.module';
 
+export { CONFIG, Config } from './lib/config/config';
+
 export { AdminInterface, BaseUserInterface, ConsumerInterface, UsersInterface } from './lib/models/users.interface';
 export { BaseEntityInterface } from './lib/models/base-entity.interface';
 export { CategoriesInterface } from './lib/models/categories.interface';
@@ -38,10 +40,15 @@ export { UserTypeEnum } from './lib/models/user-type.enum';
 export { EtaPipeModule } from './lib/pipes/eta-pipe/eta-pipe.module';
 export { EtaPipe } from './lib/pipes/eta-pipe/eta.pipe';
 
+export { logoutAction, pullStateFromStorage } from './lib/store/actions/actions';
+export { StorageSyncEffects } from './lib/store/effects/storage-sync.effects';
+export { storageSyncMetaReducer } from './lib/store/meta-reducers/meta-reducers';
+export { clearStateMetaReducer } from './lib/store/meta-reducers/clear-state.metareducer';
 export { selectById, selectEntityByIndex, selectFirstEntity, selectLastEntity } from './lib/store/selectors/utils';
 
 export { BaseCrudService } from './lib/services/base-curd/base-crud.service';
 export { InterceptorsModule } from './lib/services/interceptors/interceptors.module';
 export { NetworkService } from './lib/services/network/network.service';
+export { StorageService } from './lib/services/storage/storage.service';
 
 export { isNotEmpty } from './lib/utils/is-not-empty';
