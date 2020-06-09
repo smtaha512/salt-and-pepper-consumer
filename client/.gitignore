@@ -30,3 +30,5 @@ capacitor.config.temp.json
 /platforms
 /plugins
 /www
+
+.firebase/hosting.*

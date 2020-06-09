@@ -129,8 +129,14 @@
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
-            "tsConfig": ["tsconfig.app.json", "tsconfig.spec.json", "e2e/tsconfig.json"],
-            "exclude": ["**/node_modules/**"]
+            "tsConfig": [
+              "tsconfig.app.json",
+              "tsconfig.spec.json",
+              "e2e/tsconfig.json"
+            ],
+            "exclude": [
+              "**/node_modules/**"
+            ]
           }
         },
         "e2e": {
@@ -171,6 +177,10 @@
               "devServerTarget": "app:serve:production"
             }
           }
+        },
+        "deploy": {
+          "builder": "@angular/fire:deploy",
+          "options": {}
         }
       }
     },
@@ -279,8 +289,14 @@
             "polyfills": "projects/consumer/src/polyfills.ts",
             "tsConfig": "projects/consumer/tsconfig.spec.json",
             "karmaConfig": "projects/consumer/karma.conf.js",
-            "assets": ["projects/consumer/src/favicon.ico", "projects/consumer/src/assets", "projects/consumer/src/manifest.webmanifest"],
-            "styles": ["projects/consumer/src/styles.scss"],
+            "assets": [
+              "projects/consumer/src/favicon.ico",
+              "projects/consumer/src/assets",
+              "projects/consumer/src/manifest.webmanifest"
+            ],
+            "styles": [
+              "projects/consumer/src/styles.scss"
+            ],
             "scripts": []
           }
         },
@@ -292,7 +308,9 @@
               "projects/consumer/tsconfig.spec.json",
               "projects/consumer/e2e/tsconfig.json"
             ],
-            "exclude": ["**/node_modules/**"]
+            "exclude": [
+              "**/node_modules/**"
+            ]
           }
         },
         "e2e": {
@@ -410,16 +428,27 @@
             "polyfills": "projects/manager/src/polyfills.ts",
             "tsConfig": "projects/manager/tsconfig.spec.json",
             "karmaConfig": "projects/manager/karma.conf.js",
-            "assets": ["projects/manager/src/favicon.ico", "projects/manager/src/assets"],
-            "styles": ["projects/manager/src/styles.scss"],
+            "assets": [
+              "projects/manager/src/favicon.ico",
+              "projects/manager/src/assets"
+            ],
+            "styles": [
+              "projects/manager/src/styles.scss"
+            ],
             "scripts": []
           }
         },
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
-            "tsConfig": ["projects/manager/tsconfig.app.json", "projects/manager/tsconfig.spec.json", "projects/manager/e2e/tsconfig.json"],
-            "exclude": ["**/node_modules/**"]
+            "tsConfig": [
+              "projects/manager/tsconfig.app.json",
+              "projects/manager/tsconfig.spec.json",
+              "projects/manager/e2e/tsconfig.json"
+            ],
+            "exclude": [
+              "**/node_modules/**"
+            ]
           }
         },
         "e2e": {
@@ -471,13 +500,13 @@
           "options": {
             "tsConfig": "projects/library/tsconfig.lib.json",
             "project": "projects/library/ng-package.json"
-          }
-        ,          "configurations": {
+          },
+          "configurations": {
             "production": {
               "tsConfig": "projects/library/tsconfig.lib.prod.json"
             }
           }
-},
+        },
         "test": {
           "builder": "@angular-devkit/build-angular:karma",
           "options": {
@@ -489,8 +518,13 @@
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
-            "tsConfig": ["projects/library/tsconfig.lib.json", "projects/library/tsconfig.spec.json"],
-            "exclude": ["**/node_modules/**"]
+            "tsConfig": [
+              "projects/library/tsconfig.lib.json",
+              "projects/library/tsconfig.spec.json"
+            ],
+            "exclude": [
+              "**/node_modules/**"
+            ]
           }
         }
       }
