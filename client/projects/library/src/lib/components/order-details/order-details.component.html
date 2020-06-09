@@ -1,7 +1,7 @@
 <div class="sticky-top" style="top: 0; background-color: var(--ion-color-dark);">
   <ng-content select=".metadata"></ng-content>
   <ion-card>
-    <ion-segment value="instructions" (ionChange)="segmentChange($event.detail.value)">
+    <ion-segment [value]="this.currentSegment$ | async" (ionChange)="segmentChange($event.detail.value)">
       <ion-segment-button value="instructions"><ion-label>Instructions</ion-label></ion-segment-button>
       <ion-segment-button value="pricing"><ion-label class="ion-padding-horizontal">Pricing</ion-label></ion-segment-button>
     </ion-segment>
