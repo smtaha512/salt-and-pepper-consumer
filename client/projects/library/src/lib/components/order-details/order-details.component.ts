@@ -13,12 +13,15 @@ export class OrderDetailsComponent implements OnInit {
   @Input() tax = 0;
   @Input() tip = 0;
   @Input() total = 0;
+  @Input() defaultSegment = 'instructions';
 
   readonly currentSegment$: BehaviorSubject<string> = new BehaviorSubject('instructions');
 
   constructor() {}
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.currentSegment$.next(this.defaultSegment);
+  }
 
   segmentChange(segment: string) {
     this.currentSegment$.next(segment);

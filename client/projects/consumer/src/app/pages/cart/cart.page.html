@@ -22,6 +22,7 @@
         </ng-container>
         <ng-template #showOrderDetails>
           <lib-order-details
+            defaultSegment="pricing"
             [orderItems]="orderItems$ | async"
             [subTotal]="subTotal$ | async"
             [tax]="tax$ | async"
