@@ -1,14 +1,11 @@
-<ion-card *ngFor="let item of orderItems">
+<ion-card *ngFor="let item of orderItems; trackBy: trackByFn" button (click)="onItemClick(item._id)">
   <ion-card-header class="d-flex justify-content-between">
     <ion-card-subtitle class="d-flex flex-column" color="light">
       <ion-text>{{ item.quantity }} x {{ item.title }}</ion-text>
     </ion-card-subtitle>
     <div>
       <ion-badge color="light" mode="ios" class="ion-padding-horizontal ion-text-center" style="width: 4rem;">
-        <ion-text
-          [color]="item.preference === preferences.HOT ? 'danger' : item.preference === preferences.SPICY ? 'warning' : 'success'"
-          class="ion-text-capitalize"
-        >
+        <ion-text [color]="preferenceColor(item)" class="ion-text-capitalize">
           {{ item.preference }}
         </ion-text>
       </ion-badge>

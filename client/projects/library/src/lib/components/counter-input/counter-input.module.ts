@@ -6,6 +6,7 @@ import { CounterInputComponent } from './counter-input.component';
 
 @NgModule({
   declarations: [CounterInputComponent],
+  entryComponents: [CounterInputComponent],
   exports: [CounterInputComponent],
   imports: [CommonModule, IonicModule],
 })

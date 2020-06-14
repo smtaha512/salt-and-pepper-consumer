@@ -3,12 +3,13 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { select, Store } from '@ngrx/store';
 import { Observable, Subject } from 'rxjs';
-import { pluck, shareReplay, switchMap } from 'rxjs/operators';
+import { pluck, shareReplay, switchMap, tap, map, filter, takeUntil } from 'rxjs/operators';
 
-import { ItemInterface, PreferencesEnum } from 'dist/library';
-import { addCurrentOrderItem } from '../cart/+state/current-order-item.actions';
+import { ItemInterface, PreferencesEnum, isNotEmpty } from 'dist/library';
+import { upsertCurrentOrderItem } from '../cart/+state/current-order-item.actions';
 import { menuItemById } from './+state/menu-item.selectors';
 import { ToastController, NavController } from '@ionic/angular';
+import { currentOrderItemById } from '../cart/+state/current-order-item.selectors';
 
 @Component({
   selector: 'app-menu-item',
@@ -39,6 +40,7 @@ export class MenuItemPage implements OnInit, OnDestroy {
     );
 
     this.buildForm();
+    this.updateFormUsingCurrentOrderItem();
   }
 
   buildForm() {
@@ -49,13 +51,27 @@ export class MenuItemPage implements OnInit, OnDestroy {
     });
   }
 
+  updateFormUsingCurrentOrderItem() {
+    this.id$
+      .pipe(
+        switchMap((id) => this.store.pipe(select(currentOrderItemById(id)))),
+        filter(isNotEmpty),
+        map(({ quantity, notes, preference }) => ({ quantity, notes, preference })),
+        tap(({ notes }) => this.notes.setValue(notes)),
+        tap(({ preference }) => this.preference.setValue(preference)),
+        tap(({ quantity }) => this.quantity.setValue(quantity)),
+        takeUntil(this.destroyed$)
+      )
+      .subscribe();
+  }
+
   onSubmit(menuItem: ItemInterface) {
     if (this.form.invalid) {
       return;
     }
 
     const { preference, quantity, notes } = this.form.value;
-    this.store.dispatch(addCurrentOrderItem({ currentOrderItem: { ...menuItem, notes, preference, quantity } }));
+    this.store.dispatch(upsertCurrentOrderItem({ currentOrderItem: { ...menuItem, notes, preference, quantity } }));
     this.toastController
       .create({ message: 'Item added to cart', buttons: [{ text: 'OK', role: 'Cancel' }], duration: 5000 })
       .then((toast) => toast.present());

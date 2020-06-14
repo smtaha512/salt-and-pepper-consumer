@@ -28,6 +28,7 @@
             [tax]="tax$ | async"
             [tip]="tip$ | async"
             [total]="total$ | async"
+            (itemClick)="onItemClick($event.detail.id)"
           ></lib-order-details>
         </ng-template>
       </ion-col>
