@@ -82,3 +82,8 @@
 .ion-button-text-color-light {
   --button-color: var(--ion-color-light);
 }
+
+.ion-toast-custom {
+  --color: var(--ion-color-light);
+  --background: var(--ion-item-background);
+}

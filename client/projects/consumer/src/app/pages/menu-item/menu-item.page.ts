@@ -73,9 +73,10 @@ export class MenuItemPage implements OnInit, OnDestroy {
     const { preference, quantity, notes } = this.form.value;
     this.store.dispatch(upsertCurrentOrderItem({ currentOrderItem: { ...menuItem, notes, preference, quantity } }));
     this.toastController
-      .create({ message: 'Item added to cart', buttons: [{ text: 'OK', role: 'Cancel' }], duration: 5000 })
-      .then((toast) => toast.present());
-    this.navController.pop();
+      .create({ message: 'Item added to cart', buttons: [{ text: 'OK', role: 'Cancel' }], cssClass: ['ion-toast-custom'], duration: 5000 })
+      .then((toast) => toast.present())
+      .then(() => this.navController.pop());
+
     this.resetForm();
   }
 
