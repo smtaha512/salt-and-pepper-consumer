@@ -6,21 +6,23 @@
 
 <ion-content>
   <ion-grid>
-    <ion-row>
-      <ion-col size="12" sizeMd="8" offsetMd="2">
-        <ng-container *ngIf="!(orderItems$ |async)?.length; else showOrderDetails">
-          <ion-card>
-            <ion-card-header class="ion-text-center">
-              <ion-card-title>Cart is empty!</ion-card-title>
-              <ion-button expand="block" fill="clear" routerLink="/tabs/menu" size="small">
-                <ion-card-subtitle>
-                  Select some items from menu
-                </ion-card-subtitle>
-              </ion-button>
-            </ion-card-header>
-          </ion-card>
-        </ng-container>
-        <ng-template #showOrderDetails>
+    <ion-row *ngIf="!(orderItems$ |async)?.length; else showOrderDetails">
+      <ion-col size="12" sizeMd="6" offsetMd="3">
+        <ion-card>
+          <ion-card-header class="ion-text-center">
+            <ion-card-title>Cart is empty!</ion-card-title>
+            <ion-button class="ion-margin-vertical ion-padding-vertical" fill="clear" routerLink="/tabs/menu" size="small">
+              <ion-card-subtitle>
+                Select some items from menu
+              </ion-card-subtitle>
+            </ion-button>
+          </ion-card-header>
+        </ion-card>
+      </ion-col>
+    </ion-row>
+    <ng-template #showOrderDetails>
+      <ion-row>
+        <ion-col size="12" sizeMd="6">
           <lib-order-details
             defaultSegment="pricing"
             [orderItems]="orderItems$ | async"
@@ -30,9 +32,11 @@
             [total]="total$ | async"
             (itemClick)="onItemClick($event.detail.id)"
           ></lib-order-details>
-        </ng-template>
-      </ion-col>
-    </ion-row>
+        </ion-col>
+        <ion-col size="12" sizeMd="6">
+          <app-checkout-form></app-checkout-form>
+        </ion-col>
+      </ion-row>
+    </ng-template>
   </ion-grid>
-  <app-checkout-form *ngIf="(orderItems$ |async)?.length"></app-checkout-form>
 </ion-content>
