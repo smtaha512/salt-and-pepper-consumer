@@ -1,4 +1,3 @@
-import { routerReducer, RouterReducerState } from '@ngrx/router-store';
 import { ActionReducerMap } from '@ngrx/store';
 
 import * as fromMenu from '../pages/menu/+state/menu.reducer';
@@ -9,19 +8,16 @@ export interface State {
   [fromCurrentOrderItem.currentOrderItemsFeatureKey]: fromCurrentOrderItem.State;
   [fromMenuItem.menuItemsFeatureKey]: fromMenuItem.State;
   [fromMenu.menusFeatureKey]: fromMenu.State;
-  router: RouterReducerState<any>;
 }
 
 export const initialState: State = {
-  currentOrderItems: fromCurrentOrderItem.initialState,
-  menuItems: fromMenuItem.initialState,
-  menus: fromMenu.initialState,
-  router: null,
+  [fromCurrentOrderItem.currentOrderItemsFeatureKey]: fromCurrentOrderItem.initialState,
+  [fromMenuItem.menuItemsFeatureKey]: fromMenuItem.initialState,
+  [fromMenu.menusFeatureKey]: fromMenu.initialState,
 };
 
 export const reducers: ActionReducerMap<State> = {
   [fromCurrentOrderItem.currentOrderItemsFeatureKey]: fromCurrentOrderItem.reducer,
   [fromMenuItem.menuItemsFeatureKey]: fromMenuItem.reducer,
   [fromMenu.menusFeatureKey]: fromMenu.menuReducers,
-  router: routerReducer,
 };
