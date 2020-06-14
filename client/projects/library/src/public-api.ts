@@ -12,6 +12,14 @@ export { OrdersItemsListBodyModule } from './lib/components/orders-items-list-bo
 export { OrdersItemsListComponent } from './lib/components/orders-items-list/orders-items-list.component';
 export { OrdersItemsListModule } from './lib/components/orders-items-list/orders-items-list.module';
 
+export { CounterInputPopoverComponent } from './lib/components/overlays/popovers/counter-input-popover/counter-input-popover.component';
+export { CounterInputPopoverModule } from './lib/components/overlays/popovers/counter-input-popover/counter-input-popover.module';
+export { CounterInputPopoverService } from './lib/components/overlays/popovers/counter-input-popover/counter-input-popover.service';
+
+export { TextareaPopoverComponent } from './lib/components/overlays/popovers/textarea-popover/textarea-popover.component';
+export { TextareaPopoverModule } from './lib/components/overlays/popovers/textarea-popover/textarea-popover.module';
+export { TextareaPopoverService } from './lib/components/overlays/popovers/textarea-popover/textarea-popover.service';
+
 export { CounterInputModule } from './lib/components/counter-input/counter-input.module';
 export { CounterInputComponent } from './lib/components/counter-input/counter-input.component';
 
@@ -46,6 +54,7 @@ export { storageSyncMetaReducer } from './lib/store/meta-reducers/meta-reducers'
 export { clearStateMetaReducer } from './lib/store/meta-reducers/clear-state.metareducer';
 export { selectById, selectEntityByIndex, selectFirstEntity, selectLastEntity } from './lib/store/selectors/utils';
 
+export { ActionSheetService } from './lib/services/action-sheet/action-sheet.service';
 export { BaseCrudService } from './lib/services/base-curd/base-crud.service';
 export { InterceptorsModule } from './lib/services/interceptors/interceptors.module';
 export { NetworkService } from './lib/services/network/network.service';

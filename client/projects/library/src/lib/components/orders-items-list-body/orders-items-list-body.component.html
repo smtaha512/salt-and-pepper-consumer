@@ -1,4 +1,10 @@
-<ion-item lines="none" *ngFor="let item of orderItems; let isLast = last; trackBy: trackBy">
+<ion-item
+  (click)="onItemClick(item._id)"
+  *ngFor="let item of orderItems; let isLast = last; trackBy: trackBy"
+  button
+  detail="false"
+  lines="none"
+>
   <ion-label>
     <ion-row class="align-items-center ion-no-margin" [ngClass]="{ 'border-bottom': !isLast }">
       <ion-col class="ion-text-wrap">{{ item.title }}</ion-col>

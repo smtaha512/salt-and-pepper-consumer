@@ -1,4 +1,4 @@
-import { Action, createReducer, on } from '@ngrx/store';
+import { createReducer, on } from '@ngrx/store';
 import { EntityState, EntityAdapter, createEntityAdapter } from '@ngrx/entity';
 import { CurrentOrderItem } from './current-order-item.model';
 import * as CurrentOrderItemActions from './current-order-item.actions';
@@ -11,7 +11,7 @@ export interface State extends EntityState<CurrentOrderItem> {
 }
 
 export const adapter: EntityAdapter<CurrentOrderItem> = createEntityAdapter<CurrentOrderItem>({
-  selectId: (instance) => `${instance._id} ${instance.preference} ${instance.notes} ${instance.quantity}`,
+  selectId: (instance) => instance._id,
 });
 
 export const initialState: State = adapter.getInitialState({

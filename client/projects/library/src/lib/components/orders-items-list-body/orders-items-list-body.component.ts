@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input, OnInit, Output, EventEmitter, ElementRef } from '@angular/core';
 
 @Component({
   selector: 'lib-orders-items-list-body',
@@ -9,11 +9,16 @@ import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core
 export class OrdersItemsListBodyComponent implements OnInit {
   @Input() orderItems: any[]; // TODO: add type here
 
-  constructor() {}
+  constructor(private readonly elem: ElementRef<HTMLElement>) {}
 
   ngOnInit() {}
 
   trackBy(index: number, item: any): number {
-    return (item && item._id) || index;
+    return item?._id || index;
+  }
+
+  onItemClick(id: string) {
+    const event = new CustomEvent('itemClick', { detail: { id }, bubbles: true });
+    this.elem.nativeElement.dispatchEvent(event);
   }
 }
