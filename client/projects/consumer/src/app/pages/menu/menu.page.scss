@@ -1,18 +1,7 @@
-ion-card-header:after {
-  content: attr(data-eta);
-  white-space: pre;
-  text-align: center;
-  height: 70px;
-  width: 70px;
-  background: var(--ion-color-dark);
-  position: absolute;
-  top: -35px;
-  right: 0;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  color: white;
-  font-weight: bold;
-  border: 0;
-  border-radius: 50%;
+ion-slides {
+  height: 100%;
+}
+
+ion-segment-button.ios {
+  min-width: 50%;
 }

@@ -1,12 +1,15 @@
-import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import { DOCUMENT } from '@angular/common';
+import { ChangeDetectionStrategy, Component, Inject, OnInit } from '@angular/core';
+import { IonSlides } from '@ionic/angular';
 import { select, Store } from '@ngrx/store';
-import { Observable } from 'rxjs';
-import { filter } from 'rxjs/operators';
-
-import { ItemInterface, MenuInterface, isNotEmpty } from 'dist/library';
+import { isNotEmpty, ItemInterface, MenuInterface } from 'dist/library';
+import { BehaviorSubject, Observable } from 'rxjs';
+import { filter, pluck, switchMap } from 'rxjs/operators';
 import { loadMenuItems } from '../menu-item/+state/menu-item.actions';
-import { menuItems } from '../menu-item/+state/menu-item.selectors';
+import { menuItemsByMenuId } from '../menu-item/+state/menu-item.selectors';
 import { loadMenus } from './+state/menu.actions';
+import { firstMenu } from './+state/menu.selectors';
+import { MenuPopoverService } from './components/menu-popover/menu-popover.service';
 
 @Component({
   selector: 'app-menu',
@@ -18,7 +21,17 @@ export class MenuPage implements OnInit {
   firstMenu$: Observable<MenuInterface>;
   menuItems$: Observable<Array<ItemInterface>>;
 
-  constructor(private readonly store: Store<any>) {}
+  current$ = new BehaviorSubject('APPETIZER');
+  segments = ['APPETIZER', 'SALAD / CONDIMENTS', 'SOUPS (G)', 'BREADS', 'Indian Menu', 'DESSERTS', 'Pakistani Menu'].map((item, idx) => ({
+    id: `id${idx}`,
+    name: item,
+  }));
+
+  constructor(
+    private readonly store: Store<any>,
+    @Inject(DOCUMENT) private readonly document: Document,
+    private readonly menuPopover: MenuPopoverService
+  ) {}
 
   ngOnInit() {
     this.dispatchInitalActions();
@@ -26,13 +39,47 @@ export class MenuPage implements OnInit {
   }
 
   dispatchInitalActions() {
-    // ! A wierd bug: Does not dispact success action for first action. In this case does not dispatch success action for loadMenus.
+    // ! A wierd bug: Does not dispatch success action for first action. In this case does not dispatch success action for loadMenus.
     // ! Cause: Unknown
     this.store.dispatch(loadMenus());
     this.store.dispatch(loadMenuItems());
   }
 
   selectStates() {
-    this.menuItems$ = this.store.pipe(select(menuItems), filter(isNotEmpty));
+    this.firstMenu$ = this.store.pipe(select(firstMenu), filter(isNotEmpty));
+
+    this.menuItems$ = this.firstMenu$.pipe(
+      pluck('_id'),
+      switchMap((menuId: string) => this.store.pipe(select(menuItemsByMenuId(menuId)), filter(isNotEmpty)))
+    );
+  }
+
+  trackBy(idx: number, item: string) {
+    return idx ?? item;
+  }
+
+  handleSlideChange(slides: IonSlides) {
+    this.updateCurrentSegment(slides);
+    this.moveCurrentSegmentIntoView(slides);
+  }
+
+  private updateCurrentSegment(slides: IonSlides) {
+    slides.getActiveIndex().then((idx) => {
+      this.current$.next(this.segments[idx].name);
+    });
+  }
+
+  private moveCurrentSegmentIntoView(slides: IonSlides) {
+    slides.getActiveIndex().then((idx) => {
+      this.document.querySelector(`#${this.segments[idx].id}`).scrollIntoView({
+        behavior: 'smooth',
+        block: 'center',
+        inline: 'center',
+      });
+    });
+  }
+
+  showPopover(event: Event) {
+    this.menuPopover.present(event);
   }
 }
