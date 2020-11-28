@@ -51,7 +51,6 @@ function addCategory(models) {
  */
 function pushRefToCategory(models) {
   return function (item) {
-    console.log('item: ', item);
     return models.MenuModel.findOneAndUpdate(
       { 'categories._id': item.categoryId },
       {

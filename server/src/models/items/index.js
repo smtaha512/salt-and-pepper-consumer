@@ -5,7 +5,7 @@ const Schema = Mongoose.Schema;
 const ItemSchemaObj = {
   categoryId: { ref: 'Menu.categories', type: Schema.Types.ObjectId },
   description: { maxlength: 240, trim: true, type: String },
-  eta: { match: ETAPattern, required: true, type: String },
+  eta: { default: 30, type: Number },
   image: { trim: true, type: String },
   menuId: { ref: 'Menu', type: Schema.Types.ObjectId },
   preferences: {
@@ -19,7 +19,7 @@ const ItemSchemaObj = {
   },
   title: {
     index: true,
-    maxlength: [20, 'Item title must be less than 20 characters'],
+    maxlength: [60, 'Item title must be less than 60 characters'],
     trim: true,
     type: String,
   },

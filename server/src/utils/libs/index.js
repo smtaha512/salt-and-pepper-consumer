@@ -3,9 +3,11 @@ const isEmpty = require('lodash/isEmpty');
 const isEqual = require('lodash/isEqual');
 const pick = require('lodash/pick');
 const unionBy = require('lodash/unionBy');
+const groupBy = require('lodash/groupBy');
 
 const lodash = {
   get,
+  groupBy,
   isEmpty,
   isEqual,
   pick,

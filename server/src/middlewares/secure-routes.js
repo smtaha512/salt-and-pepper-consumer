@@ -25,16 +25,22 @@ const unprotectedRoutes = [
 function secureRoute() {
   return function (request, response, next) {
     logger.info(formatLog(request.method, request.originalUrl, 'request', 'headers', request.headers));
-    if (
-      unprotectedRoutes.find((r) => {
-        const sameUrl = r.url.test(request.originalUrl);
-        const sameMethod = r.method === request.method;
-        // * To compare params and qs, _ is lodash, uncomment next two lines
-        // const sameParams = _.isEqual(r.params, request.params)
-        // const sameQuery = _.isEqual(r.qs, request.query)
-        return sameUrl && sameMethod;
-      })
-    ) {
+    
+    const isGETCall = request.method === API_VERBS.GET;
+    if (isGETCall) {
+      next();
+      return;
+    }
+
+    const isUnprotected = unprotectedRoutes.find((r) => {
+      const sameUrl = r.url.test(request.originalUrl);
+      const sameMethod = r.method === request.method;
+      // * To compare params and qs, _ is lodash, uncomment next two lines
+      // const sameParams = _.isEqual(r.params, request.params)
+      // const sameQuery = _.isEqual(r.qs, request.query)
+      return sameUrl && sameMethod;
+    });
+    if (isUnprotected) {
       next();
       return;
     }
