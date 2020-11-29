@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { LoadingController } from '@ionic/angular';
-import { EMPTY, from, of } from 'rxjs';
+import { from, of } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
 
 @Injectable({ providedIn: 'root' })
@@ -30,12 +30,12 @@ export class LoaderService {
       this.loaderInstanceCounter--;
     }
 
-    return from(this.loadingController.getTop()).pipe(
-      switchMap((loader) => {
+    return from(
+      this.loadingController.getTop().then((loader) => {
         if (this.loaderInstanceCounter < 1 && loader) {
           return from(loader.dismiss());
         }
-        return EMPTY;
+        return of(true);
       })
     );
   }
