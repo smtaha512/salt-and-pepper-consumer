@@ -8,33 +8,47 @@
       </ion-button>
     </ion-buttons>
   </ion-toolbar>
+  <ion-segment [value]="current$ | async" scrollable class="position-sticky">
+    <ion-segment-button
+      [id]="'segment-' + menu._id"
+      *ngFor="let menu of menus$ | async; trackBy: trackBy; let i = index;"
+      (click)="slides.slideTo(i);"
+      [value]="menu._id"
+    >
+      <ion-label>{{ menu.title }}</ion-label>
+    </ion-segment-button>
+  </ion-segment>
 </ion-header>
 
 <ion-content>
-  <ion-segment [value]="current$ | async" scrollable class="position-sticky">
-    <ion-segment-button
-      [id]="segment.id"
-      *ngFor="let segment of segments; trackBy: trackBy; let i = index;"
-      (click)="slides.slideTo(i);"
-      [value]="segment.name"
-    >
-      <ion-label>{{ segment.name }}</ion-label>
-    </ion-segment-button>
-  </ion-segment>
-
   <ion-slides #slides (ionSlideWillChange)="handleSlideChange(slides)" [options]="{speed: 150}">
-    <ion-slide *ngFor="let slide of segments" class="d-flex justify-content-start align-items-start">
-      <ion-list class="w-100 h-100">
-        <ion-list-header *ngIf="slide.name.toLowerCase().includes('indian')">
-          <ion-label class="d-flex justify-content-start">{{ slide.name }}</ion-label>
-          <ion-button (click)="container.hidden = !container.hidden">See All</ion-button>
-        </ion-list-header>
-        <div #container>
-          <ion-item>
-            <ion-label>Item 1</ion-label>
-          </ion-item>
-        </div>
-      </ion-list>
+    <ion-slide *ngFor="let slide of menus$ | async" class="d-flex justify-content-start align-items-start">
+      <ion-grid>
+        <ion-row>
+          <ion-col size="12">
+            <ng-container *ngIf="(current$ | async) as current">
+              <ng-container *ngIf="(menus$ | async) as menus">
+                <ng-container *ngIf="((menus) | findBy: '_id': current) as menu">
+                  <ng-container *ngFor="let category of menu?.categories">
+                    <ion-title *ngIf="menu?.categories.length > 1" class="ion-text-capitalize">{{category.title}}</ion-title>
+                    <ion-card *ngFor="let item of category.items">
+                      <ion-card-header>
+                        <div class="d-flex justify-content-between">
+                          <ion-card-title class="ion-text-start">{{item?.title}}</ion-card-title>
+                          <div>
+                            <ion-badge color="primary" mode="ios">{{ item?.price | currency:'USD' }}</ion-badge>
+                          </div>
+                        </div>
+                        <ion-card-subtitle class="ion-text-start">{{item?.description}}</ion-card-subtitle>
+                      </ion-card-header>
+                    </ion-card>
+                  </ng-container>
+                </ng-container>
+              </ng-container>
+            </ng-container>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
     </ion-slide>
   </ion-slides>
 </ion-content>

@@ -11,6 +11,7 @@ import * as fromMenu from './+state/menu.reducer';
 import { MenuPopoverModule } from './components/menu-popover/menu-popover.module';
 import { MenuPageRoutingModule } from './menu-routing.module';
 import { MenuPage } from './menu.page';
+import { FindByPipe } from './pipes/find-by/find-by.pipe';
 
 @NgModule({
   imports: [
@@ -22,6 +23,6 @@ import { MenuPage } from './menu.page';
     EffectsModule.forFeature([MenuEffects, MenuItemsEffects]),
     MenuPopoverModule,
   ],
-  declarations: [MenuPage],
+  declarations: [MenuPage, FindByPipe],
 })
 export class MenuPageModule {}
