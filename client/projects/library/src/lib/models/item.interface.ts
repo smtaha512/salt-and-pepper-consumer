@@ -1,5 +1,4 @@
 import { BaseEntityInterface } from './base-entity.interface';
-import { PreferencesEnum } from './preferences.enum';
 
 export interface ItemInterface extends BaseEntityInterface {
   categoryId: string;
@@ -7,7 +6,8 @@ export interface ItemInterface extends BaseEntityInterface {
   eta: string;
   image: string;
   menuId: string;
-  preferences: PreferencesEnum;
+  preferences: string[];
   price: number;
   title: string;
+  defaultPreference: string;
 }
