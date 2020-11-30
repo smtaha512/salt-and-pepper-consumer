@@ -27,7 +27,7 @@ export class BaseCrudService<Entity> {
     return this.http.delete<void>(`${this.base}/${id}`);
   }
 
-  getById(id: string) {
-    return this.http.get(`${this.base}/${id}`);
+  getById(id: string): Observable<Entity> {
+    return this.http.get<Entity>(`${this.base}/${id}`);
   }
 }
