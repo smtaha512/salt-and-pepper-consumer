@@ -60,7 +60,7 @@ export class MenuPage implements OnInit, OnDestroy {
   }
 
   private moveCurrentSegmentIntoView(index: string) {
-    this.document?.querySelector('#segment-'.concat(index)).scrollIntoView({
+    this.document?.querySelector('#segment-'.concat(index))?.scrollIntoView({
       behavior: 'smooth',
       block: 'center',
       inline: 'center',
