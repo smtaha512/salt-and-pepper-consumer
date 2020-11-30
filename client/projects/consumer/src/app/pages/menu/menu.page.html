@@ -8,9 +8,9 @@
       </ion-button>
     </ion-buttons>
   </ion-toolbar>
-  <ion-segment [value]="current$ | async" scrollable class="position-sticky">
+  <ion-segment [value]="current$ | async" scrollable class="position-sticky" (ionChange)="segmentButtonClicked($event)">
     <ion-segment-button
-      [id]="'segment-' + menu._id"
+      [id]="'segment' + menu._id"
       *ngFor="let menu of menus$ | async; trackBy: trackBy; let i = index;"
       (click)="slides.slideTo(i);"
       [value]="menu._id"
@@ -21,25 +21,23 @@
 </ion-header>
 
 <ion-content>
-  <ion-slides #slides (ionSlideWillChange)="handleSlideChange(slides)" [options]="{speed: 150}">
+  <ion-slides #slides (ionSlideTouchEnd)="handleSlideChange(slides)" [options]="{speed: 150}">
     <ion-slide *ngFor="let slide of menus$ | async" class="d-flex justify-content-start align-items-start">
       <ion-grid>
-        <ion-row>
+        <ion-row *ngFor="let category of slide?.categories">
           <ion-col size="12">
-            <ng-container *ngFor="let category of slide?.categories">
-              <ion-title *ngIf="slide?.categories.length > 1" class="ion-text-capitalize">{{category.title}}</ion-title>
-              <ion-card *ngFor="let item of category.items">
-                <ion-card-header>
-                  <div class="d-flex justify-content-between">
-                    <ion-card-title class="ion-text-start">{{item?.title}}</ion-card-title>
-                    <div>
-                      <ion-badge color="primary" mode="ios">{{ item?.price | currency:'USD' }}</ion-badge>
-                    </div>
+            <ion-title *ngIf="slide?.categories.length > 1" class="ion-text-capitalize">{{category.title}}</ion-title>
+            <ion-card *ngFor="let item of category.items">
+              <ion-card-header>
+                <div class="d-flex justify-content-between">
+                  <ion-card-title class="ion-text-start">{{item?.title}}</ion-card-title>
+                  <div>
+                    <ion-badge color="primary" mode="ios">{{ item?.price | currency:'USD' }}</ion-badge>
                   </div>
-                  <ion-card-subtitle class="ion-text-start">{{item?.description}}</ion-card-subtitle>
-                </ion-card-header>
-              </ion-card>
-            </ng-container>
+                </div>
+                <ion-card-subtitle class="ion-text-start">{{item?.description}}</ion-card-subtitle>
+              </ion-card-header>
+            </ion-card>
           </ion-col>
         </ion-row>
       </ion-grid>
