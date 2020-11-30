@@ -27,7 +27,7 @@
         <ion-row *ngFor="let category of slide?.categories">
           <ion-col size="12">
             <ion-title *ngIf="slide?.categories.length > 1" class="ion-text-capitalize">{{category.title}}</ion-title>
-            <ion-card *ngFor="let item of category.items">
+            <ion-card *ngFor="let item of category.items" [routerLink]="['/menu-item', item._id]">
               <ion-card-header>
                 <div class="d-flex justify-content-between">
                   <ion-card-title class="ion-text-start">{{item?.title}}</ion-card-title>
