@@ -19,10 +19,9 @@
     <ion-grid>
       <ion-row>
         <ion-col size="12" sizeSm="10" offsetSm="1" sizeMd="8" offsetMd="2" sizeLg="6" offsetLg="3">
-          <lib-img-with-skeleton [src]="(menuItem$ | async)?.image" [alt]="(menuItem$ | async)?.title"></lib-img-with-skeleton>
-          <ion-text color="light">
+          <ion-text color="light" *ngIf="(menuItem$ | async)?.description as description">
             <h3 class="font-weight-bold">Details</h3>
-            {{ (menuItem$ | async)?.description }}
+            {{ description }}
           </ion-text>
           <ion-list class="ion-no-padding">
             <ion-radio-group *ngIf="(menuItem$ | async)?.preferences as preferences" formControlName="preference" name="preference">
@@ -31,7 +30,7 @@
               </ion-list-header>
               <ion-item *ngFor="let preference of preferences">
                 <ion-label class="ion-text-capitalize">{{ preference }}</ion-label>
-                <ion-radio #radio slot="start" [value]="preference" style="--color-checked: var(--ion-color-tertiary);"></ion-radio>
+                <ion-radio slot="start" [value]="preference" style="--color-checked: var(--ion-color-tertiary)"></ion-radio>
               </ion-item>
             </ion-radio-group>
 

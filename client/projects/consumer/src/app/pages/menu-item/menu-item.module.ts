@@ -5,7 +5,7 @@ import { IonicModule } from '@ionic/angular';
 import { EffectsModule } from '@ngrx/effects';
 import { StoreModule } from '@ngrx/store';
 
-import { ImgWithSkeletonModule, CounterInputModule } from 'dist/library';
+import { CounterInputModule } from 'dist/library';
 import * as fromMenuItem from './+state/menu-item.reducer';
 import { MenuItemsEffects } from './+state/menu-item.effects';
 import { MenuItemPageRoutingModule } from './menu-item-routing.module';
@@ -20,7 +20,6 @@ import { MenuItemPage } from './menu-item.page';
     MenuItemPageRoutingModule,
     StoreModule.forFeature(fromMenuItem.menuItemsFeatureKey, fromMenuItem.reducer),
     EffectsModule.forFeature([MenuItemsEffects]),
-    ImgWithSkeletonModule,
     CounterInputModule,
   ],
   declarations: [MenuItemPage],

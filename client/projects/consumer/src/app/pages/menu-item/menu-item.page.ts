@@ -1,14 +1,12 @@
 import { ChangeDetectionStrategy, Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
+import { NavController, ToastController } from '@ionic/angular';
 import { select, Store } from '@ngrx/store';
+import { isNotEmpty, ItemInterface, PreferencesEnum } from 'dist/library';
 import { Observable, Subject } from 'rxjs';
-import { pluck, shareReplay, switchMap, tap, map, filter, takeUntil } from 'rxjs/operators';
-
-import { ItemInterface, PreferencesEnum, isNotEmpty } from 'dist/library';
+import { filter, map, pluck, shareReplay, switchMap, takeUntil, tap } from 'rxjs/operators';
 import { upsertCurrentOrderItem } from '../cart/+state/current-order-item.actions';
-import { menuItemById } from './+state/menu-item.selectors';
-import { ToastController, NavController } from '@ionic/angular';
 import { currentOrderItemById } from '../cart/+state/current-order-item.selectors';
 
 @Component({
@@ -34,8 +32,9 @@ export class MenuItemPage implements OnInit, OnDestroy {
   ngOnInit() {
     this.id$ = this.route.params.pipe(pluck('id'));
 
-    this.menuItem$ = this.id$.pipe(
-      switchMap((id) => this.store.pipe(select(menuItemById(id)))),
+    this.menuItem$ = this.route.data.pipe(
+      pluck('item'),
+      tap((item) => this.preference.setValue(item.defaultPreference)),
       shareReplay({ refCount: true, bufferSize: 1 })
     );
 
@@ -46,7 +45,7 @@ export class MenuItemPage implements OnInit, OnDestroy {
   buildForm() {
     this.form = this.fb.group({
       notes: this.fb.control('', [Validators.maxLength(240)]),
-      preference: this.fb.control(PreferencesEnum.MILD, [Validators.required]),
+      preference: this.fb.control('', [Validators.required]),
       quantity: this.fb.control(1, [Validators.required, Validators.min(1)]),
     });
   }
