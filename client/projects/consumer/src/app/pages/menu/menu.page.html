@@ -8,7 +8,7 @@
       </ion-button>
     </ion-buttons>
   </ion-toolbar>
-  <ion-segment [value]="current$ | async" scrollable class="position-sticky" (ionChange)="segmentButtonClicked($event)">
+  <ion-segment [value]="current$ | async" scrollable class="position-sticky">
     <ion-segment-button
       [id]="'segment' + menu._id"
       *ngFor="let menu of menus$ | async; trackBy: trackBy; let i = index;"
