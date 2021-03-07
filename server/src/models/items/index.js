@@ -9,7 +9,7 @@ const ItemSchemaObj = {
   image: { trim: true, type: String },
   menuId: { ref: 'Menu', type: Schema.Types.ObjectId },
   preferences: {
-    default: ITEM_PREFERENCES,
+    default: [],
     type: [{ type: String }],
   },
   price: {
