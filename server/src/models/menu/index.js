@@ -8,7 +8,7 @@ const CategorySchema = new Schema(
     items: [{ ref: 'Item', type: Schema.Types.ObjectId }],
     title: {
       lowercase: true,
-      maxlength: [20, 'Menu title must be less than 20 characters'],
+      maxlength: [40, 'Menu title must be less than 20 characters'],
       trim: true,
       type: String,
     },
@@ -26,7 +26,7 @@ const MenuSchema = new Schema(
     title: {
       index: true,
       lowercase: true,
-      maxlength: [20, 'Menu title must be less than 20 characters'],
+      maxlength: [40, 'Menu title must be less than 20 characters'],
       required: true,
       trim: true,
       type: String,
