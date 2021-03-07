@@ -6,72 +6,100 @@
       {
         "title": "Vegetable Pakora",
         "description": "Mixed vegetable fritters.",
-        "price": "4"
+        "price": "5",
+        "preferences": ["mild", "medium", "hot"],
+        "defaultPreference": "mild"
       },
       {
         "title": "Fish Pakora",
         "description": "Fish Fillets coated in spicy batter.",
-        "price": "7"
+        "price": "8",
+        "preferences": ["mild", "medium", "hot"],
+        "defaultPreference": "mild"
       },
       {
         "title": "Vegetable Samosa",
         "description": "House Made pastries filled with potatoes and peas.",
-        "price": "4"
+        "price": "5",
+        "preferences": ["mild", "medium", "hot"],
+        "defaultPreference": "mild"
       },
       {
         "title": "Chili Chicken",
         "description": "Crisp Fried Chicken , Soy-Tomato-Ginger Glaze.",
-        "price": "8"
+        "price": "8",
+        "preferences": ["mild", "medium", "hot"],
+        "defaultPreference": "mild"
       },
       {
         "title": "Veggie Platter",
         "description": "Veggie samosa, pakora, paneer pakora & aloo tikki.",
-        "price": "7"
+        "price": "8",
+        "preferences": ["mild", "medium", "hot"],
+        "defaultPreference": "mild"
       },
       {
         "title": "Karara Chicken Tikka",
         "description": "Chicken marinade with spices & yogurt.",
-        "price": "8"
+        "price": "8",
+        "preferences": ["mild", "medium", "hot"],
+        "defaultPreference": "mild"
       },
       {
         "title": "Samosa Chaat",
         "description": "Samosa made with chickpeas topped with yogurt, tamarind & mint chutney.",
-        "price": "6"
+        "price": "7",
+        "preferences": ["mild", "medium", "hot"],
+        "defaultPreference": "mild"
       },
       {
         "title": "Katori Chaat",
-        "description": "Samosa made with chickpeas topped with yogurt, tamarind & mint chutney.",
-        "price": "7"
+        "description": "Chickpeas topped with yogurt, tamarind & mint chutney.",
+        "price": "7",
+        "preferences": ["mild", "medium", "hot"],
+        "defaultPreference": "mild"
       },
       {
         "title": "Dahi Puri",
         "description": "Indian street food served with mini puri shells, yogurt, sev, & chutney.",
-        "price": "4"
+        "price": "5",
+        "preferences": ["mild", "medium", "hot"],
+        "defaultPreference": "mild"
       },
       {
         "title": "Paneer Pakora",
         "description": "Chunks of paneer slathered with Indian spices, & mint chutney.",
-        "price": "6"
+        "price": "7",
+        "preferences": ["mild", "medium", "hot"],
+        "defaultPreference": "mild"
       },
       {
         "title": "Crispy Chili Baby Corn",
         "description": "Baby corn batter coated & fried served with onion and pepper.",
-        "price": "7"
+        "price": "7",
+        "preferences": ["mild", "medium", "hot"],
+        "defaultPreference": "mild"
       },
       {
         "title": "Palak Pakora",
         "description": "Fresh baby spinach deep fried with gram flour.",
-        "price": "5"
+        "price": "5",
+        "preferences": ["mild", "medium", "hot"],
+        "defaultPreference": "mild"
       },
       {
         "title": "Gobi Manchurian",
         "description": "Cauliflower sautéed with garlic, & herbs.",
-        "price": "8"
+        "price": "8",
+        "preferences": ["mild", "medium", "hot"],
+        "defaultPreference": "mild"
       },
       {
         "title": "Chilli Paneer",
         "description": "Paneer with bell pepper & onion.",
-        "price": "8"
+        "price": "8",
+        "preferences": ["mild", "medium", "hot"],
+        "defaultPreference": "mild"
       }
     ]
   },
@@ -90,7 +118,7 @@
         "price": "5"
       },
       {
-        "title": "Raita/ Mix Pickle/ Mint",
+        "title": "Raita/ Mix Pickle / Mint",
         "description": "",
         "price": "2"
       },
@@ -118,17 +146,23 @@
       {
         "title": " Mulligatawny Soup",
         "description": "Delicious & popular soup of mixed lentils cooked with herbs & mild spices.",
-        "price": "4"
+        "price": "4",
+        "preferences": ["no-spice", "mild", "medium-hot", "hot", "extra-hot"],
+        "defaultPreference": "no-spice"
       },
       {
         "title": "Chicken Soup",
         "description": "Chicken based soup cooked with Indian spices.",
-        "price": "5"
+        "price": "5",
+        "preferences": ["no-spice", "mild", "medium-hot", "hot", "extra-hot"],
+        "defaultPreference": "no-spice"
       },
       {
         "title": "Tomato Bisque",
         "description": "Southern Indian spices cooked with tomato base.",
-        "price": "5"
+        "price": "5",
+        "preferences": ["no-spice", "mild", "medium-hot", "hot", "extra-hot"],
+        "defaultPreference": "no-spice"
       }
     ]
   },
@@ -146,19 +180,23 @@
       },
       {
         "title": "Garlic Naan",
-        "price": "3"
+        "price": "4"
       },
       {
         "title": "Aloo Naan",
-        "price": "3"
+        "price": "4",
+        "preferences": ["no-spice", "mild", "medium-hot", "hot", "extra-hot"],
+        "defaultPreference": ""
       },
       {
         "title": "Onion Naan",
-        "price": "3"
+        "price": "4",
+        "preferences": ["no-spice", "mild", "medium-hot", "hot", "extra-hot"],
+        "defaultPreference": ""
       },
       {
         "title": "Rosemary Naan",
-        "price": "3"
+        "price": "4"
       },
       {
         "title": "Gobi Paratha",
@@ -170,11 +208,15 @@
       },
       {
         "title": "Aloo Paratha",
-        "price": "4"
+        "price": "4",
+        "preferences": ["no-spice", "mild", "medium-hot", "hot", "extra-hot"],
+        "defaultPreference": ""
       },
       {
         "title": "Paneer Nan",
-        "price": "4"
+        "price": "4",
+        "preferences": ["no-spice", "mild", "medium-hot", "hot", "extra-hot"],
+        "defaultPreference": ""
       },
       {
         "title": "Batura/Poori 2pc",
@@ -187,244 +229,330 @@
     ]
   },
   {
-    "menuName": "Indian Menu",
+    "menuName": "TANDOORI",
     "categoryName": "TANDOORI",
     "items": [
       {
-        "price": " $15",
-        "title": "Chicken Tandoori /half"
+        "price": "15",
+        "title": "Chicken Tandoori / half",
+        "preferences": ["no-spice", "mild", "medium-hot", "hot", "extra-hot"],
+        "defaultPreference": ""
       },
       {
         "price": "25",
-        "title": "Chicken Tandoori /full"
+        "title": "Chicken Tandoori / full",
+        "preferences": ["no-spice", "mild", "medium-hot", "hot", "extra-hot"],
+        "defaultPreference": ""
       },
       {
-        "price": " $18",
-        "title": "Tandoori Mix Grill"
+        "price": "18",
+        "title": "Tandoori Mix Grill",
+        "preferences": ["no-spice", "mild", "medium-hot", "hot", "extra-hot"],
+        "defaultPreference": ""
       },
       {
-        "price": " $17",
-        "title": "Shrimp Tandoori"
+        "price": "17",
+        "title": "Shrimp Tandoori",
+        "preferences": ["no-spice", "mild", "medium-hot", "hot", "extra-hot"],
+        "defaultPreference": ""
       },
       {
-        "price": " $18",
-        "title": "Tandoori Salmon"
+        "price": "18",
+        "title": "Tandoori Salmon",
+        "preferences": ["no-spice", "mild", "medium-hot", "hot", "extra-hot"],
+        "defaultPreference": ""
       },
       {
-        "price": " $14",
+        "price": "14",
         "title": "Seekh Kabab",
         "description": "Minced meat skewered & roasted in the Tandoor served with pickled Onions."
       }
     ]
   },
   {
-    "menuName": "Indian Menu",
+    "menuName": "BIRYANIS (G)",
     "categoryName": "BIRYANIS (G)",
     "items": [
       {
         "title": "Vegetable Biryani",
         "description": "Fresh garden vegetables. Topped with crispy onion and accompanied with raita.",
-        "price": " $14"
+        "price": "14",
+        "preferences": ["no-spice", "mild", "medium-hot", "hot", "extra-hot"],
+        "defaultPreference": ""
       },
       {
         "title": "Indian Special Biryani",
         "description": "Basmati rice cooked in butter with shrimp, chicken, lamb, vegetable, and nuts.",
-        "price": "16"
+        "price": "16",
+        "preferences": ["no-spice", "mild", "medium-hot", "hot", "extra-hot"],
+        "defaultPreference": ""
       },
       {
         "title": "Goat/ Shrimp/Lamb",
         "description": "Saffron rice cooked with choice of meat and Indian spices served with raita and nuts.",
-        "price": "17"
+        "price": "17",
+        "preferences": ["no-spice", "mild", "medium-hot", "hot", "extra-hot"],
+        "defaultPreference": ""
       },
       {
         "title": "Chicken Biryani",
-        "price": "15"
+        "price": "15",
+        "preferences": ["no-spice", "mild", "medium-hot", "hot", "extra-hot"],
+        "defaultPreference": ""
       }
     ]
   },
   {
-    "menuName": "Indian Menu",
+    "menuName": "VEGETARIAN",
     "categoryName": "VEGETARIAN",
     "items": [
       {
         "title": "Navratan Korma (G)",
         "description": "Vegetable medley cooked in a creamy nut sauce with fresh herbs and spices.",
-        "price": "14"
+        "price": "14",
+        "preferences": ["no-spice", "mild", "medium-hot", "hot", "extra-hot"],
+        "defaultPreference": ""
       },
       {
         "title": "Gobhi Tawa Masala (G)",
         "description": "Fresh cauliflower and potatoes cooked with fresh ginger, garlic and spices.",
-        "price": "14"
+        "price": "14",
+        "preferences": ["no-spice", "mild", "medium-hot", "hot", "extra-hot"],
+        "defaultPreference": ""
       },
       {
         "title": "Chana Masala (G)",
         "description": "Chickpeas with tangy tomato onion curry.",
-        "price": "13"
+        "price": "13",
+        "preferences": ["no-spice", "mild", "medium-hot", "hot", "extra-hot"],
+        "defaultPreference": ""
       },
       {
         "title": "Malai Kofta",
         "description": "Vegetable dumplings in cashew sauce.",
-        "price": "14"
+        "price": "14",
+        "preferences": ["no-spice", "mild", "medium-hot", "hot", "extra-hot"],
+        "defaultPreference": ""
       },
       {
         "title": "Bhindi Masala (G)",
         "description": "Fresh Okra sautéed with onions, ginger, tomatoes and fresh ground spices.",
-        "price": "13"
+        "price": "13",
+        "preferences": ["no-spice", "mild", "medium-hot", "hot", "extra-hot"],
+        "defaultPreference": ""
       },
       {
         "title": "Shahi Paneer (G)",
         "description": "Homemade cheese with fresh onions, & tomatoes served in creamy sauce.",
-        "price": "14"
+        "price": "14",
+        "preferences": ["no-spice", "mild", "medium-hot", "hot", "extra-hot"],
+        "defaultPreference": ""
       },
       {
         "title": "Dal Makhni or Dal Tadka (G)",
         "description": "Lentils cooked with fresh herbs and spices sauteed in butter.",
-        "price": "13"
+        "price": "13",
+        "preferences": ["no-spice", "mild", "medium-hot", "hot", "extra-hot"],
+        "defaultPreference": ""
       },
       {
         "title": "Palak Paneer",
         "description": "Creamed spinach cooked with pieces of fresh homemade cheese.",
-        "price": "13"
+        "price": "13",
+        "preferences": ["no-spice", "mild", "medium-hot", "hot", "extra-hot"],
+        "defaultPreference": ""
       },
       {
         "title": "Karahi Paneer",
         "description": "Fresh homemade cheese cooked with herbs & mixed spices.",
-        "price": "13"
+        "price": "13",
+        "preferences": ["no-spice", "mild", "medium-hot", "hot", "extra-hot"],
+        "defaultPreference": ""
       },
       {
         "title": "Mixed Vegetable (G)",
         "description": "Fresh vegetables medley cooked in a delicately spiced sauce.",
-        "price": "13"
+        "price": "13",
+        "preferences": ["no-spice", "mild", "medium-hot", "hot", "extra-hot"],
+        "defaultPreference": ""
       },
       {
         "title": "Baingan Bharta (G)",
         "description": "Eggplant sautéed with onion, garlic, ginger & green peas.",
-        "price": "13"
+        "price": "13",
+        "preferences": ["no-spice", "mild", "medium-hot", "hot", "extra-hot"],
+        "defaultPreference": ""
       },
       {
         "title": "Mutter Paneer (G)",
         "description": "North Indian curry made with homemade Cheese, peas, onion, garlic & ginger.",
-        "price": "13"
+        "price": "13",
+        "preferences": ["no-spice", "mild", "medium-hot", "hot", "extra-hot"],
+        "defaultPreference": ""
       },
       {
         "title": "Aloo Karahi (G)",
         "description": "Specialty of Bombay fresh potatoes cooked in cumin seed and herbs.",
-        "price": "12"
+        "price": "12",
+        "preferences": ["no-spice", "mild", "medium-hot", "hot", "extra-hot"],
+        "defaultPreference": ""
       },
       {
         "title": "Methi Mutter Malai",
         "description": "Green peas sautéed with garlic, & ginger served in savory creamy sauce.",
-        "price": "14"
+        "price": "14",
+        "preferences": ["no-spice", "mild", "medium-hot", "hot", "extra-hot"],
+        "defaultPreference": ""
       }
     ]
   },
   {
-    "menuName": "Indian Menu",
+    "menuName": "CHICKEN / GOAT / SEAFOOD / LAMB",
     "categoryName": "CHICKEN/ GOAT/ SEAFOOD/ LAMB",
     "items": [
       {
         "title": "Chicken Madras",
         "description": "Tender pieces of chicken cooked in special hot sauce with dash of lemon juice.",
-        "price": "15"
+        "price": "16",
+        "preferences": ["no-spice", "mild", "medium-hot", "hot", "extra-hot"],
+        "defaultPreference": ""
       },
       {
         "title": "Tikka Masala",
         "description": "Tender chicken breast roasted in oven cooked in creamy sauce.",
-        "price": "16"
+        "price": "16",
+        "preferences": ["no-spice", "mild", "medium-hot", "hot", "extra-hot"],
+        "defaultPreference": ""
       },
       {
         "title": "Butter Chicken",
         "description": "Chicken cooked in rich creamy sauce with exotic Indian spices.",
-        "price": "16"
+        "price": "17",
+        "preferences": ["no-spice", "mild", "medium-hot", "hot", "extra-hot"],
+        "defaultPreference": ""
       },
       {
         "title": "Karahi Masala",
         "description": "Choice of meat cooked with sliced onion, bell pepper and Indian spices.",
-        "price": "15"
+        "price": "15",
+        "preferences": ["no-spice", "mild", "medium-hot", "hot", "extra-hot"],
+        "defaultPreference": ""
       },
       {
         "title": "Chicken 65",
         "description": "Chicken marinated with yogurt, fresh lime and spices.",
-        "price": "15"
+        "price": "15",
+        "preferences": ["no-spice", "mild", "medium-hot", "hot", "extra-hot"],
+        "defaultPreference": ""
       },
       {
         "title": "Shahi Korma",
         "description": "Tender pieces of meat cooked in rich creamy sauce with nuts & raisins.",
-        "price": "16"
+        "price": "16",
+        "preferences": ["no-spice", "mild", "medium-hot", "hot", "extra-hot"],
+        "defaultPreference": ""
       },
       {
         "title": "Black Pepper Shrimp",
         "description": "Fresh jumbo shrimp with crushed black pepper in classic curry sauce.",
-        "price": "15"
+        "price": "17",
+        "preferences": ["no-spice", "mild", "medium-hot", "hot", "extra-hot"],
+        "defaultPreference": ""
       },
       {
         "title": "Vindaloo Curry",
         "description": "Choice of meat with garlic, ginger, cooked with potatoes, & garnished with cilantro.",
-        "price": "15"
+        "price": "15",
+        "preferences": ["no-spice", "mild", "medium-hot", "hot", "extra-hot"],
+        "defaultPreference": ""
       },
       {
         "title": "Boti Kabab Masala",
         "description": "Goat cooked with garlic, onions & peppers in masala sauce.",
-        "price": "17"
+        "price": "17",
+        "preferences": ["no-spice", "mild", "medium-hot", "hot", "extra-hot"],
+        "defaultPreference": ""
       },
       {
         "title": "Saag",
         "description": "Spinach cooked with herbs & fresh spices.",
-        "price": "15"
+        "price": "15",
+        "preferences": ["no-spice", "mild", "medium-hot", "hot", "extra-hot"],
+        "defaultPreference": ""
       },
       {
         "title": "Rogan Josh",
         "description": "Cooked in delicately spiced tomato sauce, along with garlic & ginger.",
-        "price": "16"
+        "price": "16",
+        "preferences": ["no-spice", "mild", "medium-hot", "hot", "extra-hot"],
+        "defaultPreference": ""
       },
       {
         "title": "Chicken Curry",
         "description": "Pan fried with fresh ginger, garlic, bell pepper, onions and spices.",
-        "price": "15"
+        "price": "15",
+        "preferences": ["no-spice", "mild", "medium-hot", "hot", "extra-hot"],
+        "defaultPreference": ""
       },
       {
         "title": "Dal Saag",
         "description": "Lentil cooked with spinach & choice of meat.",
-        "price": "16"
+        "price": "16",
+        "preferences": ["no-spice", "mild", "medium-hot", "hot", "extra-hot"],
+        "defaultPreference": ""
       },
       {
         "title": "Kid’s Meal",
         "description": "Choice of meat, naan, & rice or fries.",
-        "price": "7"
+        "price": "7",
+        "preferences": ["no-spice", "mild", "medium-hot", "hot", "extra-hot"],
+        "defaultPreference": ""
       }
     ]
   },
   {
-    "menuName": "Indian Menu",
+    "menuName": "HOUSE SPECIAL",
     "categoryName": "HOUSE SPECIAL",
     "items": [
       {
         "title": "Veggie Dinner for 2",
         "description": "Pakora, Naan, Nav Ratan Korma, Chana Masala, Dal Makhni, Rice & dessert.",
-        "price": "47"
+        "price": "47",
+        "preferences": ["no-spice", "mild", "medium-hot", "hot", "extra-hot"],
+        "defaultPreference": ""
       },
       {
         "title": "Non-Veggie Dinner for 2",
         "description": "Samosa, Garlic Naan, Rice, Chicken Tikka Masala, Lamb Saag, 3 shrimp, 3 tikka & dessert.",
-        "price": "55"
+        "price": "55",
+        "preferences": ["no-spice", "mild", "medium-hot", "hot", "extra-hot"],
+        "defaultPreference": ""
       },
       {
         "title": "Veg Thali",
         "description": "Vegetable Pakora, Chef choice of 2 veggie curry, Rice, Nan & Raita.",
-        "price": "15"
+        "price": "15",
+        "preferences": ["no-spice", "mild", "medium-hot", "hot", "extra-hot"],
+        "defaultPreference": ""
       },
       {
         "title": "Non-Veg Thali",
         "description": "Samosa, Chef choice of Non-veggie curry, Rice & Nan.",
-        "price": "16"
+        "price": "16",
+        "preferences": ["no-spice", "mild", "medium-hot", "hot", "extra-hot"],
+        "defaultPreference": ""
       },
       {
         "title": "Chole Bhature",
-        "price": "10"
+        "price": "10",
+        "preferences": ["no-spice", "mild", "medium-hot", "hot", "extra-hot"],
+        "defaultPreference": ""
       },
       {
         "title": "Aloo Poori",
-        "price": "10"
+        "price": "10",
+        "preferences": ["no-spice", "mild", "medium-hot", "hot", "extra-hot"],
+        "defaultPreference": ""
       }
     ]
   },
@@ -469,12 +597,16 @@
     "categoryName": "HANDI SPECIAL",
     "items": [
       {
-        "price": " $40",
-        "title": "Boneless Chicken Handi"
+        "price": "40",
+        "title": "Boneless Chicken Handi",
+        "preferences": ["medium", "hot"],
+        "defaultPreference": ""
       },
       {
-        "price": " $45",
-        "title": "Lamb/Mutton Handi"
+        "price": "45",
+        "title": "Lamb/Mutton Handi",
+        "preferences": ["medium", "hot"],
+        "defaultPreference": ""
       }
     ]
   },
@@ -484,51 +616,75 @@
     "items": [
       {
         "price": "35",
-        "title": "Chicken Karahi"
+        "title": "Chicken Karahi",
+        "preferences": ["medium", "hot"],
+        "defaultPreference": ""
       },
       {
         "price": "45",
-        "title": "Lamb Karahi"
+        "title": "Lamb Karahi",
+        "preferences": ["medium", "hot"],
+        "defaultPreference": ""
       },
       {
         "price": "40",
-        "title": "Boneless Chicken Karahi"
+        "title": "Boneless Chicken Karahi",
+        "preferences": ["medium", "hot"],
+        "defaultPreference": ""
       },
       {
         "price": "35",
-        "title": "Aloo Keema"
+        "title": "Aloo Keema",
+        "preferences": ["medium", "hot"],
+        "defaultPreference": ""
       },
       {
         "price": "35",
-        "title": "Palak Chicken"
+        "title": "Palak Chicken",
+        "preferences": ["medium", "hot"],
+        "defaultPreference": ""
       },
       {
         "price": "45",
-        "title": "Palak Gosht"
+        "title": "Palak Gosht",
+        "preferences": ["medium", "hot"],
+        "defaultPreference": ""
       },
       {
         "price": "40",
-        "title": "Chicken Tikka Karahi"
+        "title": "Chicken Tikka Karahi",
+        "preferences": ["medium", "hot"],
+        "defaultPreference": ""
       },
       {
         "price": "35",
-        "title": "Kabab Karahi"
+        "title": "Kabab Karahi",
+        "preferences": ["medium", "hot"],
+        "defaultPreference": ""
       },
       {
         "price": "45",
-        "title": "White Karahi Special"
+        "title": "White Karahi Special",
+        "preferences": ["medium", "hot"],
+        "defaultPreference": ""
       },
       {
         "price": "20",
-        "title": "Chicken Karahi/Half"
+        "title": "Chicken Karahi/Half",
+        "preferences": ["medium", "hot"],
+        "defaultPreference": ""
       },
       {
         "price": "45",
-        "title": "Mutton Karahi"
+        "title": "Mutton Karahi",
+        "preferences": ["medium", "hot"],
+        "defaultPreference": ""
       },
       {
         "price": "25",
-        "title": "Goat Karahi/Half"
+        "title": "Goat Karahi/Half",
+        "preferences": ["medium", "hot"],
+        "defaultPreference": ""
       }
     ]
   },
@@ -538,15 +694,21 @@
     "items": [
       {
         "price": "45",
-        "title": "Pakistani Platter"
+        "title": "Pakistani Platter",
+        "preferences": ["medium", "hot"],
+        "defaultPreference": ""
       },
       {
         "price": "45",
-        "title": "Sizzling Platter"
+        "title": "Sizzling Platter",
+        "preferences": ["medium", "hot"],
+        "defaultPreference": ""
       },
       {
         "price": "20",
-        "title": "Veggie Platter"
+        "title": "Veggie Platter",
+        "preferences": ["medium", "hot"],
+        "defaultPreference": ""
       }
     ]
   },
@@ -555,24 +717,34 @@
     "categoryName": "SINGLE SERVING",
     "items": [
       {
-        "price": " $17",
-        "title": "Chicken Manchurian with Fried Rice"
+        "price": "17",
+        "title": "Chicken Manchurian with Fried Rice",
+        "preferences": ["medium", "hot"],
+        "defaultPreference": ""
       },
       {
         "price": "29",
-        "title": "Lamb Chops (4pc)"
-      },
-      {
-        "price": " $17",
-        "title": "Chicken Korma"
+        "title": "Lamb Chops (4pc)",
+        "preferences": ["medium", "hot"],
+        "defaultPreference": ""
       },
       {
         "price": "17",
-        "title": "Haleem"
+        "title": "Chicken Korma",
+        "preferences": ["medium", "hot"],
+        "defaultPreference": ""
+      },
+      {
+        "price": "17",
+        "title": "Haleem",
+        "preferences": ["medium", "hot"],
+        "defaultPreference": ""
       },
       {
         "price": "10",
-        "title": "Finger Fish"
+        "title": "Finger Fish",
+        "preferences": ["medium", "hot"],
+        "defaultPreference": ""
       }
     ]
   },
@@ -580,22 +752,75 @@
     "menuName": "Pakistani Menu",
     "categoryName": "BREAD",
     "items": [
-      { "title": "Naan", "price": "2" },
+      { "title": "Naan", "price": "3" },
       { "title": "Rogni Naan", "price": "4" },
       { "title": "Platter Naan", "price": "6" },
-      { "title": "Kabab Roll", "price": "7" },
-      { "title": "Veggie Roll", "price": "6" }
+      {
+        "title": "Kabab Roll",
+        "price": "7",
+        "preferences": ["medium", "hot"],
+        "defaultPreference": ""
+      },
+      {
+        "title": "Veggie Roll",
+        "price": "6",
+        "preferences": ["medium", "hot"],
+        "defaultPreference": ""
+      }
     ]
   },
   {
     "menuName": "Pakistani Menu",
     "categoryName": "STREET SPECIAL",
     "items": [
-      { "title": "Lahori Channa", "price": "15" },
-      { "title": "Charsi Tikka (4 Seekh)", "price": "15" },
-      { "title": "Tandoori Wings-12pc/24pc", "price": "16/$30" },
-      { "title": "Seekh Kabab-6pc/12pc", "price": "18/$36" },
-      { "title": "Tandoori Chicken- Half /Full", "price": "15/$25" }
+      {
+        "title": "Lahori Channa",
+        "price": "15",
+        "preferences": ["medium", "hot"],
+        "defaultPreference": ""
+      },
+      {
+        "title": "Charsi Tikka (4 Seekh)",
+        "price": "45",
+        "preferences": ["medium", "hot"],
+        "defaultPreference": ""
+      },
+      {
+        "title": "Tandoori Wings-12pc",
+        "price": "16",
+        "preferences": ["medium", "hot"],
+        "defaultPreference": ""
+      },
+      {
+        "title": "Tandoori Wings-24pc",
+        "price": "30",
+        "preferences": ["medium", "hot"],
+        "defaultPreference": ""
+      },
+      {
+        "title": "Seekh Kabab-6pc",
+        "price": "18",
+        "preferences": ["medium", "hot"],
+        "defaultPreference": ""
+      },
+      {
+        "title": "Seekh Kabab-12pc",
+        "price": "36",
+        "preferences": ["medium", "hot"],
+        "defaultPreference": ""
+      },
+      {
+        "title": "Tandoori Chicken- Half",
+        "price": "15",
+        "preferences": ["medium", "hot"],
+        "defaultPreference": ""
+      },
+      {
+        "title": "Tandoori Chicken- Full",
+        "price": "25",
+        "preferences": ["medium", "hot"],
+        "defaultPreference": ""
+      }
     ]
   }
 ]

@@ -33,9 +33,10 @@ dbConnectionFns.estDBConnection()
               .then((categoryId) => {
                 const promised = v.items.map(item => createItem({
                   categoryId,
-                  title: item.title,
                   description: item.description,
+                  preferences: item.preferences || [],
                   price: Number(item.price) || 0,
+                  title: item.title,
                 }));
                 return Promise.all(promised);
               })
