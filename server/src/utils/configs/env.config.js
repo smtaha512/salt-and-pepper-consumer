@@ -1,5 +1,12 @@
+const twilioAccountSid = process.env.TWILIO_ACCOUNT_SID;
+const twilioVerifyServiceSid = process.env.TWILIO_VERIFY_SERVICE_SID;
+const twilioAuthToken = process.env.TWILIO_AUTH_TOKEN;
+
 const defaultConfig = {
   port: 4000,
+  twilioAccountSid,
+  twilioAuthToken,
+  twilioVerifyServiceSid,
 };
 
 module.exports = {

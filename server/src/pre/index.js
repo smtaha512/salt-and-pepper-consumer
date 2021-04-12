@@ -23,11 +23,11 @@ module.exports = function preInitialization(app) {
 
   const dbUrl = _.get(global, 'app.envConfig.dbUrl');
   if (!dbUrl) throw new Error('Must specify correct DB_URL');
-  dbConnections.estDBConnection()
-    .then((connection) => {
-      console.log('connection: ', connection);
+  dbConnections
+    .estDBConnection()
+    .then(() => {
       logger.info(`⛓  - Database/MLab connection established: ${dbUrl}`);
       console.log('⛓  - Database/MLab connection established');
     })
-    .catch((err) => void console.error(`Error connecting to mLab: `, err));;
+    .catch((err) => void console.error(`Error connecting to mLab: `, err));
 };

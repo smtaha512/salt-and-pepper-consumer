@@ -5,8 +5,9 @@
     "lib": ["es2015", "es2016", "es2017"],
     "paths": {
       "@src/*": ["./src/*"],
-      "@utils": ["./src/utils/*"]
-    }
+      "@utils": ["./src/utils/*"],
+    },
+    "moduleResolution": "node"
   },
   "include": ["src/**/*.js"]
 }

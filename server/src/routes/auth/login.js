@@ -1,10 +1,11 @@
 const router = require('express').Router();
 
-const { verify } = require('../../repositories/users/index');
+const { verify, verifyOrCreate } = require('../../repositories/users/index');
 const dbModels = require('../../models/index');
 const { RES_MSGS, USER_TYPES } = require('../../utils/constants');
 const Utils = require('../../utils/index');
 const { logger, formatLog } = require('../../utils/logger');
+const { twilioVerify } = require('@src/utils/twilio-verify');
 
 router.post('/login/admin', (request, response) => {
   logger.info(formatLog(request.method, request.originalUrl, 'request', 'body', request.body));
@@ -25,7 +26,7 @@ router.post('/login/admin', (request, response) => {
 
 router.post('/login/user', (request, response) => {
   const creds = { ...request.body, type: USER_TYPES.user };
-  verify(dbModels)(creds)
+  verifyOrCreate(dbModels)(creds)
     .then((user = {}) => {
       const token = Utils.signJWT();
       response.setHeader('Authorization', token);
@@ -56,6 +57,28 @@ router.post('/login', (request, response) => {
       return response.send(RES_MSGS.invalidQuery);
     }
   }
+});
+
+router.post('/verification-code', (request, response) => {
+  logger.info(formatLog(request.method, request.originalUrl, 'request', 'body', request.body));
+  const {
+    body: { contact },
+  } = request;
+  if (!contact) {
+    response.status(400).send(RES_MSGS.phoneNumberMissing);
+  }
+  return twilioVerify()
+    .sendVerificationCode({ to: contact })
+    .then(console.log)
+    .then(() => response.sendStatus(204))
+    .catch((error) => {
+      console.log(error);
+      const twilioErrorStatuses = [403, 429];
+      if (twilioErrorStatuses.includes(error.status)) {
+        logger.info(formatLog(request.method, request.originalUrl, 'response', 'error', RES_MSGS.tooManyRequests));
+        response.sendStatus(500);
+      }
+    });
 });
 
 module.exports = router;
