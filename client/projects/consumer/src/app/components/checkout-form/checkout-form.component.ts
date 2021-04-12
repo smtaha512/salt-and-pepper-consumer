@@ -2,14 +2,11 @@ import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AlertController, IonInput } from '@ionic/angular';
 import { Store } from '@ngrx/store';
-import { throwError } from 'rxjs';
-import { catchError } from 'rxjs/operators';
-import { VerifyCodePopoverService } from '../verify-code-popover/services/verify-code-popover.service';
+import * as checkoutActions from './+state/checkout.actions';
 import { StripeService } from './services/stripe/stripe.service';
 import { CardNumberValidator } from './validators/card-number.validator';
 import { CVCValidator } from './validators/cvc.validator';
 import { ExpiryDateValidator } from './validators/expiry-date.validator';
-import * as checkoutActions from './+state/checkout.actions';
 
 @Component({
   selector: 'app-checkout-form',
@@ -23,13 +20,11 @@ export class CheckoutFormComponent implements OnInit {
     private readonly fb: FormBuilder,
     private readonly stripeService: StripeService,
     private readonly alertController: AlertController,
-    private readonly verifyCodePopoverService: VerifyCodePopoverService,
     private readonly store: Store<any>
   ) {}
 
   ngOnInit() {
     this.buildForm();
-    // this.verifyCodePopoverService.present().subscribe(console.log);
   }
   buildForm() {
     this.form = this.fb.group(
