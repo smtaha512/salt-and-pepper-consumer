@@ -23,8 +23,8 @@
             <h3 class="font-weight-bold">Details</h3>
             {{ description }}
           </ion-text>
-          <ion-list class="ion-no-padding">
-            <ion-radio-group *ngIf="(menuItem$ | async)?.preferences as preferences" formControlName="preference" name="preference">
+          <ion-list class="ion-no-padding" *ngIf="(menuItem$ | async)?.preferences as preferences">
+            <ion-radio-group *ngIf="preferences?.length" formControlName="preference" name="preference">
               <ion-list-header>
                 <ion-label>Choose Spice level</ion-label>
               </ion-list-header>

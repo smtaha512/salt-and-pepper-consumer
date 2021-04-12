@@ -40,14 +40,25 @@ export class MenuItemPage implements OnInit, OnDestroy {
 
     this.buildForm();
     this.updateFormUsingCurrentOrderItem();
+    this.setDynamicFormValidators();
   }
 
   buildForm() {
     this.form = this.fb.group({
       notes: this.fb.control('', [Validators.maxLength(240)]),
-      preference: this.fb.control('', [Validators.required]),
+      preference: this.fb.control('', []),
       quantity: this.fb.control(1, [Validators.required, Validators.min(1)]),
     });
+  }
+
+  private setDynamicFormValidators() {
+    this.menuItem$
+      .pipe(
+        filter((item) => !!item?.preferences?.length),
+        tap(() => this.preference.setValidators(Validators.required)),
+        takeUntil(this.destroyed$)
+      )
+      .subscribe();
   }
 
   updateFormUsingCurrentOrderItem() {
@@ -97,7 +108,7 @@ export class MenuItemPage implements OnInit, OnDestroy {
   private resetForm() {
     this.form.reset();
     this.form.markAsPristine();
-    this.preference.setValue(PreferencesEnum.MILD);
+    this.preference.setValue('');
     this.quantity.setValue(1);
   }
 }

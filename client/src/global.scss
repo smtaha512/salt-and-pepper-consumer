@@ -87,3 +87,26 @@
   --color: var(--ion-color-light);
   --background: var(--ion-item-background);
 }
+
+.cursor-pointer {
+  cursor: pointer;
+}
+
+.popover-center {
+  & .popover-wrapper {
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin: auto;
+    position: absolute;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  & .popover-content {
+    top: auto !important;
+    left: auto !important;
+  }
+}

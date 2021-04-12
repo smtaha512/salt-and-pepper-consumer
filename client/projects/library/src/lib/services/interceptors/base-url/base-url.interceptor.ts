@@ -10,9 +10,10 @@ export class BaseUrlInterceptor implements HttpInterceptor {
 
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     const { url } = req;
+    const baseUrl = url.startsWith('/auth') ? this.config.baseUrl : this.config.baseUrl + '/api';
 
     if (url.startsWith('/')) {
-      return next.handle(req.clone({ url: this.config.baseUrl + req.url }));
+      return next.handle(req.clone({ url: baseUrl + req.url }));
     }
 
     return next.handle(req);

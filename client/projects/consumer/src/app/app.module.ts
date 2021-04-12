@@ -12,6 +12,7 @@ import { Config, InterceptorsModule, StorageService, CONFIG, StorageSyncEffects 
 import { environment } from '../environments/environment';
 import { metaReducers } from './+state/meta-reducers';
 import { reducers } from './+state/reducers';
+import { UserEffects } from './+state/user/user.effects';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { AppEffects } from './app.effects';
@@ -33,7 +34,7 @@ const defaultConfig: Config = { baseUrl: environment.baseUrl, loaderExpemtedUrls
       }
     ),
     StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: environment.production }),
-    EffectsModule.forRoot([AppEffects, StorageSyncEffects]),
+    EffectsModule.forRoot([AppEffects, StorageSyncEffects, UserEffects]),
     HttpClientModule,
     InterceptorsModule.forRoot(defaultConfig),
     ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production }),

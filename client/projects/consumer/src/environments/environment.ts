@@ -6,7 +6,8 @@ import { EnvironmentInterface } from './environment.model';
 
 export const environment: EnvironmentInterface = {
   production: false,
-  baseUrl: 'http://localhost:4000/api',
+  baseUrl: 'http://localhost:4000',
+  stripePublishableKey: 'pk_test_51I3TBKGdvii2zQm7SYmD26490IhsOqV9ljGCxLRzt0dMxeGXBQK7vZvT0YjR68JRyiKXaIspgUFVKIkrVChVCxWh00bncbaR7E',
 };
 
 /*

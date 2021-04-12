@@ -1,5 +1,5 @@
 import { Component, OnInit, ChangeDetectionStrategy, Input, ElementRef } from '@angular/core';
-
+import { PredefinedColors } from '@ionic/core';
 import { PreferencesEnum } from '../../models/preferences.enum';
 
 @Component({
@@ -23,7 +23,19 @@ export class OrderInstructionsComponent implements OnInit {
   }
 
   preferenceColor(item: { preference: PreferencesEnum }) {
-    return item.preference === PreferencesEnum.HOT ? 'danger' : item.preference === PreferencesEnum.SPICY ? 'warning' : 'success';
+    const preferenceColorMap: Record<PreferencesEnum, PredefinedColors> = {
+      [PreferencesEnum.EXTRA_HOT]: 'danger',
+      [PreferencesEnum.HOT]: 'danger',
+      [PreferencesEnum.MEDIUM_HOT]: 'warning',
+      [PreferencesEnum.MEDIUM]: 'warning',
+      [PreferencesEnum.MILD]: 'success',
+      [PreferencesEnum.NO_SPICE]: 'success',
+    };
+    const color = preferenceColorMap[item.preference];
+    if (!item.preference) {
+      throw new Error('Method not implemented');
+    }
+    return color;
   }
 
   trackByFn(index: number, item: { _id: string }) {

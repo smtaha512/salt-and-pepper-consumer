@@ -5,15 +5,19 @@ export interface BaseUserInterface extends BaseEntityInterface {
   avatar: string;
   type: UserTypeEnum;
   username: string;
+  email: string;
+  password: string;
 }
 
 export interface ConsumerInterface extends BaseUserInterface {
   contact: string;
+  type: UserTypeEnum.USER;
+  firstname: string;
+  lastname: string;
 }
 
 export interface AdminInterface extends BaseUserInterface {
-  email: string;
-  password: string;
+  type: UserTypeEnum.ADMIN;
 }
 
 export type UsersInterface = ConsumerInterface | AdminInterface;
