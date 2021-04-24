@@ -4,6 +4,7 @@ const repositories = require('../../repositories/index');
 const middlewares = require('../../middlewares/index');
 const { logger, formatLog } = require('../../utils/logger');
 const { lodash: _, dateFns } = require('../../utils/libs/index');
+const { stripe } = require('../../utils/stripe');
 const dbModels = require('../../models/index');
 
 router.get('/orders/:id?', middlewares.isReqParamValidID, (request, response) => {
@@ -32,11 +33,16 @@ router.get('/orders/:id?', middlewares.isReqParamValidID, (request, response) =>
 
 router.post('/orders', middlewares.validateOrder, (request, response) => {
   const order = request.body;
-  repositories.orders
-    .createOrder(dbModels)(order)
-    .then((order) => {
-      logger.info(formatLog(request.method, request.originalUrl, 'response', 'body', order));
-      response.status(201).send(order);
+  repositories.users
+    .getUserById(models)(order.userId)
+    .then((user) => stripe().createPaymentIntent({ amount: order.total, email: user.email }))
+    .then((stripeResponse) => {
+      return repositories.orders
+        .createOrder(dbModels)(order)
+        .then((order) => {
+          logger.info(formatLog(request.method, request.originalUrl, 'response', 'body', order));
+          response.status(201).send(stripeResponse.client_secret);
+        });
     })
     .catch((e) => {
       logger.error(formatLog(request.method, request.originalUrl, 'response', 'error', e.message));

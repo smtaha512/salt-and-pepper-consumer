@@ -27,7 +27,9 @@ export class StorageSyncEffects {
       exhaustMap((storageValue) =>
         this.store.pipe(
           first(),
-          map((store) => merge(storageValue, store))
+          map((store) => {
+            return merge(storageValue, store);
+          })
         )
       ),
       map((payload) => actions.pullStateFromStorageSuccess({ payload })),

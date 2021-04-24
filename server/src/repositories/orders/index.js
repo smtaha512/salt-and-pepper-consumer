@@ -1,3 +1,5 @@
+const { ORDER_STATUSES } = require('@src/utils/constants');
+
 /**
  * @typedef {import('mongoose').Document} Doc
  * @param {import('../../models/index')} models
@@ -51,6 +53,13 @@ function updateOrder(models, options) {
   };
 }
 
+function updateOrderStatusByPaymentIntentId(models) {
+  return function updateOrderStatusByPaymentIntentId(paymentIntentId) {
+    return models.OrderModel.findOneAndUpdate({ paymentIntent: { id: paymentIntentId } }, { $set: { status: 'preparing' } });
+  };
+}
+
 module.exports.createOrder = createOrder;
 module.exports.getOrders = getOrders;
 module.exports.updateOrder = updateOrder;
+module.exports.updateOrderStatusByPaymentIntentId = updateOrderStatusByPaymentIntentId;

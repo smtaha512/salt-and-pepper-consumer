@@ -11,7 +11,7 @@ export interface OrderCreationInterface extends Pick<OrderInterface, 'notes' | '
 export class CheckoutFormService {
   constructor(private readonly http: HttpClient) {}
 
-  placeOrder({ order }: { order: OrderCreationInterface }): Observable<OrderInterface> {
-    return this.http.post<OrderInterface>('/orders', order);
+  placeOrder({ order }: { order: OrderCreationInterface }): Observable<string> {
+    return this.http.post<string>('/orders', { order, paymentOption: 'creditcard' });
   }
 }

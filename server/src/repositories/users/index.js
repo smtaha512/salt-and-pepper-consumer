@@ -81,6 +81,13 @@ function verifyOrCreate(models) {
   };
 }
 
+function getUserById(models) {
+  return function getUserById(id = '') {
+    return models.UserModel.findById(id);
+  };
+}
+
 module.exports.addUser = addUser;
 module.exports.verify = verify;
 module.exports.verifyOrCreate = verifyOrCreate;
+module.exports.getUserById = getUserById;

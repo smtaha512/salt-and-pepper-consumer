@@ -1,5 +1,5 @@
 {
-  "defaultProject": "consumer",
+  "defaultProject": "manager",
   "projects": {
     "consumer": {
       "name": "Salt and pepper consumer app",

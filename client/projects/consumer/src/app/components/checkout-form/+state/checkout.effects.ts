@@ -34,7 +34,7 @@ export class CheckoutEffects {
                     },
                   })
                   .pipe(
-                    exhaustMap(() => this.stripeService.createCardToken(payload.card)),
+                    exhaustMap((clientSecret) => this.stripeService.confirmPaymentIntent(payload.card, clientSecret)),
                     map(() => CheckoutActions.placeOrderSuccess()),
                     catchError(() => of(CheckoutActions.placeOrderFailure()))
                   )

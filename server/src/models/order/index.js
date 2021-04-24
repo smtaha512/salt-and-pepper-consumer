@@ -23,8 +23,9 @@ const OrderSchema = new Schema(
       ),
     ],
     notes: { default: '', maxlength: 240, trim: true, type: String },
+    paymentIntent: { select: false, type: Object },
     status: {
-      default: 'preparing',
+      default: 'payment_pending',
       enum: ORDER_STATUSES,
       trim: true,
       type: String,

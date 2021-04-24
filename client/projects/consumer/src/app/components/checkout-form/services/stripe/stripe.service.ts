@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import '@capacitor-community/stripe'; // only if you want web support
 import {
   CardTokenResponse,
+  ConfirmPaymentIntentResponse,
   StripePlugin,
   ValidateCardNumberOptions,
   ValidateCVCOptions,
@@ -36,8 +37,16 @@ export class StripeService {
     return from(this.stripePlugin.validateExpiryDate(opts));
   }
 
+  confirmPaymentIntent(card: CardInterface, clientSecret: string): Observable<ConfirmPaymentIntentResponse> {
+    // ? disabling to match stripe naming convention
+    // tslint:disable-next-line: variable-name
+    const { expMonth: exp_month, expYear: exp_year, ...otherDetails } = card;
+    return from(this.stripePlugin.confirmPaymentIntent({ clientSecret, card: { ...otherDetails, exp_month, exp_year } })).pipe(
+      catchError((error) => this.errorAlert(error).pipe(switchMap(() => throwError(error))))
+    );
+  }
+
   createCardToken(card: CardInterface): Observable<CardTokenResponse> {
-    
     // ? disabling to match stripe naming convention
     // tslint:disable-next-line: variable-name
     const { expMonth: exp_month, expYear: exp_year, ...otherDetails } = card;
