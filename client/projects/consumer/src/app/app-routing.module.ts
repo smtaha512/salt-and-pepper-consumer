@@ -19,10 +19,15 @@ const routes: Routes = [
     path: 'order',
     loadChildren: () => import('./pages/order/order.module').then((m) => m.OrderPageModule),
   },
+  {
+    path: '**',
+    pathMatch: 'full',
+    redirectTo: '/tabs/menu',
+  },
 ];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes, { preloadingStrategy: PreloadAllModules })],
   exports: [RouterModule],
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {}
