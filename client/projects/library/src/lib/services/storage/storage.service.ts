@@ -19,7 +19,7 @@ export class StorageService {
 
       const { keys } = await this.storage.keys();
       const { values } = await this.storage.values();
-      const parsedValues = values.map((value, idx) => ({ [keys[idx]]: JSON.parse(value) }));
+      const parsedValues = values.map((value, idx) => ({ [keys[idx]]: value.startsWith(`"{`) ? JSON.parse(value) : value }));
 
       return Object.assign({}, ...parsedValues);
     } catch (error) {
@@ -34,11 +34,17 @@ export class StorageService {
 
   async setToken({ token }: { token: string }) {
     return this.openStore()
-      .then(() => this.storage.set({ key: token, value: token }))
+      .then(() => this.storage.set({ key: 'token', value: token }))
       .then((value) => value.keysvalues);
   }
 
   async getToken() {
-    return this.get().then((store: Record<'user', Record<'token', string>>) => store?.user?.token);
+    return this.get().then((store: StoreInterface) => store?.user?.token ?? store.token);
   }
+}
+
+type Token = Record<'token', string>;
+
+interface StoreInterface extends Partial<Token> {
+  user?: Token;
 }

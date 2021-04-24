@@ -11,7 +11,8 @@ import { environment } from '../environments/environment';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { AppEffects } from './app.effects';
-import { metaReducers, reducers } from './reducers';
+import { metaReducers, reducers } from './+state/reducers';
+import { UserEffects } from './+state/user/user.effects';
 
 const defaultConfig: Config = { baseUrl: environment.baseUrl, loaderExpemtedUrls: [], localDbName: 'SALT_AND_PEPPER_MANAGER' };
 
@@ -29,7 +30,7 @@ const defaultConfig: Config = { baseUrl: environment.baseUrl, loaderExpemtedUrls
       }
     ),
     StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: environment.production }),
-    EffectsModule.forRoot([AppEffects]),
+    EffectsModule.forRoot([AppEffects, UserEffects]),
     HttpClientModule,
     InterceptorsModule.forRoot(defaultConfig),
   ],
