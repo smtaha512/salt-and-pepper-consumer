@@ -1,9 +1,12 @@
 import { DOCUMENT } from '@angular/common';
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Inject, OnDestroy, OnInit } from '@angular/core';
 import { IonSlides } from '@ionic/angular';
+import { select, Store } from '@ngrx/store';
 import { isNotEmpty, ItemInterface, MenuInterface } from 'dist/library';
 import { BehaviorSubject, from, Observable, of, Subscription } from 'rxjs';
 import { filter, map, shareReplay, switchMap, tap } from 'rxjs/operators';
+import { loadMenus } from './+state/menu.actions';
+import { menus } from './+state/menu.selectors';
 import { MenuPopoverService } from './components/menu-popover/menu-popover.service';
 import { MenuService } from './services/menu.service';
 
@@ -27,7 +30,8 @@ export class MenuPage implements OnInit, OnDestroy {
     @Inject(DOCUMENT) private readonly document: Document,
     private readonly menuPopover: MenuPopoverService,
     private readonly menuService: MenuService,
-    private readonly cd: ChangeDetectorRef
+    private readonly cd: ChangeDetectorRef,
+    private readonly store: Store<any>
   ) {}
 
   ngOnInit() {
@@ -35,11 +39,8 @@ export class MenuPage implements OnInit, OnDestroy {
   }
 
   fetchMenu() {
-    this.menus$ = this.menuService.menuWithItems().pipe(
-      filter(isNotEmpty),
-      tap(([menu]) => this.current$.next(menu?._id)),
-      shareReplay({ refCount: true, bufferSize: 1 })
-    );
+    this.store.dispatch(loadMenus());
+    this.menus$ = this.store.pipe(select(menus));
     this.cd.detectChanges();
   }
 

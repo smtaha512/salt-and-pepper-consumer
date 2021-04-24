@@ -14,7 +14,7 @@ export class MenuEffects {
     return this.actions$.pipe(
       ofType(MenuActions.loadMenus),
       switchMap(() =>
-        this.menuService.read().pipe(
+        this.menuService.menuWithItems().pipe(
           map((menus) => MenuActions.loadMenusSuccess({ menus })),
           catchError((error) => of(MenuActions.loadMenusFailure({ error })))
         )
