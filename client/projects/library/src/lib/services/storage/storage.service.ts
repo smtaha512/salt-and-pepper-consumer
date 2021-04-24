@@ -19,9 +19,14 @@ export class StorageService {
 
       const { keys } = await this.storage.keys();
       const { values } = await this.storage.values();
-      const parsedValues = values.map((value, idx) => ({ [keys[idx]]: value.startsWith(`"{`) ? JSON.parse(value) : value }));
+      const parsedValues = values.map((value, idx) => ({
+        [keys[idx]]: value === 'null' ? null : value.startsWith(`"{`) ? JSON.parse(value) : value,
+      }));
 
-      return Object.assign({}, ...parsedValues);
+      const obj = Object.assign({}, ...parsedValues);
+      return Object.entries(obj)
+        .filter(([key, value]) => !(!key || !value || typeof key === 'undefined' || key === 'undefined'))
+        .reduce((acc, [key, value]) => ({ ...acc, [key]: value }), {} as T);
     } catch (error) {
       console.log(error);
     }
