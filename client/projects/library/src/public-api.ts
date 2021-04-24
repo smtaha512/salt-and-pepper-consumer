@@ -53,6 +53,7 @@ export { StorageSyncEffects } from './lib/store/effects/storage-sync.effects';
 export { storageSyncMetaReducer } from './lib/store/meta-reducers/meta-reducers';
 export { clearStateMetaReducer } from './lib/store/meta-reducers/clear-state.metareducer';
 export { selectById, selectEntityByIndex, selectFirstEntity, selectLastEntity } from './lib/store/selectors/utils';
+export { RemoteDevToolsProxy } from './lib/store/remote-devtools-proxy';
 
 export { ActionSheetService } from './lib/services/action-sheet/action-sheet.service';
 export { BaseCrudService } from './lib/services/base-curd/base-crud.service';

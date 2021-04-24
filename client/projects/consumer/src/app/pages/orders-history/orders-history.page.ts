@@ -1,11 +1,11 @@
-import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
-import { EMPTY, Observable } from 'rxjs';
-import { isNotEmpty, OrderInterface } from 'dist/library';
-import { OrdersHistoryService } from './services/orders-history.service';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { select, Store } from '@ngrx/store';
+import { isNotEmpty, OrderInterface } from 'dist/library';
+import { EMPTY, Observable } from 'rxjs';
+import { filter, switchMap } from 'rxjs/operators';
 import { UserInterface } from '../../+state/user/user.model';
 import { userId } from '../../+state/user/user.selectors';
-import { filter, switchMap } from 'rxjs/operators';
+import { OrdersHistoryService } from './services/orders-history.service';
 
 @Component({
   selector: 'app-orders-history',
@@ -16,13 +16,20 @@ import { filter, switchMap } from 'rxjs/operators';
 export class OrdersHistoryPage implements OnInit {
   private userIdFromStore: Observable<string> = EMPTY;
   ordersHistory$: Observable<OrderInterface[]> = EMPTY;
-  constructor(private readonly ordersHistoryService: OrdersHistoryService, private readonly store: Store<UserInterface>) {}
+  constructor(
+    private readonly ordersHistoryService: OrdersHistoryService,
+    private readonly store: Store<UserInterface>,
+    private readonly cd: ChangeDetectorRef
+  ) {}
 
-  ngOnInit() {
+  ngOnInit() {}
+
+  ionViewDidEnter() {
     this.userIdFromStore = this.store.pipe(select(userId), filter(isNotEmpty));
     this.ordersHistory$ = this.userIdFromStore.pipe(
       switchMap((userIdFromStore) => this.ordersHistoryService.getAllOrdersByUserId({ userId: userIdFromStore }))
     );
+    this.cd.markForCheck();
   }
 
   onClick(event: MouseEvent, order) {

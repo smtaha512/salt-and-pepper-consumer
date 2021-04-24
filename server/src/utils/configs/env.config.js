@@ -15,9 +15,7 @@ const defaultConfig = {
 
 module.exports = {
   development: (() => {
-    const dbname = process.env.SAP_DB_NAME,
-      dbpass = process.env.SAP_DB_PASSWORD,
-      dbuser = process.env.SAP_DB_USERNAME;
+    const dbname = process.env.SAP_DB_NAME;
     const dbUrl = `mongodb://localhost:27017/${dbname}`;
     return {
       dbUrl,

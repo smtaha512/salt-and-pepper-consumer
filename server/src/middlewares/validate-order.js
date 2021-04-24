@@ -6,7 +6,7 @@ const { dateFns } = require('../utils/libs/index');
 
 function validateOrder(request, response, next) {
   logger.info(formatLog(request.method, request.originalUrl, 'request', 'body', request.body));
-  const order = request.body;
+  const { order } = request.body;
   const errors = [];
 
   if (Object.keys(order).length === 0) {
@@ -17,14 +17,6 @@ function validateOrder(request, response, next) {
   if (!order.userId || !mongoose.isValidObjectId(order.userId)) errors.push('Invalid or missing user ID');
   if (!order.total || parseFloat(order.total) <= 0) errors.push("Missing order's total amount");
   if (order.tip && Number.isNaN(parseFloat(order.tip))) errors.push("Invalid order's total amount");
-  if (!ETAPattern.test(order.eta)) errors.push("Invalid ETA, It must be match '15 M, 60 M, 3 H' pattern");
-  else {
-    const now = new Date();
-    const [etaValue, etaUnit] = order.eta.split(' ');
-    const eta = dateFns.addMinutes(new Date(), etaValue * (etaUnit === 'H' ? 60 : 1));
-    const minDiffLTE10 = dateFns.differenceInMinutes(eta, now) <= 10;
-    if (minDiffLTE10) errors.push('Invalid ETA, It should take atleast 10 mins');
-  }
   if (errors.length > 0) {
     logger.error(formatLog(request.method, request.originalUrl, 'response', 'error', errors));
     response.status(400).send(errors);

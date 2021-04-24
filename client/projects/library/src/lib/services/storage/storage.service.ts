@@ -20,7 +20,7 @@ export class StorageService {
       const { keys } = await this.storage.keys();
       const { values } = await this.storage.values();
       const parsedValues = values.map((value, idx) => ({
-        [keys[idx]]: value === 'null' ? null : value.startsWith(`"{`) ? JSON.parse(value) : value,
+        [keys[idx]]: value === 'null' ? null : value.startsWith(`{`) ? JSON.parse(value) : value,
       }));
 
       const obj = Object.assign({}, ...parsedValues);

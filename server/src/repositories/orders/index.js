@@ -19,6 +19,7 @@ function getOrders(models) {
           $gte: dateRange.from,
           $lt: dateRange.to,
         },
+        status: { $ne: 'payment_pending' },
       }).exec();
     }
 

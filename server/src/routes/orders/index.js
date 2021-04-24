@@ -32,19 +32,20 @@ router.get('/orders/:id?', middlewares.isReqParamValidID, (request, response) =>
 });
 
 router.post('/orders', middlewares.validateOrder, (request, response) => {
-  const order = request.body;
+  const { order } = request.body;
   repositories.users
-    .getUserById(models)(order.userId)
+    .getUserById(dbModels)(order.userId)
     .then((user) => stripe().createPaymentIntent({ amount: order.total, email: user.email }))
     .then((stripeResponse) => {
       return repositories.orders
         .createOrder(dbModels)(order)
         .then((order) => {
           logger.info(formatLog(request.method, request.originalUrl, 'response', 'body', order));
-          response.status(201).send(stripeResponse.client_secret);
+          response.status(201).send(stripeResponse);
         });
     })
     .catch((e) => {
+      console.log(e);
       logger.error(formatLog(request.method, request.originalUrl, 'response', 'error', e.message));
       response.status(400).send('Unable to create order');
     });

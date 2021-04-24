@@ -9,6 +9,7 @@ import { StoreModule } from '@ngrx/store';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 
 import { Config, InterceptorsModule, StorageService, CONFIG, StorageSyncEffects } from 'dist/library';
+// import { RemoteDevToolsProxy } from 'dist/library';
 import { environment } from '../environments/environment';
 import { metaReducers } from './+state/meta-reducers';
 import { reducers } from './+state/reducers';
@@ -16,6 +17,19 @@ import { UserEffects } from './+state/user/user.effects';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { AppEffects } from './app.effects';
+
+// // Register our remote devtools if we're on-device and not in a browser
+// if (!window['devToolsExtension'] && !window['__REDUX_DEVTOOLS_EXTENSION__']) {
+//   let remoteDevToolsProxy = new RemoteDevToolsProxy({
+//     connectTimeout: 300000, // extend for pauses during debugging
+//     ackTimeout: 120000, // extend for pauses during debugging
+//     secure: false, // dev only
+//   });
+
+//   // support both the legacy and new keys, for now
+//   window['devToolsExtension'] = remoteDevToolsProxy;
+//   window['__REDUX_DEVTOOLS_EXTENSION__'] = remoteDevToolsProxy;
+// }
 
 const defaultConfig: Config = { baseUrl: environment.baseUrl, loaderExpemtedUrls: [], localDbName: 'SALT_AND_PEPPER_CONSUMER' };
 

@@ -11,7 +11,7 @@ function stripe() {
 
   function createPaymentIntent({ amount, email } = { amount: 0, email: '' }) {
     return stripe.paymentIntents.create({
-      amount,
+      amount: amount * 100,
       currency: 'usd',
       receipt_email: email,
     });

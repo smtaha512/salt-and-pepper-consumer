@@ -6,18 +6,19 @@ const Schema = Mongoose.Schema;
 
 const OrderSchema = new Schema(
   {
-    eta: { match: /^[0-9]{1,4} [M]$/, required: true, type: String },
     finalisedAt: { type: Date },
     items: [
       new Schema(
         {
           ...ItemSchemaObj,
+          notes: { default: '', maxlength: 240, trim: true, type: String },
           preference: {
             enum: ITEM_PREFERENCES,
             lowercase: true,
             required: true,
             type: String,
           },
+          quantity: { default: 1, required: true, type: Number },
         },
         { timestamps: false }
       ),

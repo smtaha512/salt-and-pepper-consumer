@@ -12,7 +12,16 @@ function twilioVerify() {
   }
 
   function verifyCode({ code, to } = { code: '', to: '' }) {
-    return twilioVerifyService.verificationChecks.create({ code, to });
+    return twilioVerifyService.verificationChecks
+      .create({ code, to })
+      .then((res) => {
+        console.log(res);
+        return res;
+      })
+      .catch((res) => {
+        console.log(res);
+        throw res;
+      });
   }
   return { sendVerificationCode, verifyCode };
 }

@@ -54,7 +54,7 @@ function verifyOrCreate(models) {
     return new Promise((resolve, reject) =>
       twilioVerify()
         .verifyCode({ code: creds.code, to: creds.contact.toString() })
-        .then((verificationCheckInstance) => verificationCheckInstance.status === 'approved' && reject(RES_MSGS.invalidVerificationCode))
+        .then((verificationCheckInstance) => verificationCheckInstance.status !== 'approved' && reject(RES_MSGS.invalidVerificationCode))
         .then(() => {
           const query = {
             type: creds.type,
@@ -64,17 +64,17 @@ function verifyOrCreate(models) {
           if (!query.email) {
             return reject(new Error(RES_MSGS.invalidCreds));
           }
-          return models.UserModel.findOne(query)
+          return models.UsersModel.findOne(query)
             .exec()
             .then(async (user) => {
-              console.log(_.isEmpty(user), { user });
               if (_.isEmpty(user)) {
                 const userToSave = new models.UsersModel({ ...creds });
                 const savedUser = await userToSave.save();
                 return resolve(savedUser.toObject());
               }
               return resolve(user.toObject());
-            });
+            })
+            .catch((e) => console.log(e));
         })
         .catch(() => reject(new Error(RES_MSGS.invalidCreds)))
     );
@@ -83,7 +83,7 @@ function verifyOrCreate(models) {
 
 function getUserById(models) {
   return function getUserById(id = '') {
-    return models.UserModel.findById(id);
+    return models.UsersModel.findById(id);
   };
 }
 

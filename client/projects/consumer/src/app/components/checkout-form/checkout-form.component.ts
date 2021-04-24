@@ -1,7 +1,11 @@
-import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AlertController, IonInput } from '@ionic/angular';
 import { Store } from '@ngrx/store';
+import { isNotEmpty } from 'dist/library';
+import { Subject } from 'rxjs';
+import { filter, map, takeUntil, tap } from 'rxjs/operators';
+import { user } from '../../+state/user/user.selectors';
 import * as checkoutActions from './+state/checkout.actions';
 import { StripeService } from './services/stripe/stripe.service';
 import { CardNumberValidator } from './validators/card-number.validator';
@@ -14,8 +18,10 @@ import { ExpiryDateValidator } from './validators/expiry-date.validator';
   styleUrls: ['./checkout-form.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class CheckoutFormComponent implements OnInit {
+export class CheckoutFormComponent implements OnInit, OnDestroy {
   form: FormGroup;
+  private readonly destroyed$ = new Subject();
+
   constructor(
     private readonly fb: FormBuilder,
     private readonly stripeService: StripeService,
@@ -25,16 +31,17 @@ export class CheckoutFormComponent implements OnInit {
 
   ngOnInit() {
     this.buildForm();
+    this.updateFormUsingState();
   }
   buildForm() {
     this.form = this.fb.group(
       {
-        cardNumber: this.fb.control('42424242424242', {
+        cardNumber: this.fb.control('', {
           asyncValidators: [CardNumberValidator.validate(this.stripeService)],
           updateOn: 'blur',
           validators: [Validators.required],
         }),
-        cvc: this.fb.control('123', {
+        cvc: this.fb.control('', {
           asyncValidators: [CVCValidator.validate(this.stripeService)],
           updateOn: 'change',
           validators: [Validators.required, Validators.minLength(3), Validators.maxLength(3)],
@@ -43,8 +50,8 @@ export class CheckoutFormComponent implements OnInit {
         firstname: this.fb.control('', [Validators.required]),
         lastname: this.fb.control('', [Validators.required]),
         isNameSameAsAbove: this.fb.control(false),
-        mobileNumber: this.fb.control('+923212092572', [Validators.required]),
-        nameOnCard: this.fb.control('Test', {
+        mobileNumber: this.fb.control('', [Validators.required]),
+        nameOnCard: this.fb.control('', {
           updateOn: 'change',
           validators: [Validators.required],
         }),
@@ -58,6 +65,21 @@ export class CheckoutFormComponent implements OnInit {
     );
   }
 
+  updateFormUsingState() {
+    this.store
+      .select(user)
+      .pipe(
+        filter(isNotEmpty),
+        map(({ firstname, lastname, email, contact }) => ({ firstname, lastname, email, mobileNumber: contact })),
+        tap(({ firstname }) => this.firstname.setValue(firstname)),
+        tap(({ lastname }) => this.lastname.setValue(lastname)),
+        tap(({ email }) => this.email.setValue(email)),
+        tap(({ mobileNumber }) => this.mobileNumber.setValue(mobileNumber)),
+        takeUntil(this.destroyed$)
+      )
+      .subscribe();
+  }
+
   onSubmit() {
     this.form.markAsUntouched();
     this.form.updateValueAndValidity();
@@ -66,16 +88,6 @@ export class CheckoutFormComponent implements OnInit {
     const { cardNumber, cvc, validThru } = this.form.value;
     const [expMonth, expYear] = validThru.split(' / ');
 
-    // this.stripeService
-    //   .createCardToken({ cvc, expMonth, expYear, number: cardNumber })
-    //   .pipe(
-    //     catchError((error) => {
-    //       console.log(error);
-    //       return throwError(error);
-    //     })
-    //   )
-    //   .subscribe({ next: (i) => console.log(i) });
-    // console.log(this.form.value);
     this.store.dispatch(
       checkoutActions.placeOrder({
         card: {
@@ -120,5 +132,27 @@ export class CheckoutFormComponent implements OnInit {
   }
   get nameOnCard() {
     return this.form.get('nameOnCard');
+  }
+  get firstname() {
+    return this.form.get('firstname');
+  }
+  get lastname() {
+    return this.form.get('lastname');
+  }
+  get email() {
+    return this.form.get('email');
+  }
+  get mobileNumber() {
+    return this.form.get('mobileNumber');
+  }
+
+  ngOnDestroy() {
+    this.destroyed$.next();
+    this.resetForm();
+  }
+
+  private resetForm() {
+    this.form.reset();
+    this.form.markAsPristine();
   }
 }

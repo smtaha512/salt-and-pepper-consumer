@@ -1,4 +1,5 @@
-import { ChangeDetectionStrategy, Component, Input, OnInit, Output, EventEmitter, ElementRef } from '@angular/core';
+import { ChangeDetectionStrategy, Component, ElementRef, Input, OnInit } from '@angular/core';
+import { OrderItemInterface } from '../../models/order-item.interface';
 
 @Component({
   selector: 'lib-orders-items-list-body',
@@ -7,7 +8,7 @@ import { ChangeDetectionStrategy, Component, Input, OnInit, Output, EventEmitter
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class OrdersItemsListBodyComponent implements OnInit {
-  @Input() orderItems: any[]; // TODO: add type here
+  @Input() orderItems: OrderItemInterface[]; // TODO: add type here
 
   constructor(private readonly elem: ElementRef<HTMLElement>) {}
 
