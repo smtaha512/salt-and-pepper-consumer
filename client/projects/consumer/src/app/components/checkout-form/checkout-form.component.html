@@ -41,22 +41,24 @@
       <ion-col size="6">
         <ion-item>
           <ion-label position="floating">MM / YY</ion-label>
-          <ion-input
-            #mmdd
-            [min]="currentDate | date: 'yyyy-mm'"
-            class="h-0 w-0 ion-no-padding ion-no-margin"
-            name="month"
-            required
-            style="--padding-bottom: 0; --padding-top: 0"
-            type="month"
-          ></ion-input>
-          <ion-input
-            formControlName="validThru"
-            [value]="getValue(mmdd.value)"
-            name="text"
-            readonly
-            (click)="openMonthYearSelector(mmdd)"
-          ></ion-input>
+          <span>
+            <ion-input
+              #mmdd
+              [min]="currentDate | date: 'yyyy-mm'"
+              class="h-0 w-0 ion-no-padding ion-no-margin"
+              name="month"
+              required
+              style="--padding-bottom: 0; --padding-top: 0"
+              type="month"
+            ></ion-input>
+            <ion-input
+              formControlName="validThru"
+              [value]="getValue(mmdd.value)"
+              name="text"
+              readonly
+              (click)="openMonthYearSelector(mmdd)"
+            ></ion-input>
+          </span>
         </ion-item>
         <ng-container *ngIf="validThru.touched">
           <small *ngIf="validThru.errors | keyvalue as errors">
