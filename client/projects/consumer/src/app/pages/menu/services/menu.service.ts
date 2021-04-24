@@ -18,7 +18,10 @@ export class MenuService extends BaseCrudService<MenuInterface> {
       map(([menus, items]) => {
         return menus.map((menu) => ({
           ...menu,
-          categories: menu.categories.map((category) => ({ ...category, items: items.filter((item) => item.categoryId === category._id) })),
+          categories: menu.categories.map((category) => ({
+            ...category,
+            items: items?.filter((item) => item.categoryId === category._id) ?? [],
+          })),
         }));
       })
     );

@@ -6,7 +6,7 @@ export function selectById<Result, State = Dictionary<Result>, S1 = Dictionary<R
   entities: Selector<State, S1>
 ): (id: string) => MemoizedSelector<State, Result> {
   return function selectByIdFn(id: string) {
-    return createSelector<State, S1, Result>(entities, (state: S1) => state[id]);
+    return createSelector<State, S1, Result>(entities, (state: S1) => state && state[id]);
   };
 }
 
