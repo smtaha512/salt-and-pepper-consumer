@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { BaseCrudService, OrderInterface } from 'dist/library';
 import { interval, Observable } from 'rxjs';
 import { map, switchMap } from 'rxjs/operators';
+import { GetOrdersQueryInterface } from '../models/get-orders-query.interface';
 
 @Injectable({ providedIn: 'root' })
 export class OrdersHistoryService extends BaseCrudService<OrderInterface> {
@@ -21,7 +22,7 @@ export class OrdersHistoryService extends BaseCrudService<OrderInterface> {
     return super.read({ userId });
   }
 
-  getAllOrdersByDateRange({ from, to }: { from: string; to: string }): Observable<OrderInterface[]> {
-    return super.read({ from, to });
+  getAllOrdersByDateRange(query: Partial<GetOrdersQueryInterface>): Observable<OrderInterface[]> {
+    return super.read({ ...query });
   }
 }

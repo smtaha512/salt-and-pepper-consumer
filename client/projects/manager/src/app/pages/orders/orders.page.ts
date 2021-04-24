@@ -1,5 +1,6 @@
 import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { Router } from '@angular/router';
+import { OrdersHistoryService } from '../orders-history/services/orders-history.service';
 
 @Component({
   selector: 'app-orders',
@@ -8,7 +9,8 @@ import { Router } from '@angular/router';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class OrdersPage implements OnInit {
-  constructor(private readonly router: Router) {}
+  orders$ = this.ordersHistoryService.getAllOrdersByDateRange({ date: new Date().toISOString() });
+  constructor(private readonly router: Router, private readonly ordersHistoryService: OrdersHistoryService) {}
 
   ngOnInit() {}
 
