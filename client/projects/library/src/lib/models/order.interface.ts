@@ -1,6 +1,7 @@
 import { BaseEntityInterface } from './base-entity.interface';
 import { OrderItemInterface } from './order-item.interface';
 import { OrderStatausEnum } from './order-status.enum';
+import { ConsumerInterface } from './users.interface';
 
 export interface OrderInterface extends BaseEntityInterface {
   eta: Date;
@@ -9,5 +10,5 @@ export interface OrderInterface extends BaseEntityInterface {
   notes: string;
   status: OrderStatausEnum;
   total: number;
-  userId: string;
+  userId: string | ConsumerInterface;
 }
