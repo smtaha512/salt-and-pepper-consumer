@@ -26,7 +26,7 @@ const OrderSchema = new Schema(
     notes: { default: '', maxlength: 240, trim: true, type: String },
     paymentIntent: { select: false, type: Object },
     status: {
-      default: 'payment_pending',
+      default: 'payment pending',
       enum: ORDER_STATUSES,
       trim: true,
       type: String,

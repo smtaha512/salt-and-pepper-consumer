@@ -18,13 +18,13 @@
     <ion-item lines="none" class="ion-text-center">
       <ion-label>Sub Total: </ion-label>
       <ion-text>
-        {{ subTotal | currency: 'USD' }}
+        {{ subTotal || calculateSubTotal(orderItems) | currency: 'USD' }}
       </ion-text>
     </ion-item>
     <ion-item lines="full" class="ion-text-center">
       <ion-label>+ Tax (20%): </ion-label>
       <ion-text>
-        {{ tax | currency: 'USD' }}
+        {{ tax || calulateTax(calculateSubTotal(orderItems)) | currency: 'USD' }}
       </ion-text>
     </ion-item>
     <ion-item lines="none" class="ion-text-center">

@@ -2,8 +2,8 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { BaseCrudService, OrderInterface } from 'dist/library';
 import { orderBy } from 'lodash';
-import { interval, Observable } from 'rxjs';
-import { map, switchMap } from 'rxjs/operators';
+import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 import { GetOrdersQueryInterface } from '../models/get-orders-query.interface';
 
 @Injectable({ providedIn: 'root' })
@@ -11,6 +11,10 @@ export class OrdersHistoryService extends BaseCrudService<OrderInterface> {
   protected base = '/orders';
   constructor(protected readonly httpClient: HttpClient) {
     super(httpClient);
+  }
+
+  getById(id: string) {
+    return super.getById(id);
   }
 
   pollForOrders(): Observable<OrderInterface[]> {
@@ -24,6 +28,6 @@ export class OrdersHistoryService extends BaseCrudService<OrderInterface> {
   }
 
   getAllOrdersByDateRange(query: Partial<GetOrdersQueryInterface>): Observable<OrderInterface[]> {
-    return super.read({ ...query }).pipe(map((orders) => orderBy(orders, 'createdAt', ['desc'])));
+    return super.read({ ...query, populateUser: true }).pipe(map((orders) => orderBy(orders, 'createdAt', ['desc'])));
   }
 }

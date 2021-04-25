@@ -6,9 +6,7 @@
           <ion-buttons><ion-back-button text="" color="light" defaultHref="/orders"></ion-back-button></ion-buttons>
         </ion-col>
         <ion-col size="10" sizeMd="11">
-          <ion-title class="ion-no-padding" mode="md" size="large" color="light">
-            Orders Details
-          </ion-title>
+          <ion-title class="ion-no-padding" mode="md" size="large" color="light"> Orders Details </ion-title>
         </ion-col>
       </ion-row>
     </ion-grid>
@@ -16,29 +14,27 @@
 </ion-header>
 
 <ion-content>
-  <ion-grid>
+  <ion-grid *ngIf="currentOrder$ | async as order">
     <ion-row>
       <ion-col size="12" sizeMd="8" offsetMd="2">
-        <lib-order-details>
+        <lib-order-details [orderItems]="order.items" [subTotal]="subTotal$ | async" [tax]="tax$ |async" [tip]="" [total]="order.total">
           <ion-card class="metadata">
             <ion-card-header class="d-flex justify-content-between">
               <ion-card-subtitle class="d-flex flex-column">
-                <ion-text class="mb-1" color="light">John Doe</ion-text>
-                <ion-text class="mb-1" color="light">{{ 1 | date: 'mediumDate' }}</ion-text>
-                <ion-text color="tertiary" color="light">{{ 220 | currency: 'USD' }}</ion-text>
+                <ion-text class="mb-1" color="light">{{ order?.userId?.firstname }} {{ order?.userId?.firstname }}</ion-text>
+                <ion-text class="mb-1" color="light">{{ order?.createdAt | date: 'mediumDate' }}</ion-text>
+                <ion-text color="tertiary" color="light">{{ order?.total | currency: 'USD' }}</ion-text>
               </ion-card-subtitle>
               <div>
                 <ion-badge color="light" mode="ios">
-                  <ion-text color="dark">
-                    Preparing
-                  </ion-text>
+                  <ion-text color="dark" class="ion-text-capitalize"> {{ order?.status }} </ion-text>
                 </ion-badge>
               </div>
             </ion-card-header>
             <ion-card-content>
               <ion-item [href]="'tel:+1'">
                 <ion-icon name="call-outline" slot="start"></ion-icon>
-                <ion-label>+1 XXX-XXX-XXXX</ion-label>
+                <ion-label>{{ order?.userId?.contact }}</ion-label>
               </ion-item>
             </ion-card-content>
           </ion-card>
@@ -53,15 +49,22 @@
   </ion-fab>
 </ion-content>
 
-<ion-footer>
+<ion-footer *ngIf="currentOrder$ | async as order">
   <ion-grid>
     <ion-row>
       <ion-col class="d-flex align-items-center justify-content-between" size="12" sizeSm="6" sizeMd="4" offsetSm="3" offsetMd="4">
         <div>
           <ion-text color="light font-weight-bold">Order status: </ion-text>
-          <ion-text color="secondary font-weight-bold">Preparing </ion-text>
+          <ion-text color="secondary font-weight-bold ion-text-capitalize">{{ order?.status }} </ion-text>
         </div>
-        <ion-button color="light" fill="outline" size="small" (click)="changeOrderStatus()">Change</ion-button>
+        <ion-button
+          (click)="changeOrderStatus(order?.status)"
+          *ngIf="order?.status !== 'cancelled'"
+          color="light"
+          fill="outline"
+          size="small"
+          >Change</ion-button
+        >
       </ion-col>
     </ion-row>
   </ion-grid>

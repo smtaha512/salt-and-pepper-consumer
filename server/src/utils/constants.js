@@ -31,7 +31,7 @@ module.exports.MODEL_NAMES = {
 };
 
 module.exports.ETAPattern = /^[0-9]{1,4} [M|H]$/;
-module.exports.ORDER_STATUSES = ['payment_pending', 'preparing', 'prepared', 'picked', 'cancelled'];
+module.exports.ORDER_STATUSES = ['payment pending', 'preparing', 'prepared', 'picked', 'cancelled'];
 module.exports.ITEM_PREFERENCES = ['extra-hot', 'medium-hot', 'mild', 'hot', 'medium', 'no-spice'];
 
 module.exports.API_VERBS = {

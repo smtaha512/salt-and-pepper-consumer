@@ -1,5 +1,5 @@
-import { Component, OnInit, ChangeDetectionStrategy, Input } from '@angular/core';
-import { OrderInterface } from '../../models/order.interface';
+import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core';
+import { OrderItemInterface } from '../../models/order-item.interface';
 
 @Component({
   selector: 'lib-orders-items-list',
@@ -8,7 +8,7 @@ import { OrderInterface } from '../../models/order.interface';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class OrdersItemsListComponent implements OnInit {
-  @Input() orderItems: OrderInterface[];
+  @Input() orderItems: OrderItemInterface[];
   @Input() subTotal: number;
   @Input() tax: number;
   @Input() tip: number;
@@ -17,4 +17,11 @@ export class OrdersItemsListComponent implements OnInit {
   constructor() {}
 
   ngOnInit() {}
+
+  calculateSubTotal(orderItems: OrderItemInterface[]) {
+    return orderItems.reduce((acc, item) => acc + item.price * item.quantity, 0);
+  }
+  calulateTax(subTotal: number) {
+    return subTotal * 0.2;
+  }
 }

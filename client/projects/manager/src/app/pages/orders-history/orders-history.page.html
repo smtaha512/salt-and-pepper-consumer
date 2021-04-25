@@ -31,12 +31,12 @@
     </ion-row>
     <ion-row>
       <ion-col size="12" sizeMd="6" *ngFor="let order of orders$ | async">
-        <lib-orders-items-list class="d-block ion-padding-bottom ion-margin-bottom" [orderItems]="order.items">
+        <lib-orders-items-list class="d-block ion-padding-bottom ion-margin-bottom" [orderItems]="order.items" [total]="order.total">
           <ion-list-header style="background-color: var(--ion-item-background)" class="metadata ion-padding">
             <small>
-              John Doe <br />
-              {{ order.finalisedAt | date:'fullDate' }} <br />
-              Order id: {{ order.id }}
+              {{order?.userId?.firstname}} {{order?.userId?.lastname}} <br />
+              {{ order?.createdAt | date:'fullDate' }} <br />
+              Order id: {{ order._id | slice: -6}}
             </small>
           </ion-list-header>
         </lib-orders-items-list>

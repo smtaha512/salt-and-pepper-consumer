@@ -1,11 +1,11 @@
 import { BaseEntityInterface } from './base-entity.interface';
-import { ItemInterface } from './item.interface';
+import { OrderItemInterface } from './order-item.interface';
 import { OrderStatausEnum } from './order-status.enum';
 
 export interface OrderInterface extends BaseEntityInterface {
   eta: Date;
   finalisedAt: Date;
-  items: ItemInterface[];
+  items: OrderItemInterface[];
   notes: string;
   status: OrderStatausEnum;
   total: number;

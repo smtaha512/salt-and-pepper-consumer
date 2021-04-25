@@ -8,9 +8,8 @@ const { stripe } = require('../../utils/stripe');
 const dbModels = require('../../models/index');
 
 router.get('/orders/:id?', middlewares.isReqParamValidID, (request, response) => {
-  console.log('query: ', request.query);
   const orderId = request.params.id;
-  const query = _.pick(request.query, ['from', 'to', 'userId', 'date']);
+  const query = _.pick(request.query, ['from', 'to', 'userId', 'date', 'populateUser']);
   if (query.from) query.from = dateFns.startOfDay(dateFns.parseISO(query.from));
   if (query.to) query.to = dateFns.endOfDay(dateFns.parseISO(query.to));
   if (query.date) {
