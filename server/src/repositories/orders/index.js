@@ -1,5 +1,3 @@
-const { ORDER_STATUSES } = require('@src/utils/constants');
-
 /**
  * @typedef {import('mongoose').Document} Doc
  * @param {import('../../models/index')} models

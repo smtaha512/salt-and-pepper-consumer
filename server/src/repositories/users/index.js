@@ -2,7 +2,7 @@ const bcrypt = require('bcryptjs');
 
 const utils = require('../../utils/index');
 const { lodash: _ } = require('../../utils/libs/index');
-const { twilioVerify } = require('@src/utils/twilio-verify');
+const { twilioVerify } = require('../../utils/twilio-verify');
 const { RES_MSGS } = require('../../utils/constants');
 /**
  * @param {import('../../models/index')} models

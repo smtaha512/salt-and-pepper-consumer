@@ -5,7 +5,7 @@ const dbModels = require('../../models/index');
 const { RES_MSGS, USER_TYPES } = require('../../utils/constants');
 const Utils = require('../../utils/index');
 const { logger, formatLog } = require('../../utils/logger');
-const { twilioVerify } = require('@src/utils/twilio-verify');
+const { twilioVerify } = require('../../utils/twilio-verify');
 
 router.post('/login/admin', (request, response) => {
   logger.info(formatLog(request.method, request.originalUrl, 'request', 'body', request.body));

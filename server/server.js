@@ -1,8 +1,8 @@
 const Express = require('express');
 require('dotenv').config();
-const preInit = require('@src/pre');
-const registerRoutes = require('@src/routes');
-const { logger } = require('@src/utils/logger');
+const preInit = require('./src/pre/index');
+const registerRoutes = require('./src/routes/index');
+const { logger } = require('./src/utils/logger');
 
 const app = Express();
 preInit(app);

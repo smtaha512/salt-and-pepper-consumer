@@ -1,4 +1,4 @@
-const { stripe } = require('@src/utils/stripe');
+const { stripe } = require('../../../utils/stripe');
 const repositories = require('../../../repositories/index');
 const dbModels = require('../../../models/index');
 
