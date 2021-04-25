@@ -8,6 +8,18 @@ export class Printer {
   private static readonly FONT_SIZE = 26;
   constructor(private readonly printer: StarPRNT, private readonly datePipe: DatePipe) {}
 
+  async sequentialPrints(orders: OrderInterface[]) {
+    const results = [];
+    for (const order of orders) {
+      try {
+        results.push(await this.print(order));
+      } catch (error) {
+        results.push(error);
+      }
+    }
+    return results;
+  }
+
   print(order: OrderInterface) {
     return this.printer
       .portDiscovery('All')
