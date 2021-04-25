@@ -1,19 +1,10 @@
-ion-card-header:after {
-  content: '20 \A minutes';
-  white-space: pre;
-  text-align: center;
-  height: 70px;
-  width: 70px;
-  background: var(--ion-color-dark);
-  position: absolute;
-  top: -35px;
-  right: 0;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  color: white;
-  font-weight: bold;
-  border: 0;
-  box-shadow: 0px -3px 5px var(--ion-color-medium);
-  border-radius: 50%;
+ion-slides {
+  height: 100%;
+  ion-slide {
+    overflow-y: scroll;
+  }
+}
+
+ion-segment-button.ios {
+  min-width: 50%;
 }

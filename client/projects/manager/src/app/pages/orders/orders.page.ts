@@ -1,5 +1,8 @@
-import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { OrderInterface } from 'dist/library';
+import { Observable } from 'rxjs';
+import { OrdersHistoryService } from '../orders-history/services/orders-history.service';
 
 @Component({
   selector: 'app-orders',
@@ -8,7 +11,19 @@ import { Router } from '@angular/router';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class OrdersPage implements OnInit {
-  constructor(private readonly router: Router) {}
+  private readonly startOfCurrentDay = new Date();
+  private readonly endOfCurrentDay = new Date();
+
+  orders$: Observable<OrderInterface[]>;
+
+  constructor(private readonly router: Router, private readonly ordersHistoryService: OrdersHistoryService) {
+    this.startOfCurrentDay.setHours(0, 0, 0, 0);
+    this.endOfCurrentDay.setHours(23, 59, 59, 999);
+    this.orders$ = this.ordersHistoryService.getAllOrdersByDateRange({
+      from: this.startOfCurrentDay.toISOString(),
+      to: this.endOfCurrentDay.toISOString(),
+    });
+  }
 
   ngOnInit() {}
 

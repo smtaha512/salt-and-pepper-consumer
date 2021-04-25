@@ -1,9 +1,15 @@
-<ion-item lines="none" *ngFor="let item of orderItems; let isLast = last; trackBy: trackBy">
+<ion-item
+  (click)="onItemClick(item._id)"
+  *ngFor="let item of orderItems; let isLast = last; trackBy: trackBy"
+  button
+  detail="false"
+  lines="none"
+>
   <ion-label>
-    <ion-row class="py-2 my-1 align-items-center" [ngClass]="{ 'border-bottom': !isLast }">
-      <ion-col class="ion-text-wrap">{{ item.name }} very very long</ion-col>
-      <ion-col class="ion-text-center">{{ item.qty }} x {{ item.price }}</ion-col>
-      <ion-col class="ion-text-end">{{ item.qty * item.price }}</ion-col>
+    <ion-row class="align-items-center ion-no-margin" [ngClass]="{ 'border-bottom': !isLast }">
+      <ion-col class="ion-text-wrap">{{ item.title }}</ion-col>
+      <ion-col class="ion-text-center">{{ item.quantity }} x {{ item.price }}</ion-col>
+      <ion-col class="ion-text-end">{{ item.quantity * item.price }}</ion-col>
     </ion-row>
   </ion-label>
 </ion-item>

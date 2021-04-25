@@ -1,0 +1,14 @@
+{
+  "projects": {
+    "default": "projects-center"
+  },
+  "targets": {
+    "projects-center": {
+      "hosting": {
+        "sapnc-consumer": [
+          "sapnc-consumer"
+        ]
+      }
+    }
+  }
+}

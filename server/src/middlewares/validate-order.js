@@ -1,11 +1,12 @@
 const mongoose = require('mongoose');
-const addMinutes = require('date-fns/addMinutes');
-const differenceInMinutes = require('date-fns/differenceInMinutes');
+
 const { ORDER_STATUSES, ETAPattern } = require('../utils/constants');
+const { logger, formatLog } = require('../utils/logger');
+const { dateFns } = require('../utils/libs/index');
 
 function validateOrder(request, response, next) {
-  const order = request.body;
-  console.log('order validate: ', order);
+  logger.info(formatLog(request.method, request.originalUrl, 'request', 'body', request.body));
+  const { order } = request.body;
   const errors = [];
 
   if (Object.keys(order).length === 0) {
@@ -15,16 +16,9 @@ function validateOrder(request, response, next) {
   if (!order.items || order.items.length <= 0) errors.push('Order has no items associated');
   if (!order.userId || !mongoose.isValidObjectId(order.userId)) errors.push('Invalid or missing user ID');
   if (!order.total || parseFloat(order.total) <= 0) errors.push("Missing order's total amount");
-  if (!ETAPattern.test(order.eta)) errors.push("Invalid ETA, It must be match '15 M, 60 M, 3 H' pattern");
-  else {
-    const now = new Date();
-    const [etaValue, etaUnit] = order.eta.split(' ');
-    const eta = addMinutes(new Date(), etaValue * (etaUnit === 'H' ? 60 : 1));
-    const minDiffLTE10 = differenceInMinutes(eta, now) <= 10;
-    if (minDiffLTE10) errors.push('Invalid ETA, It should take atleast 10 mins');
-  }
-  console.log('errors: ', errors);
+  if (order.tip && Number.isNaN(parseFloat(order.tip))) errors.push("Invalid order's total amount");
   if (errors.length > 0) {
+    logger.error(formatLog(request.method, request.originalUrl, 'response', 'error', errors));
     response.status(400).send(errors);
     return;
   }
@@ -32,6 +26,7 @@ function validateOrder(request, response, next) {
 }
 
 function validateOrderUpdate(request, response, next) {
+  logger.info(formatLog(request.method, request.originalUrl, 'request', 'body', request.body));
   const order = request.body;
   const errors = [];
 
@@ -48,13 +43,14 @@ function validateOrderUpdate(request, response, next) {
     else {
       const now = new Date();
       const [etaValue, etaUnit] = order.eta.split(' ');
-      const eta = addMinutes(new Date(), etaValue * (etaUnit === 'H' ? 60 : 1));
-      const minDiffLTE1 = differenceInMinutes(eta, now) <= 0;
+      const eta = dateFns.addMinutes(new Date(), etaValue * (etaUnit === 'H' ? 60 : 1));
+      const minDiffLTE1 = dateFns.differenceInMinutes(eta, now) <= 0;
       if (minDiffLTE1) errors.push('Invalid ETA, Time has passed');
     }
   }
 
   if (errors.length > 0) {
+    logger.error(formatLog(request.method, request.originalUrl, 'response', 'error', errors));
     response.status(400).send(errors);
     return;
   }

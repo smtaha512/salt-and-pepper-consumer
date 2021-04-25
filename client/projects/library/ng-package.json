@@ -4,11 +4,14 @@
   "lib": {
     "entryFile": "src/public-api.ts",
     "umdModuleIds": {
+      "@capacitor/core": "@capacitor/core",
       "@ionic/angular": "@ionic/angular",
       "@ngrx/effects": "@ngrx/effects",
       "@ngrx/router-store": "@ngrx/router-store",
       "@ngrx/store": "@ngrx/store",
-      "@ngrx/store-devtools": "@ngrx/store-devtools"
+      "@ngrx/store-devtools": "@ngrx/store-devtools",
+      "lodash-es": "lodash-es",
+      "capacitor-data-storage-sqlite": "capacitor-data-storage-sqlite"
     }
   }
 }

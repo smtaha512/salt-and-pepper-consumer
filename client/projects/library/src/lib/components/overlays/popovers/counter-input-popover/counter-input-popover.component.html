@@ -1,0 +1,29 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>{{ title }}</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-list-header *ngIf="subtitle">
+    <ion-label>{{ subtitle }}</ion-label>
+  </ion-list-header>
+  <lib-counter-input [formControl]="quantityControl" [min]="min"></lib-counter-input>
+</ion-content>
+
+<ion-footer>
+  <ion-grid>
+    <ion-row>
+      <ion-col size="4">
+        <ion-button expand="block" fill="clear" color="danger" size="small" (click)="closePopover()">
+          Cancel
+        </ion-button>
+      </ion-col>
+      <ion-col size="4" push="4">
+        <ion-button expand="block" fill="clear" size="small" [disabled]="shouldDisableChangeButton$ | async" (click)="handleChange()">
+          Change
+        </ion-button>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-footer>

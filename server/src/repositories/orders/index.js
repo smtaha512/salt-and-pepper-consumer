@@ -1,12 +1,38 @@
+const { ORDER_STATUSES } = require('@src/utils/constants');
+
 /**
+ * @typedef {import('mongoose').Document} Doc
  * @param {import('../../models/index')} models
- * @returns
- */
+ * @returns {(
+ *  orderId: string,
+ *  query: {from: Date, to: Date, userId: string, populateUser: boolean}
+ * ) => Promise<Doc | Doc[]>}
+ **/
 function getOrders(models) {
-  return function (orderId) {
+  return function (orderId, query) {
+    const { populateUser, userId, ...dateRange } = query;
     if (orderId) {
-      return models.OrderModel.findById(orderId).exec();
+      return models.OrderModel.findById(orderId).populate('userId').exec();
     }
+
+    if (query.from || query.to) {
+      const baseQuery = models.OrderModel.find({
+        createdAt: {
+          ...(dateRange.from && { $gte: new Date(dateRange.from) }),
+          ...(dateRange.to && { $lt: new Date(dateRange.to) }),
+        },
+        // status: { $ne: 'payment pending' },
+      });
+      console.log(populateUser);
+      if (populateUser) {
+        baseQuery.populate('userId').exec().then(console.log);
+        return baseQuery.populate('userId').exec();
+      }
+      return baseQuery.exec();
+    }
+
+    if (query.userId) return models.OrderModel.find({ userId }).exec();
+
     return models.OrderModel.find({}).exec();
   };
 }
@@ -36,6 +62,13 @@ function updateOrder(models, options) {
   };
 }
 
+function updateOrderStatusByPaymentIntentId(models) {
+  return function updateOrderStatusByPaymentIntentId(paymentIntentId) {
+    return models.OrderModel.findOneAndUpdate({ paymentIntent: { id: paymentIntentId } }, { $set: { status: 'preparing' } });
+  };
+}
+
 module.exports.createOrder = createOrder;
 module.exports.getOrders = getOrders;
 module.exports.updateOrder = updateOrder;
+module.exports.updateOrderStatusByPaymentIntentId = updateOrderStatusByPaymentIntentId;

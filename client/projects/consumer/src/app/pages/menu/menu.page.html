@@ -1,25 +1,46 @@
 <ion-header class="ion-no-border ion-margin-top">
   <ion-toolbar>
     <ion-title mode="ios" size="large" color="light">Our Menu</ion-title>
+
+    <ion-buttons slot="end">
+      <ion-button (click)="showPopover($event)">
+        <ion-icon slot="icon-only" name="ellipsis-vertical"></ion-icon>
+      </ion-button>
+    </ion-buttons>
   </ion-toolbar>
+  <ion-segment [value]="current$ | async" scrollable class="position-sticky">
+    <ion-segment-button
+      [id]="'segment' + menu._id"
+      *ngFor="let menu of menus$ | async; trackBy: trackBy; let i = index;"
+      (click)="slides.slideTo(i);"
+      [value]="menu._id"
+    >
+      <ion-label>{{ menu.title }}</ion-label>
+    </ion-segment-button>
+  </ion-segment>
 </ion-header>
 
 <ion-content>
-  <ion-grid>
-    <ion-row>
-      <ion-col size="12" sizeSm="6" sizeMd="4" *ngFor="let item of [1,2,3,4,5,6,7,8,9,10,11,12,13]; let i = index">
-        <ion-card button [routerLink]="['/menu-item']">
-          <img [src]="'https://loremflickr.com/200/100/food?random='+ (i+1)" class="w-100" height="200" />
-          <ion-card-header>
-            <ion-card-title>
-              <ion-text color="light">
-                <h2 class="font-weight-bolder">Dish name</h2>
-              </ion-text>
-            </ion-card-title>
-            <ion-card-subtitle>Serves: 5 person</ion-card-subtitle>
-          </ion-card-header>
-        </ion-card>
-      </ion-col>
-    </ion-row>
-  </ion-grid>
+  <ion-slides #slides (ionSlideTouchEnd)="handleSlideChange(slides)" [options]="{speed: 150}">
+    <ion-slide *ngFor="let slide of menus$ | async" class="d-flex justify-content-start align-items-start">
+      <ion-grid>
+        <ion-row *ngFor="let category of slide?.categories">
+          <ion-col size="12">
+            <ion-title *ngIf="slide?.categories.length > 1" class="ion-text-capitalize">{{category.title}}</ion-title>
+            <ion-card *ngFor="let item of category.items" [routerLink]="['/menu-item', item._id]">
+              <ion-card-header>
+                <div class="d-flex justify-content-between">
+                  <ion-card-title class="ion-text-start">{{item?.title}}</ion-card-title>
+                  <div>
+                    <ion-badge color="primary" mode="ios">{{ item?.price | currency:'USD' }}</ion-badge>
+                  </div>
+                </div>
+                <ion-card-subtitle class="ion-text-start">{{item?.description}}</ion-card-subtitle>
+              </ion-card-header>
+            </ion-card>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </ion-slide>
+  </ion-slides>
 </ion-content>

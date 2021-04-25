@@ -1,26 +1,33 @@
 <ion-header class="ion-no-border ion-margin-top">
   <ion-toolbar>
     <ion-grid>
-      <ion-row>
+      <ion-row class="align-items-center">
         <ion-col size="2">
-          <ion-buttons><ion-back-button defaultHref="/tabs/orders-history"></ion-back-button></ion-buttons>
+          <ion-buttons><ion-back-button text="" color="light" defaultHref="/tabs/orders-history"></ion-back-button></ion-buttons>
         </ion-col>
-        <ion-col size="10"><ion-title mode="ios" size="large" color="light">Order Details</ion-title></ion-col>
+        <ion-col size="10"><ion-title class="ion-no-padding" mode="md" size="large" color="light">Order Details</ion-title></ion-col>
       </ion-row>
     </ion-grid>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
-  <lib-order-details>
-    <ion-card class="metadata">
+  <lib-order-details
+    *ngIf="currentOrder$ | async as order"
+    [orderItems]="order.items"
+    [subTotal]="subTotal$ | async"
+    [tax]="tax$ | async"
+    [tip]="order.tip"
+    [total]="order.total"
+  >
+    <ion-card class="metadata" [ngClass]="{'ion-no-margin ion-margin-horizontal': isiOS | async, 'mt-0': !(isiOS | async)}">
       <ion-card-header class="d-flex justify-content-between">
         <ion-card-subtitle color="light">
-          Order id: 145bf <br />
-          Date: {{ 1 | date }}
+          Order id: {{ order._id | slice: -6}} <br />
+          Date: {{ order.createdAt | date }}
         </ion-card-subtitle>
         <div>
-          <ion-badge color="secondary" mode="ios">Preparing</ion-badge>
+          <ion-badge color="secondary" mode="ios">{{ order.status }}</ion-badge>
         </div>
       </ion-card-header>
     </ion-card>

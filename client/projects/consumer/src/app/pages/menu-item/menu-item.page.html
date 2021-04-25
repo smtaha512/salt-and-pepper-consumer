@@ -1,81 +1,75 @@
 <ion-header class="ion-no-border ion-margin-top">
   <ion-toolbar>
     <ion-grid>
-      <ion-row>
+      <ion-row class="align-items-center">
         <ion-col size="2" sizeMd="1">
-          <ion-buttons><ion-back-button defaultHref="/tabs/menu"></ion-back-button></ion-buttons>
+          <ion-buttons><ion-back-button text="" color="light" defaultHref="/tabs/menu"></ion-back-button></ion-buttons>
         </ion-col>
         <ion-col size="10" sizeMd="11">
-          <ion-title mode="ios" size="large" color="light">
-            Dish name
+          <ion-title class="ion-no-padding" *ngIf="(menuItem$ | async)?.title as title" mode="md" size="large" color="light">
+            {{ title }}
           </ion-title>
         </ion-col>
       </ion-row>
     </ion-grid>
   </ion-toolbar>
 </ion-header>
+<ng-container [formGroup]="form">
+  <ion-content class="ion-padding">
+    <ion-grid>
+      <ion-row>
+        <ion-col size="12" sizeSm="10" offsetSm="1" sizeMd="8" offsetMd="2" sizeLg="6" offsetLg="3">
+          <ion-text color="light" *ngIf="(menuItem$ | async)?.description as description">
+            <h3 class="font-weight-bold">Details</h3>
+            {{ description }}
+          </ion-text>
+          <ion-list class="ion-no-padding" *ngIf="(menuItem$ | async)?.preferences as preferences">
+            <ion-radio-group *ngIf="preferences?.length" formControlName="preference" name="preference">
+              <ion-list-header>
+                <ion-label>Choose Spice level</ion-label>
+              </ion-list-header>
+              <ion-item *ngFor="let preference of preferences">
+                <ion-label class="ion-text-capitalize">{{ preference }}</ion-label>
+                <ion-radio slot="start" [value]="preference" style="--color-checked: var(--ion-color-tertiary)"></ion-radio>
+              </ion-item>
+            </ion-radio-group>
 
-<ion-content class="ion-padding">
-  <ion-grid>
-    <ion-row>
-      <ion-col size="12" sizeSm="10" offsetSm="1" sizeMd="8" offsetMd="2" sizeLg="6" offsetLg="3">
-        <img src="https://loremflickr.com/300/200/food?random=1" height="200" alt="" class="w-100" />
-        <ion-text color="light">
-          <h2 class="font-weight-bold">Details</h2>
-          Lorem ipsum dolor sit amet consectetur adipisicing
-        </ion-text>
-        <ion-list class="ion-no-padding">
-          <ion-radio-group name="preference" value="mild">
-            <ion-list-header>
-              <ion-label>Choose Spice level</ion-label>
-            </ion-list-header>
-            <ion-item>
-              <ion-label color="success">Mild</ion-label>
-              <ion-radio slot="start" color="success" value="mild"></ion-radio>
+            <ion-item class="border-light">
+              <ion-label position="inline">Notes</ion-label>
+              <ion-textarea formControlName="notes" color="light" placeholder="Enter any special instructions here"></ion-textarea>
             </ion-item>
-            <ion-item>
-              <ion-label color="warning">Spicy</ion-label>
-              <ion-radio slot="start" color="warning" value="spicy"></ion-radio>
-            </ion-item>
-            <ion-item>
-              <ion-label color="danger">Hot</ion-label>
-              <ion-radio slot="start" color="danger" value="hot"></ion-radio>
-            </ion-item>
-          </ion-radio-group>
-
-          <ion-item>
-            <ion-label position="inline">Notes</ion-label>
-            <ion-textarea color="light" placeholder="Enter any special instructions here"></ion-textarea>
-          </ion-item>
-        </ion-list>
-      </ion-col>
-    </ion-row>
-  </ion-grid>
-</ion-content>
-<ion-footer>
-  <ion-grid>
-    <ion-row>
-      <ion-col size="12" sizeSm="10" offsetSm="1" sizeMd="8" offsetMd="2" sizeLg="6" offsetLg="3">
-        <ion-grid>
-          <ion-row>
-            <ion-col size="6" class="d-flex justify-content-around align-items-center">
-              <ion-button fill="clear">
-                <ion-icon slot="icon-only" color="danger" name="remove-outline"></ion-icon>
-              </ion-button>
-              <ion-text color="light">1</ion-text>
-              <ion-button fill="clear">
-                <ion-icon slot="icon-only" color="success" name="add-outline"></ion-icon>
-              </ion-button>
-            </ion-col>
-            <ion-col size="6">
-              <ion-button color="light" fill="outline" expand="block" [routerLink]="['/checkout-success']">
-                <ion-icon slot="start" name="cart-outline"></ion-icon>
-                Add to cart
-              </ion-button>
-            </ion-col>
-          </ion-row>
-        </ion-grid>
-      </ion-col>
-    </ion-row>
-  </ion-grid>
-</ion-footer>
+          </ion-list>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </ion-content>
+  <ion-footer>
+    <ion-grid>
+      <ion-row>
+        <ion-col size="12" sizeSm="10" offsetSm="1" sizeMd="8" offsetMd="2" sizeLg="6" offsetLg="3">
+          <ion-grid>
+            <ion-row>
+              <ion-col size="6" class="d-flex justify-content-around align-items-center">
+                <lib-counter-input formControlName="quantity"></lib-counter-input>
+              </ion-col>
+              <ion-col size="6">
+                <ion-button
+                  (click)="onSubmit(menuItem)"
+                  *ngIf="menuItem$ | async as menuItem"
+                  [disabled]="form.invalid"
+                  color="light"
+                  expand="block"
+                  fill="outline"
+                  type="submit"
+                >
+                  <ion-icon slot="start" name="cart-outline"></ion-icon>
+                  Add to cart
+                </ion-button>
+              </ion-col>
+            </ion-row>
+          </ion-grid>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </ion-footer>
+</ng-container>

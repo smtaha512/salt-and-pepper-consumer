@@ -1,17 +1,17 @@
 <ion-header class="ion-no-border ion-margin-top">
   <ion-toolbar>
     <ion-grid>
-      <ion-row>
+      <ion-row class="align-items-center">
         <ion-col size="2" sizeMd="1">
-          <ion-buttons><ion-back-button defaultHref="/orders"></ion-back-button></ion-buttons>
+          <ion-buttons><ion-back-button text="" color="light" defaultHref="/orders"></ion-back-button></ion-buttons>
         </ion-col>
         <ion-col size="10" sizeMd="10">
-          <ion-title mode="ios" size="large" color="light">
+          <ion-title class="ion-no-padding" mode="md" size="large" color="light">
             Orders History
 
             <!-- This total will only be shown on large screens -->
             <ion-text color="tertiary" class="d-none d-sm-block float-right">
-              <small>Total: {{ 0 | currency:'USD' }}</small>
+              <small>Total: {{ (ordersTotal$ | async) || 0 | currency:'USD' }}</small>
             </ion-text>
           </ion-title>
         </ion-col>
@@ -24,17 +24,19 @@
   <ion-grid>
     <ion-row>
       <ion-col size="12" size-md="6" class="ion-no-padding">
-        <lib-date-range-picker></lib-date-range-picker>
+        <ng-container [formGroup]="form">
+          <lib-date-range-picker formControlName="dateRange"></lib-date-range-picker>
+        </ng-container>
       </ion-col>
     </ion-row>
     <ion-row>
-      <ion-col size="12" sizeMd="6" *ngFor="let item of [1,2,3,4,5]">
-        <lib-orders-items-list class="d-block ion-padding-bottom ion-margin-bottom" [orderItems]="orderItems">
-          <ion-list-header style="background-color: var(--ion-item-background);" class="metadata ion-padding">
+      <ion-col size="12" sizeMd="6" *ngFor="let order of orders$ | async">
+        <lib-orders-items-list class="d-block ion-padding-bottom ion-margin-bottom" [orderItems]="order.items" [total]="order.total">
+          <ion-list-header style="background-color: var(--ion-item-background)" class="metadata ion-padding">
             <small>
-              John Doe <br />
-              {{ 1 | date:'fullDate' }} <br />
-              Order id: 123b5
+              {{order?.userId?.firstname}} {{order?.userId?.lastname}} <br />
+              {{ order?.createdAt | date:'fullDate' }} <br />
+              Order id: {{ order._id | slice: -6}}
             </small>
           </ion-list-header>
         </lib-orders-items-list>
@@ -44,6 +46,6 @@
 
   <!-- This total will only be shown on small screens -->
   <ion-title class="fixed-bottom d-sm-none ion-background">
-    <ion-text color="tertiary" class="ion-padding-vertical float-right">Total: {{ 0 | currency:'USD' }}</ion-text>
+    <ion-text color="tertiary" class="ion-padding-vertical float-right">Total: {{ (ordersTotal$ | async) || 0 | currency:'USD' }}</ion-text>
   </ion-title>
 </ion-content>

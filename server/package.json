@@ -20,6 +20,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@types/date-fns": "^2.6.0",
     "bcryptjs": "^2.4.3",
     "body-parser": "^1.19.0",
     "cors": "^2.8.5",
@@ -31,6 +32,8 @@
     "mongoose": "^5.9.15",
     "morgan": "^1.10.0",
     "pino": "^6.2.1",
+    "stripe": "^8.145.0",
+    "twilio": "^3.60.0",
     "validator": "^13.0.0"
   },
   "devDependencies": {

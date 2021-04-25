@@ -1,10 +1,11 @@
 // @ts-check
-const DateFns = require('date-fns');
+
 const fs = require('fs');
 const bcrypt = require('bcryptjs');
 const JWT = require('jsonwebtoken');
 
 const { TIME_FORMATS } = require('../utils/constants');
+const { dateFns } = require('../utils/libs/index');
 const { lodash: _ } = require('../utils/libs/index');
 
 // TODO - FIX JWT PRIVATE PUBLIC KEYS
@@ -12,10 +13,10 @@ const { lodash: _ } = require('../utils/libs/index');
 const PRIVATE_KEY = fs.readFileSync('./certs/jwtRS256.key', 'utf8');
 
 function signJWT() {
-  const lifespan = 3;
+  const lifespan = 1;
   const jwtDetails = {
-    expiresIn: DateFns.format(DateFns.addDays(new Date(), lifespan), TIME_FORMATS.dateTimeDefault),
-    signedAt: DateFns.format(new Date(), TIME_FORMATS.dateTimeDefault),
+    expiresIn: dateFns.format(dateFns.addDays(new Date(), lifespan), TIME_FORMATS.dateTimeDefault),
+    signedAt: dateFns.format(new Date(), TIME_FORMATS.dateTimeDefault),
   };
   // TODO - FIX JWT PRIVATE KEY
   return JWT.sign(jwtDetails, PRIVATE_KEY, {
@@ -71,6 +72,13 @@ function checkForSchemaErrors(e, multi = false) {
   return multi ? errors : errors[0];
 }
 
+function stringifyPayload(payload) {
+  const premitives = ['string', 'boolean', 'number', 'undefined'];
+  if (premitives.find((p) => p === typeof payload)) return payload;
+  else if (typeof payload === 'object') return JSON.stringify(payload);
+  else throw new Error('Invalid Payload, Unable to serialize');
+}
+
 function calcTimeDiff(from, to) {
   const diffMs = from - to; // milliseconds between now & Christmas
   const diffDays = Math.floor(diffMs / 86400000); // days
@@ -105,10 +113,21 @@ function trimFirstAndLast(parent, args, field) {
   return parent[field];
 }
 
+/**
+ * @param {string} route
+ * @returns
+ */
+function idifyRoute(route) {
+  if (route.charAt(route.length - 1) === '/') route = route.slice(0, -1);
+  return new RegExp(`^${route}(/)?([0-9a-fA-F]{24})?$`);
+}
+
+module.exports.calcTimeDiff = calcTimeDiff;
 module.exports.checkForSchemaErrors = checkForSchemaErrors;
 module.exports.generateHash = generateHash;
 module.exports.generateRandomString = generateRandomString;
 module.exports.getNestedUpdateable = getNestedUpdateable;
+module.exports.idifyRoute = idifyRoute;
 module.exports.signJWT = signJWT;
-module.exports.calcTimeDiff = calcTimeDiff;
+module.exports.stringifyPayload = stringifyPayload;
 module.exports.trimFirstAndLast = trimFirstAndLast;

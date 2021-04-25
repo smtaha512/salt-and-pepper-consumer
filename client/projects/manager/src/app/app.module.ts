@@ -1,13 +1,20 @@
+import { HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { IonicModule } from '@ionic/angular';
+import { EffectsModule } from '@ngrx/effects';
+import { StoreModule } from '@ngrx/store';
+import { StoreDevtoolsModule } from '@ngrx/store-devtools';
+import { Config, InterceptorsModule } from 'dist/library';
 
-import { SetupNgRx } from 'dist/library';
 import { environment } from '../environments/environment';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { AppEffects } from './app.effects';
-import { metaReducers, reducers } from './reducers';
+import { metaReducers, reducers } from './+state/reducers';
+import { UserEffects } from './+state/user/user.effects';
+
+const defaultConfig: Config = { baseUrl: environment.baseUrl, loaderExpemtedUrls: [], localDbName: 'SALT_AND_PEPPER_MANAGER' };
 
 @NgModule({
   declarations: [AppComponent],
@@ -15,7 +22,17 @@ import { metaReducers, reducers } from './reducers';
     BrowserModule,
     AppRoutingModule,
     IonicModule.forRoot(),
-    ...SetupNgRx({ effects: [AppEffects], environment, metaReducers, reducers }),
+    StoreModule.forRoot(
+      { ...reducers },
+      {
+        metaReducers: [...(metaReducers || [])],
+        runtimeChecks: { strictStateImmutability: true, strictActionImmutability: true },
+      }
+    ),
+    StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: environment.production }),
+    EffectsModule.forRoot([AppEffects, UserEffects]),
+    HttpClientModule,
+    InterceptorsModule.forRoot(defaultConfig),
   ],
   providers: [],
   bootstrap: [AppComponent],

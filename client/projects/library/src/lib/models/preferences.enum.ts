@@ -1,5 +1,8 @@
 export enum PreferencesEnum {
+  EXTRA_HOT = 'extra-hot',
   HOT = 'hot',
+  MEDIUM = 'medium',
+  MEDIUM_HOT = 'medium-hot',
   MILD = 'mild',
-  SPICY = 'spicy',
+  NO_SPICE = 'no-spice',
 }

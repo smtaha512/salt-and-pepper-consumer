@@ -3,3 +3,9 @@ ion-list-header,
 ion-list {
   --background: var(--ion-color-dark);
 }
+
+ion-item.border-light {
+  &.item-interactive.item-has-focus {
+    --highlight-background: var(--ion-color-light) !important;
+  }
+}

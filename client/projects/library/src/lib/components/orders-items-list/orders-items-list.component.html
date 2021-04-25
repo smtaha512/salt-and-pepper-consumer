@@ -1,16 +1,12 @@
 <ion-card>
-  <ion-card-content class="border-bottom">
+  <ion-card-content class="border-bottom ion-no-padding p-1">
     <ion-list mode="ios">
-      <ion-item-group class="d-flex flex-column justify-content-start align-items-around h-35vh">
+      <ion-item-group class="d-flex flex-column justify-content-start align-items-around">
         <div class="stick-to-top">
           <ng-content select=".metadata"></ng-content>
           <lib-orders-items-list-header></lib-orders-items-list-header>
         </div>
-        <lib-orders-items-list-body
-          *ngIf="orderItems?.length; else noItemsMessage"
-          [orderItems]="orderItems"
-          class="pb-5"
-        ></lib-orders-items-list-body>
+        <lib-orders-items-list-body *ngIf="orderItems?.length; else noItemsMessage" [orderItems]="orderItems"></lib-orders-items-list-body>
 
         <ng-template #noItemsMessage>
           <ion-item lines="none" class="ion-text-center"> <ion-label> No item to show </ion-label> </ion-item>
@@ -22,19 +18,19 @@
     <ion-item lines="none" class="ion-text-center">
       <ion-label>Sub Total: </ion-label>
       <ion-text>
-        {{ 200 | currency: 'USD' }}
+        {{ subTotal || calculateSubTotal(orderItems) | currency: 'USD' }}
       </ion-text>
     </ion-item>
     <ion-item lines="full" class="ion-text-center">
       <ion-label>+ Tax (20%): </ion-label>
       <ion-text>
-        {{ 10 | currency: 'USD' }}
+        {{ tax || calulateTax(calculateSubTotal(orderItems)) | currency: 'USD' }}
       </ion-text>
     </ion-item>
     <ion-item lines="none" class="ion-text-center">
       <ion-label>Total: </ion-label>
       <ion-text>
-        {{ 220 | currency: 'USD' }}
+        {{ total | currency: 'USD' }}
       </ion-text>
     </ion-item>
   </ng-container>

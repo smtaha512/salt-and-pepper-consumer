@@ -6,15 +6,29 @@
 
 <ion-content>
   <ion-grid>
-    <ion-row>
-      <ion-col size="12" sizeSm="6" sizeMd="4" *ngFor="let order of [1,2,3,4,5,6,7,8,9,10,11,12,13]; let i = index">
-        <lib-order-card [order]="order">
-          <ion-button *ngTemplate (click)="onClick($event, order)" expand="block" fill="none">
-            <ion-icon color="tertiary" slot="start" name="reload" expand="block"></ion-icon>
-            <ion-text color="tertiary">Reorder</ion-text>
-          </ion-button>
-        </lib-order-card>
+    <ion-row *ngIf="!(ordersHistory$ |async)?.length; else showOrderHistory">
+      <ion-col size="12" sizeMd="6" offsetMd="3">
+        <ion-card>
+          <ion-card-header class="ion-text-center">
+            <ion-card-title>You do not have any order history!</ion-card-title>
+            <ion-button class="ion-margin-vertical ion-padding-vertical" fill="clear" routerLink="/tabs/menu" size="small">
+              <ion-card-subtitle class="ion-text-wrap"> Let's select some items from menu and place an order </ion-card-subtitle>
+            </ion-button>
+          </ion-card-header>
+        </ion-card>
       </ion-col>
     </ion-row>
+    <ng-template #showOrderHistory>
+      <ion-row>
+        <ion-col size="12" sizeSm="6" sizeMd="4" *ngFor="let order of ordersHistory$ | async; let i = index">
+          <lib-order-card [order]="order">
+            <!-- <ion-button *ngTemplate (click)="onClick($event, order)" expand="block" fill="none">
+              <ion-icon color="tertiary" slot="start" name="reload" expand="block"></ion-icon>
+              <ion-text color="tertiary">Reorder</ion-text>
+            </ion-button> -->
+          </lib-order-card>
+        </ion-col>
+      </ion-row>
+    </ng-template>
   </ion-grid>
 </ion-content>

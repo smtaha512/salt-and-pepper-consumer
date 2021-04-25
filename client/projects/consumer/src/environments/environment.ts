@@ -2,8 +2,12 @@
 // `ng build --prod` replaces `environment.ts` with `environment.prod.ts`.
 // The list of file replacements can be found in `angular.json`.
 
-export const environment = {
-  production: false
+import { EnvironmentInterface } from './environment.model';
+
+export const environment: EnvironmentInterface = {
+  production: false,
+  baseUrl: 'http://localhost:4000',
+  stripePublishableKey: 'pk_test_51I3TBKGdvii2zQm7SYmD26490IhsOqV9ljGCxLRzt0dMxeGXBQK7vZvT0YjR68JRyiKXaIspgUFVKIkrVChVCxWh00bncbaR7E',
 };
 
 /*
