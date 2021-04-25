@@ -87,7 +87,14 @@ function getUserById(models) {
   };
 }
 
+function updateLastPolledAt(models) {
+  return function updateLastPolledAt(id = '') {
+    return models.UsersModel.findByIdAndUpdate(id, { set: { lastPolledAt: new Date().toISOString() } }).exec();
+  };
+}
+
 module.exports.addUser = addUser;
 module.exports.verify = verify;
 module.exports.verifyOrCreate = verifyOrCreate;
 module.exports.getUserById = getUserById;
+module.exports.updateLastPolledAt = updateLastPolledAt;

@@ -7,6 +7,7 @@ export interface BaseUserInterface extends BaseEntityInterface {
   username: string;
   email: string;
   password: string;
+  lastPolledAt: string;
 }
 
 export interface ConsumerInterface extends BaseUserInterface {

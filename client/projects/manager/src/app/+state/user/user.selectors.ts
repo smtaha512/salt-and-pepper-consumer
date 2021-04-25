@@ -3,4 +3,6 @@ import { State, userFeatureKey } from './user.reducer';
 
 export const userSelector = createFeatureSelector<State>(userFeatureKey);
 
-export const userId = createSelector(userSelector, (user) => user?._id);
+export const user = createSelector(userSelector, (userWithToken) => userWithToken?.body);
+
+export const userId = createSelector(userSelector, (userWithToken) => userWithToken?.body?._id);
