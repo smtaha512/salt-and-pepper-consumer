@@ -1,9 +1,10 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { ActionSheetController } from '@ionic/angular';
+import { ActionSheetController, ToastController } from '@ionic/angular';
 import { OrderInterface, OrderStatausEnum } from 'dist/library';
 import { Observable } from 'rxjs';
 import { map, shareReplay, switchMap } from 'rxjs/operators';
+import { Printer } from '../../services/printer/printer';
 import { OrdersHistoryService } from '../orders-history/services/orders-history.service';
 
 @Component({
@@ -19,7 +20,9 @@ export class OrderPage implements OnInit {
   constructor(
     private readonly actionSheetController: ActionSheetController,
     private readonly ordersHistoryService: OrdersHistoryService,
-    private readonly activateRoute: ActivatedRoute
+    private readonly activateRoute: ActivatedRoute,
+    private readonly printer: Printer,
+    private readonly toastController: ToastController
   ) {
     this.currentOrder$ = this.activateRoute.params.pipe(
       map((parmas) => parmas.id),
@@ -34,6 +37,19 @@ export class OrderPage implements OnInit {
   }
 
   ngOnInit() {}
+
+  printOrder(order: OrderInterface) {
+    this.printer
+      .print(order)
+      .then(() =>
+        this.toastController.create({
+          buttons: [{ role: 'cancel', text: 'Dismiss' }],
+          duration: 2500,
+          message: 'Order printed!',
+        })
+      )
+      .then((toast) => toast.present());
+  }
 
   async presentActionSheet(currentStatus: OrderStatausEnum) {
     const actionSheet = await this.actionSheetController.create({
