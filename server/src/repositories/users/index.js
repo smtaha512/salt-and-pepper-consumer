@@ -89,7 +89,7 @@ function getUserById(models) {
 
 function updateLastPolledAt(models) {
   return function updateLastPolledAt(id = '') {
-    return models.UsersModel.findByIdAndUpdate(id, { set: { lastPolledAt: new Date().toISOString() } }).exec();
+    return models.UsersModel.findByIdAndUpdate(id, { lastPolledAt: new Date().toISOString() }).exec();
   };
 }
 
