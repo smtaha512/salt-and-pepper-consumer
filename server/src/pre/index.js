@@ -14,11 +14,12 @@ module.exports = function preInitialization(app) {
   app.use(BodyParser.urlencoded({ extended: true }));
   app.use(BodyParser.json());
 
+  const cors = require('cors');
   if (['staging', 'development'].includes(env)) {
-    const cors = require('cors');
     app.use(cors({ exposedHeaders: 'Authorization' }));
   } else if (env === 'production') {
     // * Settings only for production
+    app.use(cors({ exposedHeaders: 'Authorization' }));
   }
 
   const dbUrl = _.get(global, 'app.envConfig.dbUrl');
