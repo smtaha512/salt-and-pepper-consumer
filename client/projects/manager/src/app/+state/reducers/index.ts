@@ -1,14 +1,7 @@
-import {
-  ActionReducer,
-  ActionReducerMap,
-  createFeatureSelector,
-  createSelector,
-  MetaReducer,
-  createReducer,
-  createAction,
-} from '@ngrx/store';
+import { routerReducer, RouterReducerState } from '@ngrx/router-store';
+import { ActionReducerMap, createAction, createReducer, MetaReducer } from '@ngrx/store';
+import { clearStateMetaReducer, storageSyncMetaReducer } from 'dist/library';
 import { environment } from '../../../environments/environment';
-import { RouterReducerState, routerReducer } from '@ngrx/router-store';
 import * as fromUser from './../user/user.reducer';
 
 export interface State {
@@ -25,4 +18,6 @@ export const reducers: ActionReducerMap<State> = {
   [fromUser.userFeatureKey]: fromUser.userReducer,
 };
 
-export const metaReducers: MetaReducer<State>[] = !environment.production ? [] : [];
+const sharedMetaReducers: MetaReducer<State>[] = [clearStateMetaReducer, storageSyncMetaReducer];
+
+export const metaReducers: MetaReducer<State>[] = !environment.production ? [...sharedMetaReducers] : [...sharedMetaReducers];
