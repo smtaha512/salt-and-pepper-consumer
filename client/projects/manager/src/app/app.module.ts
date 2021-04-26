@@ -5,7 +5,7 @@ import { IonicModule } from '@ionic/angular';
 import { EffectsModule } from '@ngrx/effects';
 import { StoreModule } from '@ngrx/store';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
-import { Config, InterceptorsModule } from 'dist/library';
+import { Config, InterceptorsModule, StorageSyncEffects } from 'dist/library';
 
 import { environment } from '../environments/environment';
 import { AppRoutingModule } from './app-routing.module';
@@ -13,6 +13,8 @@ import { AppComponent } from './app.component';
 import { AppEffects } from './app.effects';
 import { metaReducers, reducers } from './+state/reducers';
 import { UserEffects } from './+state/user/user.effects';
+import { StarPRNT } from '@ionic-native/star-prnt/ngx';
+import { DatePipe } from '@angular/common';
 
 const defaultConfig: Config = { baseUrl: environment.baseUrl, loaderExpemtedUrls: [], localDbName: 'SALT_AND_PEPPER_MANAGER' };
 
@@ -30,11 +32,11 @@ const defaultConfig: Config = { baseUrl: environment.baseUrl, loaderExpemtedUrls
       }
     ),
     StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: environment.production }),
-    EffectsModule.forRoot([AppEffects, UserEffects]),
+    EffectsModule.forRoot([AppEffects, StorageSyncEffects, UserEffects]),
     HttpClientModule,
     InterceptorsModule.forRoot(defaultConfig),
   ],
-  providers: [],
+  providers: [StarPRNT, DatePipe],
   bootstrap: [AppComponent],
 })
 export class AppModule {}
