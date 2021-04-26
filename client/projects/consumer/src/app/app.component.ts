@@ -1,10 +1,13 @@
-import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
-import { pluck } from 'rxjs/operators';
+import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import { Plugins } from '@capacitor/core';
+import { IonRouterOutlet, Platform } from '@ionic/angular';
 import { Store } from '@ngrx/store';
-
 import { NetworkService } from 'dist/library';
 import { pullStateFromStorage } from 'projects/library/src/public-api';
+import { pluck } from 'rxjs/operators';
 import { OrdersHistoryService } from './pages/orders-history/services/orders-history.service';
+
+const { App } = Plugins;
 
 @Component({
   selector: 'app-root',
@@ -19,11 +22,23 @@ export class AppComponent implements OnInit {
   constructor(
     private readonly networkService: NetworkService,
     private readonly store: Store<any>,
-    private readonly ordersHistoryService: OrdersHistoryService
+    private readonly ordersHistoryService: OrdersHistoryService,
+
+    private platform: Platform,
+    private routerOutlet: IonRouterOutlet
   ) {}
 
   ngOnInit(): void {
     this.store.dispatch(pullStateFromStorage());
     this.ordersHistoryService.pollForOrders().subscribe();
+    this.appExitWatcher();
+  }
+
+  appExitWatcher() {
+    this.platform.backButton.subscribeWithPriority(-1, () => {
+      if (!this.routerOutlet.canGoBack()) {
+        App.exitApp();
+      }
+    });
   }
 }
