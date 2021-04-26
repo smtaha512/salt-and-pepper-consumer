@@ -19,6 +19,7 @@ export class StorageService {
 
       const { keys } = await this.storage.keys();
       const { values } = await this.storage.values();
+
       const parsedValues = values.map((value, idx) => ({
         [keys[idx]]: value === 'null' ? null : value.startsWith(`{`) ? JSON.parse(value) : value,
       }));
@@ -33,14 +34,14 @@ export class StorageService {
   }
 
   async set<T extends object>({ value }: { value: T }) {
-    const toStore = Object.entries(value).map(([key, val]) => [key, JSON.stringify(val)]);
+    const toStore = Object.entries(value).map(([key, val]) => [key, typeof val === 'object' ? JSON.stringify(val) : val]);
     return this.openStore().then(() => Promise.all(toStore.map(([key, val]) => this.storage.set({ key, value: val }))));
   }
 
   async setToken({ token }: { token: string }) {
     return this.openStore()
       .then(() => this.storage.set({ key: 'token', value: token }))
-      .then((value) => value.keysvalues);
+      .then((value) => value.result);
   }
 
   async getToken() {
