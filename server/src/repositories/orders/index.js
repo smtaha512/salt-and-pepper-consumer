@@ -18,10 +18,10 @@ function getOrders(models) {
         createdAt: {
           ...(dateRange.from && { $gte: new Date(dateRange.from) }),
           ...(dateRange.to && { $lt: new Date(dateRange.to) }),
+          ...(userId && { userId }),
         },
         // status: { $ne: 'payment pending' },
       });
-      console.log(populateUser);
       if (populateUser) {
         baseQuery.populate('userId').exec().then(console.log);
         return baseQuery.populate('userId').exec();

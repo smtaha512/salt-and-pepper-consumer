@@ -4,6 +4,7 @@ import { Store } from '@ngrx/store';
 
 import { NetworkService } from 'dist/library';
 import { pullStateFromStorage } from 'projects/library/src/public-api';
+import { OrdersHistoryService } from './pages/orders-history/services/orders-history.service';
 
 @Component({
   selector: 'app-root',
@@ -15,9 +16,14 @@ export class AppComponent implements OnInit {
   title = 'consumer';
   readonly isConnected$ = this.networkService.networkStatus$.pipe(pluck('connected'));
 
-  constructor(private readonly networkService: NetworkService, private readonly store: Store<any>) {}
+  constructor(
+    private readonly networkService: NetworkService,
+    private readonly store: Store<any>,
+    private readonly ordersHistoryService: OrdersHistoryService
+  ) {}
 
   ngOnInit(): void {
     this.store.dispatch(pullStateFromStorage());
+    this.ordersHistoryService.pollForOrders().subscribe();
   }
 }

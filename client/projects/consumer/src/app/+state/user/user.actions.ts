@@ -19,4 +19,6 @@ export const signin = createAction('[User/API] Signin', props<{ credentials: Sig
 export const signinSuccess = createAction('[User/API] Signin Success', props<Record<'consumer', AuthenticationResponseInterface>>());
 export const signinFailure = createAction('[User/API] Signin Failure', props());
 
+export const updateUser = createAction('[User/API] Update User', props<{ user: AdminInterface }>());
+
 export const notImplementedAction = createAction('Not implemented action');
