@@ -58,7 +58,7 @@
     "@angular/compiler": "~9.1.9",
     "@angular/compiler-cli": "~9.1.9",
     "@angular/language-service": "~9.1.9",
-    "@capacitor/cli": "2.0.2",
+    "@capacitor/cli": "2.4.7",
     "@ionic/angular-toolkit": "^2.1.1",
     "@redux-devtools/cli": "^1.0.0-7",
     "@schematics/angular": "^9.1.7",
@@ -80,10 +80,10 @@
     "karma-jasmine-html-reporter": "^1.4.0",
     "ng-packagr": "^9.0.0",
     "protractor": "~5.4.0",
+    "remotedev": "^0.2.9",
     "ts-node": "~7.0.0",
     "tslint": "~5.15.0",
-    "typescript": "~3.8.3",
-    "remotedev": "^0.2.9"
+    "typescript": "~3.8.3"
   },
   "description": "An Ionic project"
 }
