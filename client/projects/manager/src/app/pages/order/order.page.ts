@@ -1,9 +1,9 @@
-import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { ActionSheetController, ToastController } from '@ionic/angular';
 import { OrderInterface, OrderStatausEnum } from 'dist/library';
-import { Observable } from 'rxjs';
-import { map, shareReplay, switchMap } from 'rxjs/operators';
+import { BehaviorSubject, Observable } from 'rxjs';
+import { map, repeatWhen, shareReplay, switchMap, takeUntil, tap } from 'rxjs/operators';
 import { Printer } from '../../services/printer/printer';
 import { OrdersHistoryService } from '../orders-history/services/orders-history.service';
 
@@ -13,10 +13,13 @@ import { OrdersHistoryService } from '../orders-history/services/orders-history.
   styleUrls: ['./order.page.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class OrderPage implements OnInit {
+export class OrderPage implements OnInit, OnDestroy {
   readonly currentOrder$: Observable<OrderInterface>;
   readonly subTotal$: Observable<number>;
   readonly tax$: Observable<number>;
+  private readonly refetch$ = new BehaviorSubject(null);
+  private readonly destroyed$: BehaviorSubject<boolean> = new BehaviorSubject(false);
+
   constructor(
     private readonly actionSheetController: ActionSheetController,
     private readonly ordersHistoryService: OrdersHistoryService,
@@ -26,7 +29,7 @@ export class OrderPage implements OnInit {
   ) {
     this.currentOrder$ = this.activateRoute.params.pipe(
       map((parmas) => parmas.id),
-      switchMap((id) => this.ordersHistoryService.getById(id)),
+      switchMap((id) => this.ordersHistoryService.getById(id).pipe(repeatWhen(() => this.refetch$.asObservable()))),
       shareReplay({ refCount: true, bufferSize: 1 })
     );
     this.subTotal$ = this.currentOrder$.pipe(
@@ -56,50 +59,33 @@ export class OrderPage implements OnInit {
       cssClass: 'ion-color-light',
       header: 'Change order status',
       buttons: [
-        {
-          text: 'Cancel',
-          role: 'destructive',
-          cssClass: 'ion-button-text-color-danger',
-          icon: 'trash-outline',
-          handler: () => {
-            console.log('Cancel clicked');
-          },
-        },
-        {
-          text: 'Preparing',
-          icon: 'flame-sharp',
-          cssClass: ['ion-button-text-color-light'],
-          handler: () => {
-            console.log('Preparing clicked');
-          },
-        },
-        {
-          text: 'Prepared',
-          icon: 'checkmark-outline',
-          handler: () => {
-            console.log('Prepared clicked');
-          },
-        },
-        {
-          text: 'Picked',
-          icon: 'checkmark-done-outline',
-          handler: () => {
-            console.log('Picked clicked');
-          },
-        },
-        {
-          text: 'Close',
-          icon: 'close',
-          role: 'cancel',
-          handler: () => {
-            console.log('Cancel clicked');
-          },
-        },
-      ].map((item) =>
-        item.text.toLowerCase() !== currentStatus.toLowerCase()
-          ? item
-          : { ...item, cssClass: [...(item.cssClass ?? []), 'ion-button-background-tertiary'] }
-      ),
+        { text: OrderStatausEnum.CANCELLED, role: 'destructive', cssClass: 'ion-button-text-color-danger', icon: 'trash-outline' },
+        { text: OrderStatausEnum.PREPARING, icon: 'flame-sharp', cssClass: ['ion-button-text-color-light'] },
+        { text: OrderStatausEnum.PREPARED, icon: 'checkmark-outline' },
+        { text: OrderStatausEnum.PICKED, icon: 'checkmark-done-outline' },
+        { text: 'Close', icon: 'close', role: 'cancel' },
+      ]
+        .map((item) =>
+          item.text.toLowerCase() !== currentStatus.toLowerCase()
+            ? item
+            : { ...item, cssClass: [...(item.cssClass ?? []), 'ion-button-background-tertiary'] }
+        )
+        .map((item) =>
+          item.role === 'close'
+            ? item
+            : {
+                ...item,
+                handler: () => {
+                  this.currentOrder$
+                    .pipe(
+                      switchMap((order) => this.ordersHistoryService.update(order._id, { status: item.text as OrderStatausEnum })),
+                      tap(() => this.refetch$.next(true)),
+                      takeUntil(this.destroyed$)
+                    )
+                    .subscribe();
+                },
+              }
+        ),
     });
 
     await actionSheet.present();
@@ -107,5 +93,9 @@ export class OrderPage implements OnInit {
 
   changeOrderStatus(currentStatus: OrderStatausEnum) {
     this.presentActionSheet(currentStatus);
+  }
+
+  ngOnDestroy(): void {
+    this.destroyed$.next(true);
   }
 }
