@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { OrderInterface } from 'dist/library';
 import { Observable } from 'rxjs';
+import { OrderInterface } from 'dist/library';
 import { OrdersHistoryService } from '../orders-history/services/orders-history.service';
 
 @Component({
