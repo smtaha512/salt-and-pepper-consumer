@@ -1,9 +1,8 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { isNotEmpty, OrderInterface } from 'dist/library';
-import { isEqual } from 'lodash';
 import { Observable, of } from 'rxjs';
-import { distinctUntilChanged, filter, map, switchMap } from 'rxjs/operators';
+import { filter, map, switchMap } from 'rxjs/operators';
 import { OrdersHistoryService } from './services/orders-history.service';
 
 @Component({
