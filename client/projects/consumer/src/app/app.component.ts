@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit, ViewChild } from '@angular/core';
 import { Plugins } from '@capacitor/core';
 import { IonRouterOutlet, Platform } from '@ionic/angular';
 import { Store } from '@ngrx/store';
@@ -17,15 +17,14 @@ const { App } = Plugins;
 })
 export class AppComponent implements OnInit {
   title = 'consumer';
+  @ViewChild(IonRouterOutlet, { static: true }) routerOutlet: IonRouterOutlet;
   readonly isConnected$ = this.networkService.networkStatus$.pipe(pluck('connected'));
 
   constructor(
     private readonly networkService: NetworkService,
     private readonly store: Store<any>,
     private readonly ordersHistoryService: OrdersHistoryService,
-
-    private platform: Platform,
-    private routerOutlet: IonRouterOutlet
+    private platform: Platform
   ) {}
 
   ngOnInit(): void {

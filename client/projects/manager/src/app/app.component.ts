@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit, ViewChild } from '@angular/core';
 import { Plugins } from '@capacitor/core';
 import { Platform, IonRouterOutlet } from '@ionic/angular';
 import { Store } from '@ngrx/store';
@@ -15,11 +15,12 @@ const { App } = Plugins;
 })
 export class AppComponent implements OnInit {
   title = 'manager';
+  @ViewChild(IonRouterOutlet, { static: true }) routerOutlet: IonRouterOutlet;
+
   constructor(
     private readonly ordersHistoryService: OrdersHistoryService,
     private readonly store: Store<any>,
-    private platform: Platform,
-    private routerOutlet: IonRouterOutlet
+    private platform: Platform
   ) {}
   ngOnInit() {
     this.store.dispatch(pullStateFromStorage());
