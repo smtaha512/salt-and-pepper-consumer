@@ -5,5 +5,10 @@
   "npmClient": "npm",
   "webDir": "dist/manager",
   "cordova": {},
-  "linuxAndroidStudioPath": "/home/taha/Downloads/Compressed/android-studio/bin/studio.sh"
+  "linuxAndroidStudioPath": "/home/taha/Downloads/Compressed/android-studio/bin/studio.sh",
+  "plugins": {
+    "SplashScreen": {
+      "androidScaleType": "CENTER_CROP"
+    }
+  }
 }
