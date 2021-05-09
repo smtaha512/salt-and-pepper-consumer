@@ -22,6 +22,8 @@ export class TokenInterceptor implements HttpInterceptor {
     const exemptedAPIs = [
       { method: 'GET', endpoint: '/api/menus' },
       { method: 'GET', endpoint: '/api/items' },
+      { method: 'POST', endpoint: '/auth/login' },
+      { method: 'POST', endpoint: '/auth/signup' },
     ];
     return exemptedAPIs.some((api) => api.method === req.method && req.url.includes(api.endpoint));
   }
