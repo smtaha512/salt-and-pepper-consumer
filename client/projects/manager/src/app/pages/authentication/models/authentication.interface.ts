@@ -1,6 +1,6 @@
 import { AdminInterface } from 'library/library';
 
-export type SigninInterface = Pick<AdminInterface, 'username' | 'password'>;
+export type SigninInterface = Pick<AdminInterface, 'email' | 'password'>;
 
 export interface AuthenticationResponseInterface {
   body: AdminInterface;

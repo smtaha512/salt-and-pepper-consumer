@@ -10,9 +10,9 @@ export class AuthenticationService {
   baseUrl = '/auth';
   constructor(private readonly http: HttpClient) {}
 
-  signin({ username, password }: { username: string; password: string }): Observable<AuthenticationResponseInterface> {
+  signin({ email, password }: { email: string; password: string }): Observable<AuthenticationResponseInterface> {
     return this.http
-      .post<AdminInterface>(`${this.baseUrl}/login?t=admin`, { username, password }, { observe: 'response', responseType: 'json' })
+      .post<AdminInterface>(`${this.baseUrl}/login?t=admin`, { email, password }, { observe: 'response', responseType: 'json' })
       .pipe(map((response) => ({ body: response.body, token: response.headers.get('authorization') })));
   }
 }

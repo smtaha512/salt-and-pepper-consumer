@@ -13,10 +13,7 @@ import { signin } from '../../../+state/user/user.actions';
 export class SigninPage implements OnInit {
   form: FormGroup;
   errors: BehaviorSubject<string> = new BehaviorSubject('');
-  constructor(
-    private readonly formBuilder: FormBuilder,
-    private readonly store: Store<any>
-  ) {}
+  constructor(private readonly formBuilder: FormBuilder, private readonly store: Store<any>) {}
 
   ngOnInit() {
     this.buildForm();
@@ -24,14 +21,14 @@ export class SigninPage implements OnInit {
 
   buildForm() {
     this.form = this.formBuilder.group({
-      username: this.formBuilder.control('', [Validators.required]),
-      password: this.formBuilder.control('', [Validators.required]),
+      email: this.formBuilder.control('admin@saltnpeppernc.com', [Validators.required]),
+      password: this.formBuilder.control('Admin3793', [Validators.required]),
     });
   }
 
   onSubmit() {
-    const { username, password } = this.form.value;
+    const { email, password } = this.form.value;
 
-    this.store.dispatch(signin({ credentials: { password, username } }));
+    this.store.dispatch(signin({ credentials: { password, email } }));
   }
 }
