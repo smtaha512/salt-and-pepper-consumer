@@ -43,7 +43,6 @@ export class MenuPage implements OnInit, OnDestroy {
     this.menus$ = this.store.pipe(
       select(menus),
       filter(isNotEmpty),
-      tap(() => this.computeDistanceFromOriginForEachIonSegmentButton()),
       tap((fetchedMenus) => this.updateCurrentSegment(fetchedMenus[0]._id)),
       shareReplay({ refCount: true, bufferSize: 1 })
     );
@@ -65,20 +64,17 @@ export class MenuPage implements OnInit, OnDestroy {
     this.subs.add(currentId$.pipe(tap((id) => this.moveCurrentSegmentIntoView(id))).subscribe());
   }
 
-  private computeDistanceFromOriginForEachIonSegmentButton() {
-    this.initalItems = Array.from(this.document.querySelectorAll('ion-segment-button')).map((item, idx, original) => ({
-      element: item,
-      distanceFromOrigin: original.reduce((acc, curr, i) => (i >= idx ? acc : acc + curr.getBoundingClientRect().width), 0),
-    }));
-  }
-
   private updateCurrentSegment(id: string) {
     this.current$.next(id);
   }
 
   private moveCurrentSegmentIntoView(index: string) {
+    const items = Array.from(this.document.querySelectorAll('ion-segment-button')).map((item, idx, original) => ({
+      element: item,
+      distanceFromOrigin: original.reduce((acc, curr, i) => (i >= idx ? acc : acc + curr.getBoundingClientRect().width), 0),
+    }));
     this.document.querySelector('ion-segment').scrollTo({
-      left: this.initalItems.find((item) => item.element.id.includes(index)).distanceFromOrigin,
+      left: items.find((item) => item.element.id.includes(index)).distanceFromOrigin,
       behavior: 'smooth',
     });
   }
