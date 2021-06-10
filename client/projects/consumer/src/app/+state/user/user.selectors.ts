@@ -6,3 +6,5 @@ export const userSelector = createFeatureSelector<State>(userFeatureKey);
 export const user = createSelector(userSelector, (userWithToken) => userWithToken?.body);
 
 export const userId = createSelector(userSelector, (userWithToken) => userWithToken?.body?._id);
+
+export const showPakistaniMenu = createSelector(userSelector, (userFromState) => !!userFromState?.showPakistaniMenu);

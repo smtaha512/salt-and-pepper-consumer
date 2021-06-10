@@ -5,6 +5,7 @@ import { select, Store } from '@ngrx/store';
 import { isNotEmpty, ItemInterface, MenuInterface } from 'dist/library';
 import { BehaviorSubject, from, Observable, of, Subscription } from 'rxjs';
 import { filter, map, shareReplay, switchMap, tap } from 'rxjs/operators';
+import { showPakistaniMenu } from '../../+state/user/user.selectors';
 import { loadMenus } from './+state/menu.actions';
 import { menus } from './+state/menu.selectors';
 import { MenuPopoverService } from './components/menu-popover/menu-popover.service';
@@ -19,9 +20,11 @@ import { MenuService } from './services/menu.service';
 export class MenuPage implements OnInit, OnDestroy {
   private readonly subs = new Subscription();
   current$ = new BehaviorSubject('');
-  menus$: Observable<MenuInterface[]> = this.menuService
-    .menuWithItems()
-    .pipe(filter(isNotEmpty), shareReplay({ refCount: true, bufferSize: 1 }));
+  menus$: Observable<MenuInterface[]> = this.menuService.menuWithItems().pipe(
+    filter(isNotEmpty),
+
+    shareReplay({ refCount: true, bufferSize: 1 })
+  );
   menuItems$: Observable<ItemInterface[]> = of([]);
 
   private initalItems: { element: HTMLIonSegmentButtonElement; distanceFromOrigin: number }[];
@@ -44,6 +47,14 @@ export class MenuPage implements OnInit, OnDestroy {
       select(menus),
       filter(isNotEmpty),
       tap((fetchedMenus) => this.updateCurrentSegment(fetchedMenus[0]._id)),
+      switchMap((menu) =>
+        this.store.pipe(
+          select(showPakistaniMenu),
+          map((shouldShowPakistaniMenu) =>
+            shouldShowPakistaniMenu ? menu : menu.filter((m) => !m.title.toLowerCase().includes('pakistan'))
+          )
+        )
+      ),
       shareReplay({ refCount: true, bufferSize: 1 })
     );
     this.cd.detectChanges();

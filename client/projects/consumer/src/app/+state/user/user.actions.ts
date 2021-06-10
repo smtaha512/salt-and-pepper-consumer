@@ -22,4 +22,5 @@ export const signinFailure = createAction('[User/API] Signin Failure', props());
 
 export const updateUser = createAction('[User/API] Update User', props<{ user: ConsumerInterface }>());
 
+export const togglePakistaniMenu = createAction('[User] Toggle Pakistani Menu', props<Record<'value', boolean>>());
 export const notImplementedAction = createAction('Not implemented action');
