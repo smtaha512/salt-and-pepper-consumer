@@ -18,8 +18,8 @@ function getOrders(models) {
         createdAt: {
           ...(dateRange.from && { $gte: new Date(dateRange.from) }),
           ...(dateRange.to && { $lt: new Date(dateRange.to) }),
-          ...(userId && { userId }),
         },
+        ...(userId && { userId }),
         // status: { $ne: 'payment pending' },
       });
       if (populateUser) {
