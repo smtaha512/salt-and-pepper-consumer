@@ -12,11 +12,10 @@ router.post('/stripe', (request, response) => {
   try {
     const event = stripe().constructEvent(payload, stripeSignature);
     console.log(event);
-    return repositories.orders
-      .updateOrderStatusByPaymentIntentId(dbModels)(payload.id)
-      .then(() => response.status(200));
+    repositories.orders.updateOrderStatusByPaymentIntentId(dbModels)(payload.id);
+    response.status(200);
   } catch (error) {
-    return response.status(400).send(`Webhook Error: ${error.message}`);
+    console.log(`Webhook Error:`, error);
   }
 });
 
