@@ -15,7 +15,7 @@ const OrderSchema = new Schema(
           preference: {
             enum: ITEM_PREFERENCES,
             lowercase: true,
-            required: true,
+            required: false,
             type: String,
           },
           quantity: { default: 1, required: true, type: Number },
