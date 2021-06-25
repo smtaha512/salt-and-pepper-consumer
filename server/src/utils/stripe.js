@@ -13,6 +13,7 @@ function stripe() {
     return stripe.paymentIntents.create({
       amount: amount * 100,
       currency: 'usd',
+      payment_method_types: ['card'],
       receipt_email: email,
     });
   }
