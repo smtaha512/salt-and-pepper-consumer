@@ -34,6 +34,7 @@ export class MenuItemPage implements OnInit, OnDestroy {
 
     this.menuItem$ = this.route.data.pipe(
       pluck('item'),
+      filter(isNotEmpty),
       tap((item) => this.preference.setValue(item.defaultPreference)),
       shareReplay({ refCount: true, bufferSize: 1 })
     );
