@@ -1,9 +1,9 @@
-const BodyParser = require('body-parser');
-
 const { lodash: _ } = require('../utils/libs/index');
 const { logger } = require('../utils/logger');
 const dbConnections = require('../pre/db-connection');
 const envConfig = require('../utils/configs/env.config');
+
+const express = require('express');
 
 module.exports = function preInitialization(app) {
   // * Condition for enviroment.
@@ -11,8 +11,14 @@ module.exports = function preInitialization(app) {
   global['app'] = {};
   global['app'].envConfig = envConfig[env];
 
-  app.use(BodyParser.urlencoded({ extended: true }));
-  app.use(BodyParser.json());
+  app.use(express.urlencoded({ extended: true }));
+  app.use((req, res, next) => {
+    if (req.originalUrl === '/webhooks') {
+      next();
+    } else {
+      express.json()(req, res, next);
+    }
+  });
 
   const cors = require('cors');
   if (['staging', 'development'].includes(env)) {
