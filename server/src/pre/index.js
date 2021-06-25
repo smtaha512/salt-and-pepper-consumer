@@ -12,13 +12,13 @@ module.exports = function preInitialization(app) {
   global['app'].envConfig = envConfig[env];
 
   app.use(express.urlencoded({ extended: true }));
-  app.use((req, res, next) => {
-    if (req.originalUrl.includes('/webhooks')) {
-      next();
-    } else {
-      express.json()(req, res, next);
-    }
-  });
+  app.use(
+    express.json({
+      verify: (req, res, buf) => {
+        req.rawBody = buf;
+      },
+    })
+  );
 
   const cors = require('cors');
   if (['staging', 'development'].includes(env)) {

@@ -5,8 +5,8 @@ const dbModels = require('../../../models/index');
 const express = require('express');
 const router = express.Router();
 
-router.post('/stripe', express.raw({ type: 'application/json' }), (request, response) => {
-  const payload = request.body;
+router.post('/stripe', (request, response) => {
+  const payload = request.rawBody;
   const stripeSignature = request.headers['stripe-signature'];
 
   console.log('Got payload: ', JSON.stringify(payload, null, 2));
