@@ -23,7 +23,7 @@ function getOrders(models) {
         // status: { $ne: 'payment pending' },
       });
       if (populateUser) {
-        baseQuery.populate('userId').exec().then(console.log);
+        baseQuery.populate('userId').exec();
         return baseQuery.populate('userId').exec();
       }
       return baseQuery.exec();
