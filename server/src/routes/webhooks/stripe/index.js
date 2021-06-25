@@ -2,9 +2,10 @@ const { stripe } = require('../../../utils/stripe');
 const repositories = require('../../../repositories/index');
 const dbModels = require('../../../models/index');
 
-const router = require('express').Router();
+const express = require('express');
+const router = express.Router();
 
-router.post('/stripe', (request, response) => {
+router.post('/stripe', express.raw({ type: 'application/json' }), (request, response) => {
   const payload = request.body;
   const stripeSignature = request.headers['stripe-signature'];
 
