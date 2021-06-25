@@ -4,7 +4,7 @@ import { Plugins } from '@capacitor/core';
 import { Store } from '@ngrx/store';
 import { BaseCrudService, ConsumerInterface, isNotEmpty, OrderInterface } from 'dist/library';
 import { orderBy } from 'lodash-es';
-import { from, Observable } from 'rxjs';
+import { from, Observable, of } from 'rxjs';
 import { delay, exhaustMap, filter, map, switchMap } from 'rxjs/operators';
 import { updateUser } from '../../../+state/user/user.actions';
 import { user } from '../../../+state/user/user.selectors';
@@ -55,18 +55,25 @@ export class OrdersHistoryService extends BaseCrudService<OrderInterface> {
   }
 
   sendNotifications(orders: OrderInterface[]) {
-    const notifications = LocalNotifications.schedule({
-      notifications: orders.map((order, idx) => ({
-        title: 'Your order status has been updated!',
-        body: 'Current status' + order.status,
-        id: idx,
-        schedule: { at: new Date(Date.now() + 100) },
-        sound: null,
-        attachments: null,
-        actionTypeId: '',
-        extra: null,
-      })),
-    });
-    return from(notifications);
+    try {
+      if (!window.Notification) {
+        return of(null);
+      }
+      const notifications = LocalNotifications.schedule({
+        notifications: orders.map((order, idx) => ({
+          title: 'Your order status has been updated!',
+          body: 'Current status' + order.status,
+          id: idx,
+          schedule: { at: new Date(Date.now() + 100) },
+          sound: null,
+          attachments: null,
+          actionTypeId: '',
+          extra: null,
+        })),
+      });
+      return from(notifications);
+    } catch (error) {
+      console.log(error);
+    }
   }
 }
