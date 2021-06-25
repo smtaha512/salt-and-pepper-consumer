@@ -22,7 +22,7 @@
       </ion-text>
     </ion-item>
     <ion-item lines="full" class="ion-text-center">
-      <ion-label>+ Tax (20%): </ion-label>
+      <ion-label>+ Tax ({{ TAX_PERCENT }}%): </ion-label>
       <ion-text>
         {{ tax || calulateTax(calculateSubTotal(orderItems)) | currency: 'USD' }}
       </ion-text>

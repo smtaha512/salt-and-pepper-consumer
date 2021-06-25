@@ -4,6 +4,7 @@ import { Device } from '@capacitor/core';
 import { OrderInterface } from 'dist/library';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { map, shareReplay, switchMap } from 'rxjs/operators';
+import { taxCalculator, TAX_PERCENT } from '../cart/+state/current-order-item.selectors';
 import { OrdersHistoryService } from '../orders-history/services/orders-history.service';
 
 @Component({
@@ -18,6 +19,7 @@ export class OrderPage implements OnInit {
   readonly currentOrder$: Observable<OrderInterface>;
   readonly subTotal$: Observable<number>;
   readonly tax$: Observable<number>;
+  readonly TAX_PERCENT = TAX_PERCENT;
   constructor(private readonly ordersHistoryService: OrdersHistoryService, private readonly activateRoute: ActivatedRoute) {
     this.currentOrder$ = this.activateRoute.params.pipe(
       map((parmas) => parmas.id),
@@ -28,7 +30,7 @@ export class OrderPage implements OnInit {
       map((order) => order.items.reduce((acc, item) => acc + item.price, 0)),
       shareReplay({ refCount: true, bufferSize: 1 })
     );
-    this.tax$ = this.subTotal$.pipe(map((subTotal) => subTotal * 0.2));
+    this.tax$ = this.subTotal$.pipe(map(taxCalculator));
   }
 
   ngOnInit() {}

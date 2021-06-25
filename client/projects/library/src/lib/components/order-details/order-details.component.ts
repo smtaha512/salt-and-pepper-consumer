@@ -15,6 +15,7 @@ export class OrderDetailsComponent implements OnInit {
   @Input() tip = 0;
   @Input() total = 0;
   @Input() defaultSegment = 'instructions';
+  @Input() readonly TAX_PERCENT = 0;
 
   readonly currentSegment$: BehaviorSubject<string> = new BehaviorSubject('instructions');
 

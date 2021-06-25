@@ -19,6 +19,7 @@
     [tax]="tax$ | async"
     [tip]="order.tip"
     [total]="order.total"
+    [TAX_PERCENT]="TAX_PERCENT"
   >
     <ion-card class="metadata" [ngClass]="{'ion-no-margin ion-margin-horizontal': isiOS | async, 'mt-0': !(isiOS | async)}">
       <ion-card-header class="d-flex justify-content-between">

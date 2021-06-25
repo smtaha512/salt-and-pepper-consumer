@@ -12,9 +12,7 @@
           <ion-card-header class="ion-text-center">
             <ion-card-title>Cart is empty!</ion-card-title>
             <ion-button class="ion-margin-vertical ion-padding-vertical" fill="clear" routerLink="/tabs/menu" size="small">
-              <ion-card-subtitle>
-                Select some items from menu
-              </ion-card-subtitle>
+              <ion-card-subtitle> Select some items from menu </ion-card-subtitle>
             </ion-button>
           </ion-card-header>
         </ion-card>
@@ -30,6 +28,7 @@
             [tax]="tax$ | async"
             [tip]="tip$ | async"
             [total]="total$ | async"
+            [TAX_PERCENT]="TAX_PERCENT"
             (itemClick)="onItemClick($event.detail.id)"
           ></lib-order-details>
         </ion-col>

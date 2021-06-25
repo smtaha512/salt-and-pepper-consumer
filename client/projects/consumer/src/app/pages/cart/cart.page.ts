@@ -3,7 +3,7 @@ import { select, Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 
 import { CurrentOrderItem } from './+state/current-order-item.model';
-import { currentOrderItems, subTotal, tax, tip, total } from './+state/current-order-item.selectors';
+import { currentOrderItems, subTotal, tax, TAX_PERCENT, tip, total } from './+state/current-order-item.selectors';
 import { CartActionSheetService } from './services/cart/cart-action-sheet.service';
 
 @Component({
@@ -18,7 +18,7 @@ export class CartPage implements OnInit {
   tax$: Observable<number>;
   tip$: Observable<number>;
   total$: Observable<number>;
-
+  readonly TAX_PERCENT = TAX_PERCENT;
   constructor(private readonly store: Store<any>, private readonly cartService: CartActionSheetService) {}
 
   ngOnInit() {

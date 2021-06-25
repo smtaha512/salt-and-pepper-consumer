@@ -13,7 +13,7 @@ export class OrdersItemsListComponent implements OnInit {
   @Input() tax: number;
   @Input() tip: number;
   @Input() total: number;
-
+  @Input() readonly TAX_PERCENT: number = 0;
   constructor() {}
 
   ngOnInit() {}
@@ -22,6 +22,6 @@ export class OrdersItemsListComponent implements OnInit {
     return orderItems.reduce((acc, item) => acc + item.price * item.quantity, 0);
   }
   calulateTax(subTotal: number) {
-    return subTotal * 0.2;
+    return subTotal * this.TAX_PERCENT;
   }
 }
