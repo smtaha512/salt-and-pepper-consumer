@@ -12,13 +12,8 @@ module.exports = function preInitialization(app) {
   global['app'].envConfig = envConfig[env];
 
   app.use(express.urlencoded({ extended: true }));
-  app.use(
-    express.json({
-      verify: (req, res, buf) => {
-        req.rawBody = buf.toString();
-      },
-    })
-  );
+  //  app.use('/webhooks/stripe', express.raw({type: "*/*"}));
+  //app.use(express.json());
 
   const cors = require('cors');
   if (['staging', 'development'].includes(env)) {

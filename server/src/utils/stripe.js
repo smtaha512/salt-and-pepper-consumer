@@ -19,6 +19,7 @@ function stripe() {
   }
 
   function constructEvent(payload = '', signature) {
+console.log(payload, signature, stripeEndpointSecret);
     return stripe.webhooks.constructEvent(payload, signature, stripeEndpointSecret);
   }
 

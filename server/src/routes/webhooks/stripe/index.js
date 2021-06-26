@@ -6,7 +6,8 @@ const express = require('express');
 const router = express.Router();
 
 router.post('/stripe', (request, response) => {
-  const payload = request.rawBody;
+  console.log(request);
+  const payload = request.body;
   const stripeSignature = request.headers['stripe-signature'];
 
   console.log('Got payload: ', JSON.stringify(payload, null, 2));
@@ -15,6 +16,7 @@ router.post('/stripe', (request, response) => {
     console.log(JSON.stringify(event, null, 2));
     repositories.orders.updateOrderStatusByPaymentIntentId(dbModels)(payload.id);
     response.status(200);
+    response.end();
   } catch (error) {
     console.log(`Webhook Error:`, error);
   }
