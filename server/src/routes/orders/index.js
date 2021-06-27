@@ -36,8 +36,9 @@ router.post('/orders', middlewares.validateOrder, (request, response) => {
     .getUserById(dbModels)(order.userId)
     .then((user) => stripe().createPaymentIntent({ amount: order.total, email: user.email }))
     .then((stripeResponse) => {
+      console.log(39, stripeResponse);
       return repositories.orders
-        .createOrder(dbModels)(order)
+        .createOrder(dbModels)({ ...order, paymentIntent: stripeResponse })
         .then((order) => {
           logger.info(formatLog(request.method, request.originalUrl, 'response', 'body', order));
           response.status(201).send(stripeResponse);
