@@ -11,8 +11,7 @@ export class LoaderInterceptor implements HttpInterceptor {
   constructor(@Inject(CONFIG) private readonly config: Config, private readonly loaderService: LoaderService) {}
 
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-    const { url } = req;
-    if (this.shouldShowLoader(url)) {
+    if (this.shouldShowLoader(req)) {
       return this.loaderService.presentLoader().pipe(
         switchMap(() => next.handle(req)),
         switchMap((res) => this.loaderService.hideLoader().pipe(map(() => res))),
@@ -22,7 +21,10 @@ export class LoaderInterceptor implements HttpInterceptor {
     return next.handle(req);
   }
 
-  private shouldShowLoader(url: string) {
-    return !this.config.loaderExpemtedUrls.some((exemptedUrl) => exemptedUrl.includes(url));
+  private shouldShowLoader(request: HttpRequest<any>) {
+    const isUrlExempted = this.config.loaderExpemtedUrls.some((exemptedUrl) => exemptedUrl.includes(request.url));
+    const shouldShowHeader = request.headers.get('show-header');
+    console.log(request.headers.get('show-header'));
+    return !(isUrlExempted || shouldShowHeader === 'false');
   }
 }
