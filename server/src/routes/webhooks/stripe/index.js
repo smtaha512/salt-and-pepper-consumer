@@ -13,7 +13,7 @@ router.post('/stripe', (request, response) => {
   console.log('Got payload: ', JSON.stringify(payload, null, 2));
   try {
     const event = stripe().constructEvent(payload, stripeSignature);
-    console.log(JSON.stringify(event, null, 2));
+    console.log(16, JSON.stringify(event, null, 2), payload.toString());
     repositories.orders.updateOrderStatusByPaymentIntentId(dbModels)(payload.id);
     response.status(200);
     response.end();
