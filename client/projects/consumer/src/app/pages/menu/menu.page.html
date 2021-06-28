@@ -8,14 +8,15 @@
       </ion-button>
     </ion-buttons>
   </ion-toolbar>
-  <ion-segment [value]="current$ | async" scrollable class="position-sticky">
+  <ion-segment [value]="current$ | async" scrollable class="position-sticky mx-1">
     <ion-segment-button
       [id]="'segment' + menu._id"
       *ngFor="let menu of menus$ | async; trackBy: trackBy; let i = index;"
       (click)="slides.slideTo(i);"
       [value]="menu._id"
+      style="--margin-top: 0"
     >
-      <ion-label>{{ menu.title }}</ion-label>
+      <ion-label class="ion-text-uppercase multi-line-label" color="primary">{{ menu.title }}</ion-label>
     </ion-segment-button>
   </ion-segment>
 </ion-header>
