@@ -1,0 +1,18 @@
+[
+	{
+		"pkg": "@capacitor-community/stripe",
+		"classpath": "ca.zyra.capacitor.stripe.Stripe"
+	},
+	{
+		"pkg": "@capacitor/app",
+		"classpath": "com.capacitorjs.plugins.app.AppPlugin"
+	},
+	{
+		"pkg": "@capacitor/local-notifications",
+		"classpath": "com.capacitorjs.plugins.localnotifications.LocalNotificationsPlugin"
+	},
+	{
+		"pkg": "capacitor-data-storage-sqlite",
+		"classpath": "com.jeep.plugin.capacitor.CapacitorDataStorageSqlite"
+	}
+]

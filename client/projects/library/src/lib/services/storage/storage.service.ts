@@ -42,7 +42,7 @@ export class StorageService {
   async setToken({ token }: { token: string }) {
     return this.openStore()
       .then(() => this.storage.set({ key: 'token', value: token }))
-      .then((value) => value.result);
+      .then(() => ({ token }));
   }
 
   async getToken() {

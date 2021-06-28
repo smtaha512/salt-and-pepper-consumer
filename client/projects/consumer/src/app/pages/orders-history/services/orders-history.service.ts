@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Plugins } from '@capacitor/core';
+import { LocalNotifications } from '@capacitor/local-notifications'
 import { Store } from '@ngrx/store';
 import { BaseCrudService, ConsumerInterface, isNotEmpty, OrderInterface } from 'dist/library';
 import { orderBy } from 'lodash-es';
@@ -9,7 +9,6 @@ import { delay, exhaustMap, filter, map, switchMap } from 'rxjs/operators';
 import { updateUser } from '../../../+state/user/user.actions';
 import { user } from '../../../+state/user/user.selectors';
 
-const { LocalNotifications } = Plugins;
 
 export interface GetOrdersQueryInterface {
   date: string;
