@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { LocalNotifications } from '@capacitor/local-notifications'
 import { Store } from '@ngrx/store';
@@ -28,11 +28,13 @@ export class OrdersHistoryService extends BaseCrudService<OrderInterface> {
     return super.read({ userId }).pipe(map((orders) => orderBy(orders, 'createdAt', ['desc'])));
   }
 
-  getAllOrdersByDateRange(query: Partial<GetOrdersQueryInterface>): Observable<OrderInterface[]> {
-    return super.read({ ...query, populateUser: true }).pipe(map((orders) => orderBy(orders, 'createdAt', ['desc'])));
+  getAllOrdersByDateRange(query: Partial<GetOrdersQueryInterface>, shouldShowLoader: boolean): Observable<OrderInterface[]> {
+    const headers = new HttpHeaders({ 'show-header': `${shouldShowLoader}` });
+    return super.read({ ...query, populateUser: true }, { headers }).pipe(map((orders) => orderBy(orders, 'createdAt', ['desc'])));
   }
 
   pollForOrders(): Observable<void> {
+    const headers = new HttpHeaders({ 'show-header': 'false' });
     return this.store.select(user).pipe(
       filter(isNotEmpty),
       delay(10000),
@@ -43,10 +45,10 @@ export class OrdersHistoryService extends BaseCrudService<OrderInterface> {
         return { from: fromDate, to, userId: userFromState._id };
       }),
       switchMap(({ to: endOfCurrentDay, from: startOfCurrentDay, userId }) =>
-        this.getAllOrdersByDateRange({ from: startOfCurrentDay.toISOString(), to: endOfCurrentDay.toISOString(), userId }).pipe(
+        this.getAllOrdersByDateRange({ from: startOfCurrentDay.toISOString(), to: endOfCurrentDay.toISOString(), userId }, false).pipe(
           exhaustMap((orders) => this.sendNotifications(orders)),
-          exhaustMap(() => this.httpClient.put(`/users/${userId}/polled`, {})),
-          exhaustMap(() => this.httpClient.get<ConsumerInterface>(`/users/${userId}`)),
+          exhaustMap(() => this.httpClient.put(`/users/${userId}/polled`, {}, { headers })),
+          exhaustMap(() => this.httpClient.get<ConsumerInterface>(`/users/${userId}`, { headers })),
           map((userFromAPI) => this.store.dispatch(updateUser({ user: userFromAPI })))
         )
       )

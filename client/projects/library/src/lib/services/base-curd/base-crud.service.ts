@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 
@@ -14,9 +14,9 @@ export class BaseCrudService<Entity> {
     return this.http.post<Entity>(this.base, body);
   }
 
-  read<T extends ParamType>(query?: T): Observable<Entity[]> {
+  read<T extends ParamType>(query?: T, opts?: { headers: HttpHeaders }): Observable<Entity[]> {
     const params = generateQueryParams(query);
-    return this.http.get<Entity[]>(this.base, { params });
+    return this.http.get<Entity[]>(this.base, { params, ...(opts && { headers: opts?.headers }) });
   }
 
   update<T extends Partial<Entity>>(id: string, update: T) {
