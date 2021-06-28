@@ -6,19 +6,19 @@ const express = require('express');
 const router = express.Router();
 
 router.post('/stripe', (request, response) => {
-  console.log(request);
+  console.log(new Date().toISOString(), request);
   const payload = request.body;
   const stripeSignature = request.headers['stripe-signature'];
 
-  console.log('Got payload: ', JSON.stringify(payload, null, 2));
+  console.log(new Date().toISOString(), 'Got payload: ', JSON.stringify(payload, null, 2));
   try {
     const event = stripe().constructEvent(payload, stripeSignature);
-    console.log(16, JSON.stringify(event, null, 2), payload.toString());
+    console.log(new Date().toISOString(), 16, JSON.stringify(event, null, 2), payload.toString());
     repositories.orders.updateOrderStatusByPaymentIntentId(dbModels)(payload.id);
     response.status(200);
     response.end();
   } catch (error) {
-    console.log(`Webhook Error:`, error);
+    console.log(new Date().toISOString(), `Webhook Error:`, error);
   }
 });
 
