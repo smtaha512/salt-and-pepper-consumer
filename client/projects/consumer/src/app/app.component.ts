@@ -1,13 +1,12 @@
 import { ChangeDetectionStrategy, Component, OnInit, ViewChild } from '@angular/core';
-import { Plugins } from '@capacitor/core';
 import { IonRouterOutlet, Platform } from '@ionic/angular';
+import { App } from '@capacitor/app'
 import { Store } from '@ngrx/store';
+
 import { NetworkService } from 'dist/library';
 import { pullStateFromStorage } from 'projects/library/src/public-api';
 import { pluck } from 'rxjs/operators';
 import { OrdersHistoryService } from './pages/orders-history/services/orders-history.service';
-
-const { App } = Plugins;
 
 @Component({
   selector: 'app-root',
