@@ -6,5 +6,7 @@
     <domain includeSubdomains="true">compute.amazonaws.com</domain>
     <domain includeSubdomains="true">us-east-2.compute.amazonaws.com</domain>
     <domain includeSubdomains="true">ec2-18-116-73-17.us-east-2.compute.amazonaws.com</domain>
+    <domain includeSubdomains="true">saltnpeppernc.com</domain>
+    <domain includeSubdomains="true">api.saltnpeppernc.com</domain>
   </domain-config>
 </network-security-config>
