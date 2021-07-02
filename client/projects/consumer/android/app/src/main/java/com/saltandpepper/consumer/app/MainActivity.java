@@ -7,8 +7,5 @@ import com.getcapacitor.Plugin;
 
 import java.util.ArrayList;
 
-import ca.zyra.capacitor.stripe.Stripe;
-
-
 public class MainActivity extends BridgeActivity {
 }
