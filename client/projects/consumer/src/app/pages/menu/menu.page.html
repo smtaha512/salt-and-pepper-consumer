@@ -16,7 +16,7 @@
       [value]="menu._id"
       style="--margin-top: 0"
     >
-      <ion-label class="ion-text-uppercase multi-line-label" color="primary">{{ menu.title }}</ion-label>
+      <ion-label class="ion-text-uppercase" [ngClass]="{'multi-line-label': isiOS | async}" color="primary">{{ menu.title }}</ion-label>
     </ion-segment-button>
   </ion-segment>
 </ion-header>

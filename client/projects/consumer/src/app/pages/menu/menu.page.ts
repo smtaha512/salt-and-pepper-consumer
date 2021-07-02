@@ -2,6 +2,7 @@ import { DOCUMENT } from '@angular/common';
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Inject, OnDestroy, OnInit } from '@angular/core';
 import { IonSlides } from '@ionic/angular';
 import { select, Store } from '@ngrx/store';
+import { Device } from '@capacitor/device';
 import { isNotEmpty, ItemInterface, MenuInterface } from 'dist/library';
 import { BehaviorSubject, from, Observable, of, Subscription } from 'rxjs';
 import { filter, map, shareReplay, switchMap, tap } from 'rxjs/operators';
@@ -26,6 +27,7 @@ export class MenuPage implements OnInit, OnDestroy {
     shareReplay({ refCount: true, bufferSize: 1 })
   );
   menuItems$: Observable<ItemInterface[]> = of([]);
+  isiOS = Device.getInfo().then((info) => info.operatingSystem === 'ios');
 
   private initalItems: { element: HTMLIonSegmentButtonElement; distanceFromOrigin: number }[];
 
