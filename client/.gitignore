@@ -32,3 +32,5 @@ capacitor.config.temp.json
 /www
 
 .firebase/hosting.*
+
+stripe
