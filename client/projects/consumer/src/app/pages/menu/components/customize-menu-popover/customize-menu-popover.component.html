@@ -1,16 +1,12 @@
-<ion-list>
-  <ion-list-header class="d-flex flex-column align-items-start">
-    <ion-title class="ion-no-padding">Customize Menu</ion-title>
-    <ion-label class="mt-2">Show / hide from menu</ion-label>
-  </ion-list-header>
-  <ion-item lines="none" *ngFor="let item of menu">
-    <ion-label>{{ item.name }}</ion-label>
-    <ion-checkbox
-      *ngIf="showPakistaniMenu$ | async as showPakistaniMenu"
-      slot="start"
-      [disabled]="item.disabled"
-      [ngModel]="showPakistaniMenu.value"
-      (ngModelChange)="handleClick(showPakistaniMenu.value)"
-    ></ion-checkbox>
-  </ion-item>
-</ion-list>
+<h1>Customize Menu</h1>
+<h6>Show / hide from menu</h6>
+<ion-item lines="none" *ngFor="let item of menu">
+  <ion-label>{{ item.name }}</ion-label>
+  <ion-checkbox
+    *ngIf="showPakistaniMenu$ | async as showPakistaniMenu"
+    slot="start"
+    [disabled]="item.disabled"
+    [ngModel]="showPakistaniMenu.value"
+    (ngModelChange)="handleClick(showPakistaniMenu.value)"
+  ></ion-checkbox>
+</ion-item>
