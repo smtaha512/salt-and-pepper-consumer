@@ -1,18 +1,30 @@
 [
 	{
 		"pkg": "@capacitor-community/stripe",
-		"classpath": "ca.zyra.capacitor.stripe.Stripe"
+		"classpath": "com.getcapacitor.community.stripe.Stripe"
 	},
 	{
 		"pkg": "@capacitor/app",
 		"classpath": "com.capacitorjs.plugins.app.AppPlugin"
 	},
 	{
+		"pkg": "@capacitor/device",
+		"classpath": "com.capacitorjs.plugins.device.DevicePlugin"
+	},
+	{
 		"pkg": "@capacitor/local-notifications",
 		"classpath": "com.capacitorjs.plugins.localnotifications.LocalNotificationsPlugin"
 	},
 	{
+		"pkg": "@capacitor/network",
+		"classpath": "com.capacitorjs.plugins.network.NetworkPlugin"
+	},
+	{
+		"pkg": "@capacitor/storage",
+		"classpath": "com.capacitorjs.plugins.storage.StoragePlugin"
+	},
+	{
 		"pkg": "capacitor-data-storage-sqlite",
-		"classpath": "com.jeep.plugin.capacitor.CapacitorDataStorageSqlite"
+		"classpath": "com.jeep.plugin.capacitor.capacitordatastoragesqlite.CapacitorDataStorageSqlitePlugin"
 	}
 ]

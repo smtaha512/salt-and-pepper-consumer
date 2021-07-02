@@ -3,13 +3,22 @@ include ':capacitor-android'
 project(':capacitor-android').projectDir = new File('../node_modules/@capacitor/android/capacitor')
 
 include ':capacitor-community-stripe'
-project(':capacitor-community-stripe').projectDir = new File('../node_modules/@capacitor-community/stripe/android')
+project(':capacitor-community-stripe').projectDir = new File('../stripe/android')
 
 include ':capacitor-app'
 project(':capacitor-app').projectDir = new File('../node_modules/@capacitor/app/android')
 
+include ':capacitor-device'
+project(':capacitor-device').projectDir = new File('../node_modules/@capacitor/device/android')
+
 include ':capacitor-local-notifications'
 project(':capacitor-local-notifications').projectDir = new File('../node_modules/@capacitor/local-notifications/android')
+
+include ':capacitor-network'
+project(':capacitor-network').projectDir = new File('../node_modules/@capacitor/network/android')
+
+include ':capacitor-storage'
+project(':capacitor-storage').projectDir = new File('../node_modules/@capacitor/storage/android')
 
 include ':capacitor-data-storage-sqlite'
 project(':capacitor-data-storage-sqlite').projectDir = new File('../node_modules/capacitor-data-storage-sqlite/android')
