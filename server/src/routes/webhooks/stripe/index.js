@@ -31,6 +31,8 @@ router.post('/stripe', (request, response) => {
     response.end();
   } catch (error) {
     console.log(new Date().toISOString(), `Webhook Error:`, error);
+    response.status(500);
+    response.end();
   }
 });
 
