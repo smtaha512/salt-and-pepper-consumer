@@ -62,7 +62,7 @@ function updateOrder(models, options) {
 
 function updateOrderStatusByPaymentIntentId(models) {
   return function updateOrderStatusByPaymentIntentId(paymentIntentId) {
-    return models.OrderModel.findOneAndUpdate({ paymentIntent: { id: paymentIntentId } }, { $set: { status: 'preparing' } });
+    return models.OrderModel.findOneAndUpdate({ 'paymentIntent.id': paymentIntentId }, { $set: { status: 'preparing' } });
   };
 }
 

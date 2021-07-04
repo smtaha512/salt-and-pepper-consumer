@@ -14,7 +14,19 @@ router.post('/stripe', (request, response) => {
   try {
     const event = stripe().constructEvent(payload, stripeSignature);
     console.log(new Date().toISOString(), 16, JSON.stringify(event, null, 2), payload.toString());
-    repositories.orders.updateOrderStatusByPaymentIntentId(dbModels)(payload.id);
+    console.log(event);
+    switch (event.type) {
+      case 'payment_intent.created': {
+        stripe().confirmPaymentIntent({ id: event.id });
+        break;
+      }
+      case 'payment_intent.succeeded': {
+        repositories.orders.updateOrderStatusByPaymentIntentId(dbModels)(payload.id);
+        break;
+      }
+      default:
+        break;
+    }
     response.status(200);
     response.end();
   } catch (error) {

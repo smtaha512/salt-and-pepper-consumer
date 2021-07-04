@@ -18,11 +18,14 @@ function stripe() {
     });
   }
 
+  function confirmPaymentIntent({ id } = { id: '' }) {
+    return stripe.paymentIntents.confirm(id, { payment_method: 'pm_card_visa' });
+  }
+
   function constructEvent(payload = '', signature) {
-console.log(payload, signature, stripeEndpointSecret);
     return stripe.webhooks.constructEvent(payload, signature, stripeEndpointSecret);
   }
 
-  return { constructEvent, createPaymentIntent };
+  return { constructEvent, createPaymentIntent, confirmPaymentIntent };
 }
 module.exports.stripe = stripe;
