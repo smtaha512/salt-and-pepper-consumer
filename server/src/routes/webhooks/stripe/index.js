@@ -10,7 +10,6 @@ router.post('/stripe', (request, response) => {
   const payload = request.body;
   const stripeSignature = request.headers['stripe-signature'];
 
-  console.log(new Date().toISOString(), 'Got payload: ', JSON.stringify(payload, null, 2));
   try {
     const event = stripe().constructEvent(payload, stripeSignature);
     console.log(new Date().toISOString(), 16, JSON.stringify(event, null, 2), payload.toString());
