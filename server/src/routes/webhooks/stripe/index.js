@@ -8,7 +8,7 @@ const router = express.Router();
 router.post('/stripe', (request, response) => {
   console.log(new Date().toISOString(), request);
   const payload = request.body;
-  const stripeSignature = request.headers['Stripe-Signature'];
+  const stripeSignature = request.headers['stripe-signature'];
 
   try {
     const event = stripe().constructEvent(payload, stripeSignature);
