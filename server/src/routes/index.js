@@ -10,9 +10,7 @@ const stripe = require('./webhooks/stripe/index');
 const express = require('express');
 
 module.exports = function registerRoutes(app) {
-  app.use('/webhooks', [express.raw({
-    type: 'application/json'
-  })], [stripe]);
+  app.use('/webhooks', [express.raw({ type: 'application/json' })], [stripe]);
   app.use(express.json());
   app.get('/check', (_, r) => r.sendStatus(200));
   app.use('/auth', [login, signup]);
