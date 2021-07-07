@@ -29,7 +29,7 @@ module.exports = {
     const dbname = process.env.SAP_DB_NAME;
     const dbpass = process.env.SAP_DB_PASSWORD || '<db-pass>';
     const dbuser = process.env.SAP_DB_USERNAME || '<db-user>';
-    const dbUrl = `mongodb+srv://${dbuser}:<${dbpass}>@cluster0.o8buz.mongodb.net/${dbname}?retryWrites=true&w=majority`;
+    const dbUrl = `mongodb://${dbuser}:<${dbpass}>localhost:27017/${dbname}?retryWrites=true&w=majority`;
     return {
       ...defaultConfig,
       dbUrl,
