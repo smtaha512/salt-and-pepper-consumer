@@ -29,7 +29,9 @@ module.exports = {
     const dbname = process.env.SAP_DB_NAME;
     const dbpass = process.env.SAP_DB_PASSWORD;
     const dbuser = process.env.SAP_DB_USERNAME;
-    const dbUrl = `mongodb://${dbuser.concat(':') ?? ''}${dbpass.concat('@') ?? ''}localhost:27017/${dbname}?retryWrites=true&w=majority`;
+    const dbUrl = `mongodb://${dbuser ? dbuser.concat(':') : ''}${
+      dbpass ? dbpass.concat('@') : ''
+    }localhost:27017/${dbname}?retryWrites=true&w=majority`;
     return {
       ...defaultConfig,
       dbUrl,
