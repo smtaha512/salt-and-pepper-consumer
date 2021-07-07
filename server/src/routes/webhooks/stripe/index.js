@@ -14,13 +14,14 @@ router.post('/stripe', (request, response) => {
     const event = stripe().constructEvent(payload, stripeSignature);
     console.log(new Date().toISOString(), 16, JSON.stringify(event, null, 2), payload.toString());
     console.log(event);
-    const paymentIntentId = event.data.object.id;
     switch (event.type) {
       case 'payment_intent.created': {
+        const paymentIntentId = event.data.object.id;
         stripe().confirmPaymentIntent({ id: paymentIntentId });
         break;
       }
       case 'payment_intent.succeeded': {
+        const paymentIntentId = event.data.object.payment_intent;
         repositories.orders.updateOrderStatusByPaymentIntentId(dbModels)(paymentIntentId);
         break;
       }
