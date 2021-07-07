@@ -33,7 +33,6 @@ module.exports = {
     return {
       ...defaultConfig,
       dbUrl,
-      port: 80,
       self: 'production',
     };
   })(),
