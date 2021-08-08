@@ -6,21 +6,21 @@ const express = require('express');
 const router = express.Router();
 
 router.post('/stripe', (request, response) => {
-  console.log(new Date().toISOString(), request);
   const payload = request.body;
   const stripeSignature = request.headers['stripe-signature'];
 
   try {
     const event = stripe().constructEvent(payload, stripeSignature);
-    console.log(new Date().toISOString(), 16, JSON.stringify(event, null, 2), payload.toString());
-    console.log(event);
+    console.log(new Date().toISOString(), 16, JSON.stringify(event, null, 2));
     switch (event.type) {
       case 'payment_intent.created': {
+        // @ts-ignore
         const paymentIntentId = event.data.object.id;
         stripe().confirmPaymentIntent({ id: paymentIntentId });
         break;
       }
-      case 'payment_intent.succeeded': {
+      case 'charge.succeeded': {
+        // @ts-ignore
         const paymentIntentId = event.data.object.payment_intent;
         repositories.orders.updateOrderStatusByPaymentIntentId(dbModels)(paymentIntentId);
         break;

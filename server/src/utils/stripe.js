@@ -26,6 +26,6 @@ function stripe() {
     return stripe.webhooks.constructEvent(payload, signature, stripeEndpointSecret);
   }
 
-  return { constructEvent, createPaymentIntent, confirmPaymentIntent };
+  return { confirmPaymentIntent, constructEvent, createPaymentIntent };
 }
 module.exports.stripe = stripe;
