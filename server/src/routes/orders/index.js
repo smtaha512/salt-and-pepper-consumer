@@ -1,4 +1,5 @@
 const router = require('express').Router();
+const { ObjectID } = require('bson');
 
 const repositories = require('../../repositories/index');
 const middlewares = require('../../middlewares/index');
@@ -43,6 +44,7 @@ router.post('/orders', middlewares.validateOrder, (request, response) => {
             .then((ephememralKeyResponse) => ({
               customer: user.stripeCustomerId,
               ephemeralKey: ephememralKeyResponse.secret,
+              orderId: paymentIntentResponse.metadata.orderId,
               paymentIntent: paymentIntentResponse.client_secret,
             }))
         )
@@ -50,7 +52,7 @@ router.post('/orders', middlewares.validateOrder, (request, response) => {
     .then((stripeResponse) => {
       console.log(39, new Date().toISOString(), stripeResponse);
       return repositories.orders
-        .createOrder(dbModels)({ ...order, paymentIntent: stripeResponse })
+        .createOrder(dbModels)({ ...order, _id: new ObjectID(stripeResponse.orderId), paymentIntent: stripeResponse })
         .then((order) => {
           logger.info(formatLog(request.method, request.originalUrl, 'response', 'body', order));
           response.status(201).send(stripeResponse);

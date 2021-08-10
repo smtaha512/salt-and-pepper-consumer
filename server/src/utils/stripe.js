@@ -1,6 +1,7 @@
 function stripe() {
   const { lodash: _ } = require('./libs/index');
   const Stripe = require('stripe');
+  const { ObjectId } = require('bson');
 
   const stripeSecret = _.get(global, 'app.envConfig.stripeSecret');
   const stripeEndpointSecret = _.get(global, 'app.envConfig.stripeEndpointSecret');
@@ -14,6 +15,7 @@ function stripe() {
       amount: amount * 100,
       currency: 'usd',
       customer: stripeCustomerId,
+      metadata: { orderId: new ObjectId().toHexString() },
       payment_method_types: ['card'],
       receipt_email: email,
     });

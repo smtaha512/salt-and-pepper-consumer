@@ -61,12 +61,12 @@ function updateOrder(models, options) {
 }
 
 function updateOrderStatusByPaymentIntentId(models) {
-  return function updateOrderStatusByPaymentIntentId(paymentIntentId) {
-    return models.OrderModel.findOneAndUpdate({ 'paymentIntent.id': paymentIntentId }, { $set: { status: 'preparing' } });
+  return function updateOrderStatusByOrderId(orderId = '') {
+    return models.OrderModel.findOneAndUpdate({ _id: orderId }, { $set: { status: 'preparing' } });
   };
 }
 
 module.exports.createOrder = createOrder;
 module.exports.getOrders = getOrders;
 module.exports.updateOrder = updateOrder;
-module.exports.updateOrderStatusByPaymentIntentId = updateOrderStatusByPaymentIntentId;
+module.exports.updateOrderStatusByOrderId = updateOrderStatusByPaymentIntentId;

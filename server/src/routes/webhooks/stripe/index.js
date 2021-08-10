@@ -21,14 +21,14 @@ router.post('/stripe', (request, response) => {
       }
       case 'payment_intent.succeeded': {
         // @ts-ignore
-        const paymentIntentId = event.data.payment_intent;
-        repositories.orders.updateOrderStatusByPaymentIntentId(dbModels)(paymentIntentId);
+        const orderId = event.data.object.metadata.orderId;
+        repositories.orders.updateOrderStatusByOrderId(dbModels)(orderId);
         break;
       }
       case 'charge.succeeded': {
         // @ts-ignore
-        const paymentIntentId = event.data.object.payment_intent;
-        repositories.orders.updateOrderStatusByPaymentIntentId(dbModels)(paymentIntentId);
+        const orderId = event.data.object.metadata.orderId;
+        repositories.orders.updateOrderStatusByOrderId(dbModels)(orderId);
         break;
       }
       default:
