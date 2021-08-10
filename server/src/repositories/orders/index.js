@@ -20,7 +20,7 @@ function getOrders(models) {
           ...(dateRange.to && { $lt: new Date(dateRange.to) }),
         },
         ...(userId && { userId }),
-        // status: { $ne: 'payment pending' },
+        status: { $ne: 'payment pending' },
       });
       if (populateUser) {
         baseQuery.populate('userId').exec();
