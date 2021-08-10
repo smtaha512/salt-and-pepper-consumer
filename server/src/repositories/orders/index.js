@@ -60,9 +60,16 @@ function updateOrder(models, options) {
   };
 }
 
+/**
+ * @param {import('../../models/index')} models
+ */
 function updateOrderStatusByPaymentIntentId(models) {
-  return function updateOrderStatusByOrderId(orderId = '') {
-    return models.OrderModel.findOneAndUpdate({ _id: orderId }, { $set: { status: 'preparing' } });
+  /**
+   * @typedef {import('bson').ObjectID} ObjectID
+   * @param orderId {ObjectID}
+   */
+  return function updateOrderStatusByOrderId(orderId) {
+    return models.OrderModel.findOneAndUpdate({ _id: orderId }, { $set: { status: 'preparing' } }, { new: true }).exec();
   };
 }
 

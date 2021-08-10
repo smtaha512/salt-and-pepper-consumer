@@ -2,6 +2,7 @@ const { stripe } = require('../../../utils/stripe');
 const repositories = require('../../../repositories/index');
 const dbModels = require('../../../models/index');
 
+const { ObjectId } = require('bson');
 const express = require('express');
 const router = express.Router();
 
@@ -21,13 +22,13 @@ router.post('/stripe', (request, response) => {
       }
       case 'payment_intent.succeeded': {
         // @ts-ignore
-        const orderId = event.data.object.metadata.orderId;
+        const orderId = new ObjectId(event.data.object.metadata.orderId);
         repositories.orders.updateOrderStatusByOrderId(dbModels)(orderId);
         break;
       }
       case 'charge.succeeded': {
         // @ts-ignore
-        const orderId = event.data.object.metadata.orderId;
+        const orderId = new ObjectId(event.data.object.metadata.orderId);
         repositories.orders.updateOrderStatusByOrderId(dbModels)(orderId);
         break;
       }
