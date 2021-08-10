@@ -27,9 +27,9 @@ export class OrdersPage implements OnInit {
 
   ngOnInit() {}
 
-  onClick(event: MouseEvent, order) {
+  onClick(event: MouseEvent, order: OrderInterface) {
     event.preventDefault();
     event.stopImmediatePropagation();
-    this.router.navigate([`/order/${order}`]);
+    this.router.navigate([`/order/${order._id}`]);
   }
 }
