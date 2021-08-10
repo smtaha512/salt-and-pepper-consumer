@@ -3,7 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { ActionSheetController, ToastController } from '@ionic/angular';
 import { OrderInterface, OrderStatausEnum } from 'dist/library';
 import { BehaviorSubject, Observable } from 'rxjs';
-import { map, repeatWhen, shareReplay, switchMap, takeUntil, tap } from 'rxjs/operators';
+import { first, map, repeatWhen, shareReplay, switchMap, takeUntil, tap } from 'rxjs/operators';
 import { Printer } from '../../services/printer/printer';
 import { OrdersHistoryService } from '../orders-history/services/orders-history.service';
 
@@ -78,9 +78,11 @@ export class OrderPage implements OnInit, OnDestroy {
                 handler: () => {
                   this.currentOrder$
                     .pipe(
-                      switchMap((order) => this.ordersHistoryService.update(order._id, { status: item.text as OrderStatausEnum })),
-                      tap(() => this.refetch$.next(true)),
-                      takeUntil(this.destroyed$)
+                      first(),
+                      switchMap((order) =>
+                        this.ordersHistoryService.update(order._id, { status: item.text as OrderStatausEnum }).pipe(first())
+                      ),
+                      tap(() => this.refetch$.next(true))
                     )
                     .subscribe();
                 },
