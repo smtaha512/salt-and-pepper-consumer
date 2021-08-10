@@ -34,17 +34,23 @@ export class Printer {
 
   private generateText(order: OrderInterface) {
     const user = order.userId as ConsumerInterface;
-    const username = `${user.firstname} ${user.lastname}`;
+    const customerName = `${user.firstname} ${user.lastname}`;
     const items = order.items.map((item) => `${item.quantity} ${item.title} | ${item.notes}`);
+    const printedAt = 'Printed: '.concat(this.datePipe.transform(new Date(), 'short'));
+    const total = `Total:  $${order.total.toString()}`;
+    const onlineOrderId = 'Online Order ID: '.concat(order._id.slice(-6));
 
-    return `${this.alignCenter('SALT AND PEPPER')}${this.alignCenter('ONLINE ORDER')}${this.generateLine(
-      `${this.datePipe.transform(order.createdAt, 'short')}`
-    )}${this.generateLine(`Printed: ${this.datePipe.transform(new Date(), 'short')}`)}${this.generateLine(username)}${items.map((item) =>
-      this.generateLine(item)
-    )}${this.generateLine('================')}${this.generateLine(`Total:  $${order.total.toString()}`)}${this.generateLine(
-      `Online Order ID: ${order._id.slice(-6)}`
-    )}
-    `;
+    const text = this.alignCenter('SALT AND PEPPER')
+      .concat(this.alignCenter('ONLINE ORDER'))
+      .concat(this.generateLine(this.datePipe.transform(order.createdAt, 'short')))
+      .concat(this.generateLine(printedAt))
+      .concat(this.generateLine(customerName))
+      .concat(items.map((item) => this.generateLine(item)).join())
+      .concat(this.generateLine('================'))
+      .concat(this.generateLine(total))
+      .concat(this.generateLine(onlineOrderId));
+
+    return text;
   }
 
   private generateLine(text: string) {
