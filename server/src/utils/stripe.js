@@ -35,9 +35,7 @@ function stripe() {
   }
 
   function createEphememralKey(customerId = '') {
-    return stripe.ephemeralKeys.create({
-      customer: customerId,
-    });
+    return stripe.ephemeralKeys.create({ customer: customerId }, { apiVersion: '2020-08-27' });
   }
 
   return { confirmPaymentIntent, constructEvent, createCustomer, createEphememralKey, createPaymentIntent };
