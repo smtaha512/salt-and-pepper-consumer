@@ -7,8 +7,6 @@ export interface State {
   [fromUser.userFeatureKey]: fromUser.State;
 }
 
-const action = createAction('Dumb');
-
 export const reducers: ActionReducerMap<State> = {
   [fromUser.userFeatureKey]: fromUser.userReducer,
 };
