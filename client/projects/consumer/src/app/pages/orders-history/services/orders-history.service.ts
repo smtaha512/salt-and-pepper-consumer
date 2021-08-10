@@ -1,6 +1,6 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { LocalNotifications } from '@capacitor/local-notifications'
+import { LocalNotifications } from '@capacitor/local-notifications';
 import { Store } from '@ngrx/store';
 import { BaseCrudService, ConsumerInterface, isNotEmpty, OrderInterface } from 'dist/library';
 import { orderBy } from 'lodash-es';
@@ -8,7 +8,6 @@ import { from, Observable, of } from 'rxjs';
 import { delay, exhaustMap, filter, map, switchMap } from 'rxjs/operators';
 import { updateUser } from '../../../+state/user/user.actions';
 import { user } from '../../../+state/user/user.selectors';
-
 
 export interface GetOrdersQueryInterface {
   date: string;
@@ -29,12 +28,12 @@ export class OrdersHistoryService extends BaseCrudService<OrderInterface> {
   }
 
   getAllOrdersByDateRange(query: Partial<GetOrdersQueryInterface>, shouldShowLoader: boolean): Observable<OrderInterface[]> {
-    const headers = new HttpHeaders({ 'show-header': `${shouldShowLoader}` });
+    const headers = new HttpHeaders({ 'show-loader': `${shouldShowLoader}` });
     return super.read({ ...query, populateUser: true }, { headers }).pipe(map((orders) => orderBy(orders, 'createdAt', ['desc'])));
   }
 
   pollForOrders(): Observable<void> {
-    const headers = new HttpHeaders({ 'show-header': 'false' });
+    const headers = new HttpHeaders({ 'show-loader': 'false' });
     return this.store.select(user).pipe(
       filter(isNotEmpty),
       delay(10000),

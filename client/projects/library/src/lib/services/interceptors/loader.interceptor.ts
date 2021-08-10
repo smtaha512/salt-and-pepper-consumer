@@ -23,7 +23,7 @@ export class LoaderInterceptor implements HttpInterceptor {
 
   private shouldShowLoader(request: HttpRequest<any>) {
     const isUrlExempted = this.config.loaderExpemtedUrls.some((exemptedUrl) => exemptedUrl.includes(request.url));
-    const shouldShowHeader = request.headers.get('show-header');
+    const shouldShowHeader = request.headers.get('show-loader');
     return !(isUrlExempted || shouldShowHeader === 'false');
   }
 }

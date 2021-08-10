@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { AdminInterface, BaseCrudService, isNotEmpty, OrderInterface } from 'dist/library';
@@ -22,6 +22,7 @@ export class OrdersHistoryService extends BaseCrudService<OrderInterface> {
   }
 
   pollForOrders(): Observable<void> {
+    const headers = new HttpHeaders({ 'show-loader': 'false' });
     return this.store.select(user).pipe(
       filter(isNotEmpty),
       delay(10000),
@@ -34,8 +35,8 @@ export class OrdersHistoryService extends BaseCrudService<OrderInterface> {
       switchMap(({ to: endOfCurrentDay, from: startOfCurrentDay, userId }) =>
         this.getAllOrdersByDateRange({ from: startOfCurrentDay.toISOString(), to: endOfCurrentDay.toISOString() }).pipe(
           exhaustMap((orders) => from(this.printer.sequentialPrints(orders))),
-          exhaustMap(() => this.httpClient.put(`/users/${userId}/polled`, {})),
-          exhaustMap(() => this.httpClient.get<AdminInterface>(`/users/${userId}`)),
+          exhaustMap(() => this.httpClient.put(`/users/${userId}/polled`, {}, { headers })),
+          exhaustMap(() => this.httpClient.get<AdminInterface>(`/users/${userId}`, { headers })),
           map((userFromAPI) => this.store.dispatch(updateUser({ user: userFromAPI })))
         )
       )
