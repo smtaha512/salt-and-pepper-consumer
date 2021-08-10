@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { OrderInterface, PreferencesEnum } from 'dist/library';
 import { Observable } from 'rxjs';
+import { StripeResponse } from '../../models/stripe-response.interface';
 
 export interface OrderCreationInterface extends Pick<OrderInterface, 'notes' | 'total' | 'userId'> {
   items: Array<Record<'_id', string> & Record<'preference', PreferencesEnum>>;
@@ -11,7 +12,7 @@ export interface OrderCreationInterface extends Pick<OrderInterface, 'notes' | '
 export class CheckoutFormService {
   constructor(private readonly http: HttpClient) {}
 
-  placeOrder({ order }: { order: OrderCreationInterface }): Observable<string> {
-    return this.http.post<string>('/orders', { order, paymentOption: 'creditcard' });
+  placeOrder({ order }: { order: OrderCreationInterface }): Observable<StripeResponse> {
+    return this.http.post<StripeResponse>('/orders', { order, paymentOption: 'creditcard' });
   }
 }

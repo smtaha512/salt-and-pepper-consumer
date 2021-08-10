@@ -8,12 +8,11 @@ import { VerifyCodePopoverModule } from '../verify-code-popover/verify-code-popo
 import { CheckoutEffects } from './+state/checkout.effects';
 import { CheckoutFormComponent } from './checkout-form.component';
 import { StripeService } from './services/stripe/stripe.service';
-import { ExpiryDateValidator } from './validators/expiry-date.validator';
 
 @NgModule({
   declarations: [CheckoutFormComponent],
   exports: [CheckoutFormComponent],
-  providers: [StripeService, ExpiryDateValidator],
+  providers: [StripeService],
   imports: [
     CommonModule,
     IonicModule,

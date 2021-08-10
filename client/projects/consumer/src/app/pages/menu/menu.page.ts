@@ -1,8 +1,8 @@
 import { DOCUMENT } from '@angular/common';
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Inject, OnDestroy, OnInit } from '@angular/core';
+import { Device } from '@capacitor/device';
 import { IonSlides } from '@ionic/angular';
 import { select, Store } from '@ngrx/store';
-import { Device } from '@capacitor/device';
 import { isNotEmpty, ItemInterface, MenuInterface } from 'dist/library';
 import { BehaviorSubject, from, Observable, of, Subscription } from 'rxjs';
 import { filter, map, shareReplay, switchMap, tap } from 'rxjs/operators';

@@ -9,7 +9,7 @@ import { userId } from '../../../+state/user/user.selectors';
 import { clearCurrentOrderItems } from '../../../pages/cart/+state/current-order-item.actions';
 import { currentOrderItems, total } from '../../../pages/cart/+state/current-order-item.selectors';
 import { SigninInterface } from '../../../services/authentication/authentication.model';
-import { CardInterface } from '../models/card.interface';
+import { StripeResponse } from '../models/stripe-response.interface';
 import { CheckoutFormService } from '../services/checkout-form/checkout-form.service';
 import { StripeService } from '../services/stripe/stripe.service';
 import * as UserActions from './../../../+state/user/user.actions';
@@ -24,7 +24,7 @@ export class CheckoutEffects {
         this.store.select(userId).pipe(
           exhaustMap((userIdFromState) => {
             if (userIdFromState) {
-              return this.placeOrderFlowAfterLogin$(payload.card);
+              return this.placeOrderFlowAfterLogin$();
             }
             return this.placeOrderWithLogin$(payload);
           })
@@ -41,7 +41,7 @@ export class CheckoutEffects {
     )
   );
 
-  placeOrderFlowAfterLogin$(card: CardInterface) {
+  placeOrderFlowAfterLogin$() {
     return combineLatest([
       this.store.select(currentOrderItems),
       this.store.select(total),
@@ -62,7 +62,7 @@ export class CheckoutEffects {
             },
           })
           .pipe(
-            exhaustMap((stripeResponse) => this.stripeService.confirmPaymentIntent(card, stripeResponse)),
+            exhaustMap((stripeResponse: StripeResponse) => this.stripeService.paymentFlow(stripeResponse)),
             map(() => CheckoutActions.placeOrderSuccess()),
             catchError(() => of(CheckoutActions.placeOrderFailure()))
           )
@@ -70,12 +70,12 @@ export class CheckoutEffects {
     );
   }
 
-  placeOrderWithLogin$(payload: { card: CardInterface; credentials: Omit<SigninInterface, 'code'> }) {
+  placeOrderWithLogin$(payload: { credentials: Omit<SigninInterface, 'code'> }) {
     this.store.dispatch(UserActions.getVerificationCode({ credentials: payload.credentials }));
     return this.actions$.pipe(
       ofType(UserActions.signinSuccess),
       take(1),
-      exhaustMap(() => this.placeOrderFlowAfterLogin$(payload.card))
+      exhaustMap(() => this.placeOrderFlowAfterLogin$())
     );
   }
 

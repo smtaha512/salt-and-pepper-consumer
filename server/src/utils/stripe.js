@@ -9,10 +9,11 @@ function stripe() {
     apiVersion: '2020-08-27',
   });
 
-  function createPaymentIntent({ amount, email } = { amount: 0, email: '' }) {
+  function createPaymentIntent({ amount, email, stripeCustomerId } = { amount: 0, email: '', stripeCustomerId: '' }) {
     return stripe.paymentIntents.create({
       amount: amount * 100,
       currency: 'usd',
+      customer: stripeCustomerId,
       payment_method_types: ['card'],
       receipt_email: email,
     });
@@ -26,6 +27,19 @@ function stripe() {
     return stripe.webhooks.constructEvent(payload, signature, stripeEndpointSecret);
   }
 
-  return { confirmPaymentIntent, constructEvent, createPaymentIntent };
+  function createCustomer(email = '', phone = '') {
+    return stripe.customers.create({
+      email,
+      phone,
+    });
+  }
+
+  function createEphememralKey(customerId = '') {
+    return stripe.ephemeralKeys.create({
+      customer: customerId,
+    });
+  }
+
+  return { confirmPaymentIntent, constructEvent, createCustomer, createEphememralKey, createPaymentIntent };
 }
 module.exports.stripe = stripe;

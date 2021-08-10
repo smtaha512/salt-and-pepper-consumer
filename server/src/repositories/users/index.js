@@ -4,6 +4,7 @@ const utils = require('../../utils/index');
 const { lodash: _ } = require('../../utils/libs/index');
 const { twilioVerify } = require('../../utils/twilio-verify');
 const { RES_MSGS } = require('../../utils/constants');
+const { stripe } = require('@src/utils/stripe');
 /**
  * @param {import('../../models/index')} models
  * @returns
@@ -68,7 +69,8 @@ function verifyOrCreate(models) {
             .exec()
             .then(async (user) => {
               if (_.isEmpty(user)) {
-                const userToSave = new models.UsersModel({ ...creds });
+                const stripeCustomer = await stripe().createCustomer(creds.email, creds.contact);
+                const userToSave = new models.UsersModel({ ...creds, stripeCustomerId: stripeCustomer.id });
                 const savedUser = await userToSave.save();
                 return resolve(savedUser.toObject());
               }

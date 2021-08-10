@@ -10,6 +10,7 @@ const UserSchema = new Schema(
     lastPolledAt: { type: Date },
     lastname: { default: '', trim: true, type: String },
     password: { required: false, type: String },
+    stripeCustomerId: { type: String, unique: true },
     type: { enum: ['root', 'admin', 'user'], lowercase: true, required: true, type: String },
     username: { trim: true, type: String, unique: true },
   },

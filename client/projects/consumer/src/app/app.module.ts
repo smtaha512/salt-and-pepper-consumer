@@ -7,6 +7,7 @@ import { IonicModule } from '@ionic/angular';
 import { EffectsModule } from '@ngrx/effects';
 import { StoreModule } from '@ngrx/store';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
+import { defineCustomElements } from '@stripe-elements/stripe-elements/loader';
 
 import { Config, InterceptorsModule, StorageService, CONFIG, StorageSyncEffects } from 'dist/library';
 // import { RemoteDevToolsProxy } from 'dist/library';
@@ -18,6 +19,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { AppEffects } from './app.effects';
 
+defineCustomElements();
 // // Register our remote devtools if we're on-device and not in a browser
 // if (!window['devToolsExtension'] && !window['__REDUX_DEVTOOLS_EXTENSION__']) {
 //   let remoteDevToolsProxy = new RemoteDevToolsProxy({

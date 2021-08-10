@@ -11,7 +11,7 @@ export class AuthenticationService {
   constructor(private readonly http: HttpClient) {}
 
   getVerificationCode(contact: string): Observable<void> {
-    return this.http.post<void>(`${this.baseUrl}/verification-code`, { contact });
+    return this.http.post<void>(`/post-redirect?url=${this.baseUrl}/verification-code`, { contact });
   }
 
   signin({ firstname, lastname, contact, email, code }: SigninInterface): Observable<AuthenticationResponseInterface> {

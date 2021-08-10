@@ -34,7 +34,19 @@ router.post('/orders', middlewares.validateOrder, (request, response) => {
   const { order } = request.body;
   repositories.users
     .getUserById(dbModels)(order.userId)
-    .then((user) => stripe().createPaymentIntent({ amount: order.total, email: user.email }))
+    .then((user) =>
+      stripe()
+        .createPaymentIntent({ amount: order.total, email: user.email, stripeCustomerId: user.stripeCustomerId })
+        .then((paymentIntentResponse) =>
+          stripe()
+            .createEphememralKey(user.stripeCustomerId)
+            .then((ephememralKeyResponse) => ({
+              customer: user.stripeCustomerId,
+              ephemeralKey: ephememralKeyResponse.secret,
+              paymentIntent: paymentIntentResponse.client_secret,
+            }))
+        )
+    )
     .then((stripeResponse) => {
       console.log(39, new Date().toISOString(), stripeResponse);
       return repositories.orders

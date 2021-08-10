@@ -1,8 +1,7 @@
 import { ChangeDetectionStrategy, Component, OnInit, ViewChild } from '@angular/core';
+import { App } from '@capacitor/app';
 import { IonRouterOutlet, Platform } from '@ionic/angular';
-import { App } from '@capacitor/app'
 import { Store } from '@ngrx/store';
-
 import { NetworkService } from 'dist/library';
 import { pullStateFromStorage } from 'projects/library/src/public-api';
 import { pluck } from 'rxjs/operators';

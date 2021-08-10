@@ -19,6 +19,12 @@ router.post('/stripe', (request, response) => {
         stripe().confirmPaymentIntent({ id: paymentIntentId });
         break;
       }
+      case 'payment_intent.succeeded': {
+        // @ts-ignore
+        const paymentIntentId = event.data.payment_intent;
+        repositories.orders.updateOrderStatusByPaymentIntentId(dbModels)(paymentIntentId);
+        break;
+      }
       case 'charge.succeeded': {
         // @ts-ignore
         const paymentIntentId = event.data.object.payment_intent;
