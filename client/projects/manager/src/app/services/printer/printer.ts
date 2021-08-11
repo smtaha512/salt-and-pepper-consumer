@@ -21,13 +21,14 @@ export class Printer {
   }
 
   print(order: OrderInterface) {
+    const fontSize = parseInt(prompt('Enter font size'));
     return this.printer
       .portDiscovery('All')
       .then(([printer]) => printer)
       .then((printer) =>
         this.printRasterReceipt(printer.portName, 'StarDotImpact', {
           text: this.generateText(order),
-          fontSize: Printer.FONT_SIZE,
+          fontSize: fontSize ?? Printer.FONT_SIZE,
         })
       );
   }
