@@ -6,6 +6,7 @@ import { ConsumerInterface, OrderInterface } from 'dist/library';
 @Injectable({ providedIn: 'root' })
 export class Printer {
   private static readonly FONT_SIZE = 20;
+  private static readonly MAX_CHARS_PER_LINE: number = 25;
   constructor(private readonly printer: StarPRNT, private readonly datePipe: DatePipe) {}
 
   async sequentialPrints(orders: OrderInterface[]) {
@@ -35,20 +36,25 @@ export class Printer {
 
   private generateText(order: OrderInterface) {
     const user = order.userId as ConsumerInterface;
-    const customerName = `${user.firstname} ${user.lastname}`;
-    const items = order.items.map((item) => `${item.quantity} ${item.title} | ${item.notes}`);
+    const customerName = 'Name: '.concat(user.firstname).concat(user.lastname);
+    const items = order.items.map((item) =>
+      this.generateLine(`${item.quantity} ${item.title}`).concat(this.generateLine('Notes: '.concat(item.notes)))
+    );
     const printedAt = 'Printed: '.concat(this.datePipe.transform(new Date(), 'short'));
     const total = `Total:  $${order.total.toString()}`;
-    const onlineOrderId = 'Online Order ID: '.concat(order._id.slice(-6));
+    const onlineOrderId = order._id.slice(-6);
 
     const text = this.alignCenter('SALT AND PEPPER')
       .concat(this.alignCenter('ONLINE ORDER'))
       .concat(this.generateLine(this.datePipe.transform(order.createdAt, 'short')))
       .concat(this.generateLine(printedAt))
       .concat(this.generateLine(customerName))
+      .concat(this.alignCenter('ORDER:'))
+      .concat(this.generateLine('================'))
       .concat(items.map((item) => this.generateLine(item)).join())
       .concat(this.generateLine('================'))
       .concat(this.generateLine(total))
+      .concat(this.generateLine('Online Order ID: '))
       .concat(this.generateLine(onlineOrderId));
 
     return text;
@@ -56,20 +62,20 @@ export class Printer {
 
   private generateLine(text: string) {
     let line = '';
-    if (text.length > 19) {
-      line = text.substr(0, 19);
+    if (text.length > Printer.MAX_CHARS_PER_LINE) {
+      line = text.substr(0, Printer.MAX_CHARS_PER_LINE);
       line = line + '\n';
-      line = line + this.generateLine(text.substr(19, text.length));
+      line = line + this.generateLine(text.substr(Printer.MAX_CHARS_PER_LINE, text.length));
       return '\n' + line + '\n';
     }
     return '\n' + text + '\n';
   }
 
   private alignCenter(text: string) {
-    if (text.length > 19) {
+    if (text.length > Printer.MAX_CHARS_PER_LINE) {
       return this.generateLine(text);
     }
-    const spacesOnBothSide = 19 - text.length;
+    const spacesOnBothSide = Printer.MAX_CHARS_PER_LINE - text.length;
     return '\n' + text.padStart(spacesOnBothSide / 2, ' ') + '\n';
   }
 
