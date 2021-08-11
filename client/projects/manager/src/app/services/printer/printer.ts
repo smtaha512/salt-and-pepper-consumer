@@ -5,7 +5,7 @@ import { ConsumerInterface, OrderInterface } from 'dist/library';
 
 @Injectable({ providedIn: 'root' })
 export class Printer {
-  private static readonly FONT_SIZE = 26;
+  private static readonly FONT_SIZE = 20;
   constructor(private readonly printer: StarPRNT, private readonly datePipe: DatePipe) {}
 
   async sequentialPrints(orders: OrderInterface[]) {
