@@ -37,7 +37,7 @@ export class Printer {
 
   private generateText(order: OrderInterface) {
     const user = order.userId as ConsumerInterface;
-    const customerName = 'Name: '.concat(user.firstname).concat(user.lastname);
+    const customerName = 'Name: '.concat(user.firstname).concat(' ').concat(user.lastname);
     const items = order.items.map((item) =>
       this.generateLine(`${item.quantity} ${item.title}`).concat(this.generateLine('Notes: '.concat(item.notes)))
     );
