@@ -63,12 +63,12 @@ export class Printer {
 
   private generateLine(text: string) {
     let line = '';
-    if (text.length > Printer.MAX_CHARS_PER_LINE) {
-      line = text.substr(0, Printer.MAX_CHARS_PER_LINE);
-      line = line + '\n';
-      line = line + this.generateLine(text.substr(Printer.MAX_CHARS_PER_LINE, text.length));
-      return '\n' + line + '\n';
-    }
+    // if (text.length > Printer.MAX_CHARS_PER_LINE) {
+    //   line = text.substr(0, Printer.MAX_CHARS_PER_LINE);
+    //   line = line + '\n';
+    //   line = line + this.generateLine(text.substr(Printer.MAX_CHARS_PER_LINE, text.length));
+    //   return '\n' + line + '\n';
+    // }
     return '\n' + text + '\n';
   }
 
