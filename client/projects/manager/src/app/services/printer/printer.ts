@@ -81,6 +81,7 @@ export class Printer {
   }
 
   private printRasterReceipt(port: string, emulation: string, rasterObj: RasterObj) {
-    return this.printer.printRasterReceipt(port, emulation, rasterObj);
+    return this.printer.printRawText(port, emulation, { text: rasterObj.text });
+    // return this.printer.printRasterReceipt(port, emulation, rasterObj);
   }
 }
