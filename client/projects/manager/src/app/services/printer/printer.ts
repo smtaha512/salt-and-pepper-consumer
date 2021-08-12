@@ -31,6 +31,7 @@ export class Printer {
         this.printRasterReceipt(printer.portName, 'StarDotImpact', {
           text: this.generateText(order),
           fontSize: fontSize ?? Printer.FONT_SIZE,
+          paperWidth: 210,
         })
       );
   }
@@ -63,12 +64,12 @@ export class Printer {
 
   private generateLine(text: string) {
     let line = '';
-    // if (text.length > Printer.MAX_CHARS_PER_LINE) {
-    //   line = text.substr(0, Printer.MAX_CHARS_PER_LINE);
-    //   line = line + '\n';
-    //   line = line + this.generateLine(text.substr(Printer.MAX_CHARS_PER_LINE, text.length));
-    //   return '\n' + line + '\n';
-    // }
+    if (text.length > Printer.MAX_CHARS_PER_LINE) {
+      line = text.substr(0, Printer.MAX_CHARS_PER_LINE);
+      line = line + '\n';
+      line = line + this.generateLine(text.substr(Printer.MAX_CHARS_PER_LINE, text.length));
+      return '\n' + line + '\n';
+    }
     return '\n' + text + '\n';
   }
 
@@ -81,7 +82,6 @@ export class Printer {
   }
 
   private printRasterReceipt(port: string, emulation: string, rasterObj: RasterObj) {
-    return this.printer.printRawText(port, emulation, { text: rasterObj.text });
-    // return this.printer.printRasterReceipt(port, emulation, rasterObj);
+    return this.printer.printRasterReceipt(port, emulation, rasterObj);
   }
 }
