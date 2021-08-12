@@ -5,8 +5,8 @@ import { ConsumerInterface, OrderInterface } from 'dist/library';
 
 @Injectable({ providedIn: 'root' })
 export class Printer {
-  private static readonly FONT_SIZE = 20;
-  private static MAX_CHARS_PER_LINE: number = 25;
+  private static readonly FONT_SIZE = 12;
+  private static readonly MAX_CHARS_PER_LINE: number = 200;
   constructor(private readonly printer: StarPRNT, private readonly datePipe: DatePipe) {}
 
   async sequentialPrints(orders: OrderInterface[]) {
@@ -22,15 +22,13 @@ export class Printer {
   }
 
   print(order: OrderInterface) {
-    const fontSize = parseInt(prompt('Enter font size'));
-    Printer.MAX_CHARS_PER_LINE = parseInt(prompt('Enter max characters allowed per line'));
     return this.printer
       .portDiscovery('All')
       .then(([printer]) => printer)
       .then((printer) =>
         this.printRasterReceipt(printer.portName, 'StarDotImpact', {
           text: this.generateText(order),
-          fontSize: fontSize ?? Printer.FONT_SIZE,
+          fontSize: Printer.FONT_SIZE,
           paperWidth: 210,
         })
       );
