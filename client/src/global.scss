@@ -77,6 +77,10 @@
     --button-color-hover: var(--button-color);
     color: var(--button-color-hover) !important;
   }
+
+  & .alert-button-inner {
+    color: var(--button-color);
+  }
 }
 
 .ion-button-text-color-light {
@@ -110,7 +114,6 @@
     left: auto !important;
   }
 }
-
 
 ion-navbar.toolbar.toolbar-ios.statusbar-padding,
 ion-navbar.toolbar-ios ion-title.title-ios,
