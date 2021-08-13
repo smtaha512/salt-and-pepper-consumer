@@ -5,6 +5,7 @@ import { AlertInput, AlertButton } from '@ionic/core';
 import { TextareaPopoverComponentInterface } from './textarea-popover.component';
 
 const enum TextAreaButtonRoles {
+  BACKDROP = 'backdrop',
   CANCEL = 'cancel',
   UPDATE = 'update',
 }
@@ -30,6 +31,8 @@ export class TextareaPopoverService {
       .then((alert) =>
         alert.onDidDismiss().then(function textAreaPopoverDismissHandler(eventDetail) {
           switch (eventDetail.role) {
+            case TextAreaButtonRoles.BACKDROP:
+              return;
             case TextAreaButtonRoles.CANCEL:
               return;
             case TextAreaButtonRoles.UPDATE:
