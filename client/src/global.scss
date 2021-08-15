@@ -122,3 +122,12 @@ ion-toolbar.toolbar-ios ion-title.title-ios {
   padding-top: constant(safe-area-inset-top);
   padding-top: env(safe-area-inset-top);
 }
+
+.disable-action-sheet-btns {
+  cursor: not-allowed;
+  background-color: rgb(229, 229, 229) !important;
+}
+
+.disable-action-sheet-btns > * {
+  pointer-events: none;
+}
