@@ -1,3 +1,5 @@
+const { stripe } = require('../../utils/stripe');
+
 /**
  * @typedef {import('mongoose').Document} Doc
  * @param {import('../../models/index')} models
@@ -55,8 +57,22 @@ function createOrder(models) {
  * @returns
  */
 function updateOrder(models, options) {
-  return function (orderId, orderDetails) {
-    return models.OrderModel.findByIdAndUpdate(orderId, { $set: orderDetails }, options);
+  return async function (orderId, orderDetails) {
+    try {
+      const order = await models.OrderModel.findById(orderId).select({ paymentData: 1 }).exec();
+      let refund = null;
+      if (orderDetails.status === 'cancelled') {
+        // @ts-ignore
+        refund = await stripe().refund({ charge: order.paymentData.charge, paymentIntent: order.paymentData.paymentIntent });
+      }
+      return models.OrderModel.findByIdAndUpdate(
+        orderId,
+        { $set: { ...orderDetails, ...(refund && { 'paymentData.refund': refund }) } },
+        options
+      );
+    } catch (error) {
+      console.log(error);
+    }
   };
 }
 
@@ -68,8 +84,18 @@ function updateOrderStatusByPaymentIntentId(models) {
    * @typedef {import('bson').ObjectID} ObjectID
    * @param orderId {ObjectID}
    */
-  return function updateOrderStatusByOrderId(orderId) {
-    return models.OrderModel.findOneAndUpdate({ _id: orderId }, { $set: { status: 'preparing' } }, { new: true }).exec();
+  return function updateOrderStatusByOrderId(orderId, { paymentIntent, charge }) {
+    return models.OrderModel.findOneAndUpdate(
+      { _id: orderId },
+      {
+        $set: {
+          ...(charge !== null ? { 'paymentData.charge': charge } : {}),
+          ...(paymentIntent !== null ? { 'paymentData.paymentIntent': paymentIntent } : {}),
+          status: 'preparing',
+        },
+      },
+      { new: true }
+    ).exec();
   };
 }
 

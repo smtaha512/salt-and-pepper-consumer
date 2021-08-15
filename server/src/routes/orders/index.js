@@ -52,7 +52,7 @@ router.post('/orders', middlewares.validateOrder, (request, response) => {
     .then((stripeResponse) => {
       console.log(39, new Date().toISOString(), stripeResponse);
       return repositories.orders
-        .createOrder(dbModels)({ ...order, _id: new ObjectID(stripeResponse.orderId), paymentIntent: stripeResponse })
+        .createOrder(dbModels)({ ...order, _id: new ObjectID(stripeResponse.orderId) })
         .then((order) => {
           logger.info(formatLog(request.method, request.originalUrl, 'response', 'body', order));
           response.status(201).send(stripeResponse);

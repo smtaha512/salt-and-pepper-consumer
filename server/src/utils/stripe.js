@@ -40,6 +40,10 @@ function stripe() {
     return stripe.ephemeralKeys.create({ customer: customerId }, { apiVersion: '2020-08-27' });
   }
 
-  return { confirmPaymentIntent, constructEvent, createCustomer, createEphememralKey, createPaymentIntent };
+  function refund({ paymentIntent, charge }) {
+    return stripe.refunds.create({ charge, payment_intent: paymentIntent });
+  }
+
+  return { confirmPaymentIntent, constructEvent, createCustomer, createEphememralKey, createPaymentIntent, refund };
 }
 module.exports.stripe = stripe;

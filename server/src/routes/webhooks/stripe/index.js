@@ -23,13 +23,13 @@ router.post('/stripe', (request, response) => {
       case 'payment_intent.succeeded': {
         // @ts-ignore
         const orderId = new ObjectId(event.data.object.metadata.orderId);
-        repositories.orders.updateOrderStatusByOrderId(dbModels)(orderId);
+        repositories.orders.updateOrderStatusByOrderId(dbModels)(orderId, { charge: undefined, paymentIntent: event });
         break;
       }
       case 'charge.succeeded': {
         // @ts-ignore
         const orderId = new ObjectId(event.data.object.metadata.orderId);
-        repositories.orders.updateOrderStatusByOrderId(dbModels)(orderId);
+        repositories.orders.updateOrderStatusByOrderId(dbModels)(orderId, { charge: event, paymentIntent: undefined });
         break;
       }
       default:

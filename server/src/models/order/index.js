@@ -24,7 +24,7 @@ const OrderSchema = new Schema(
       ),
     ],
     notes: { default: '', maxlength: 240, trim: true, type: String },
-    paymentIntent: { select: false, type: Object },
+    paymentData: { select: false, type: Object },
     printed: { default: false, type: Schema.Types.Boolean },
     status: {
       default: 'payment pending',
