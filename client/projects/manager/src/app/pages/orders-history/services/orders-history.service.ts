@@ -7,6 +7,7 @@ import { from, Observable } from 'rxjs';
 import { delay, exhaustMap, filter, map, switchMap } from 'rxjs/operators';
 import { updateUser } from '../../../+state/user/user.actions';
 import { user } from '../../../+state/user/user.selectors';
+import { generateQueryParams } from '../../../../../../../dist/library/lib/services/utils/generate-query-params';
 import { Printer } from '../../../services/printer/printer';
 import { GetOrdersQueryInterface } from '../models/get-orders-query.interface';
 
@@ -34,7 +35,10 @@ export class OrdersHistoryService extends BaseCrudService<OrderInterface> {
       }),
       switchMap(({ to: endOfCurrentDay, from: startOfCurrentDay, userId }) =>
         this.getAllOrdersByDateRange({ from: startOfCurrentDay.toISOString(), to: endOfCurrentDay.toISOString() }).pipe(
+          map((orders) => orders.filter((order) => !order.printed)),
           exhaustMap((orders) => from(this.printer.sequentialPrints(orders))),
+          map((printedOrders) => printedOrders.map((order) => order._id)),
+          exhaustMap((printedOrdersIds) => this.updatePrintedOrders(printedOrdersIds)),
           exhaustMap(() => this.httpClient.put(`/users/${userId}/polled`, {}, { headers })),
           exhaustMap(() => this.httpClient.get<AdminInterface>(`/users/${userId}`, { headers })),
           map((userFromAPI) => this.store.dispatch(updateUser({ user: userFromAPI })))
@@ -49,5 +53,10 @@ export class OrdersHistoryService extends BaseCrudService<OrderInterface> {
 
   getAllOrdersByDateRange(query: Partial<GetOrdersQueryInterface>): Observable<OrderInterface[]> {
     return super.read({ ...query, populateUser: true }).pipe(map((orders) => orderBy(orders, 'createdAt', ['desc'])));
+  }
+
+  updatePrintedOrders(ids: string[]): Observable<OrderInterface> {
+    const params = generateQueryParams({ ids });
+    return this.httpClient.put<OrderInterface>(`/orders`, { printed: true }, { params });
   }
 }

@@ -73,6 +73,21 @@ function updateOrderStatusByPaymentIntentId(models) {
   };
 }
 
+/**
+ * @param {import('../../models/index')} models
+ */
+function bulkUpdateOrders(models) {
+  /**
+   * @typedef {import('../../models/order')} order
+   * @param orderIds {Array<string>}
+   * @param update {order}
+   */
+  return function bulkUpdateOrdersByIds(orderIds, update) {
+    return models.OrderModel.updateMany({ _id: { $in: orderIds } }, { $set: update }, { new: true }).exec();
+  };
+}
+
+module.exports.bulkUpdateOrders = bulkUpdateOrders;
 module.exports.createOrder = createOrder;
 module.exports.getOrders = getOrders;
 module.exports.updateOrder = updateOrder;

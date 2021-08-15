@@ -10,15 +10,16 @@ export class Printer {
   constructor(private readonly printer: StarPRNT, private readonly datePipe: DatePipe) {}
 
   async sequentialPrints(orders: OrderInterface[]) {
-    const results = [];
+    const printedOrders = [];
     for (const order of orders) {
       try {
-        results.push(await this.print(order));
+        await this.print(order);
+        printedOrders.push(order);
       } catch (error) {
-        results.push(error);
+        console.log(error);
       }
     }
-    return results;
+    return printedOrders;
   }
 
   print(order: OrderInterface) {

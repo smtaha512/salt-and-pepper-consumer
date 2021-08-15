@@ -82,4 +82,23 @@ router.put('/orders/:id', [middlewares.isReqParamValidID, middlewares.validateOr
     });
 });
 
+router.put('/orders', (request, response) => {
+  const orderIds = request.query.ids;
+  if (!Array.isArray(orderIds) || orderIds.some((item) => typeof item !== 'string')) {
+    response.send(`Expected array of string found ${typeof orderIds}`).status(400);
+  }
+  const updateOrders = repositories.orders.bulkUpdateOrders(dbModels);
+
+  // @ts-ignore
+  updateOrders(orderIds, { printed: true })
+    .then((orders) => {
+      logger.info(formatLog(request.method, request.originalUrl, 'response', 'body', orders));
+      response.status(200).send(orders);
+    })
+    .catch((e) => {
+      logger.error(formatLog(request.method, request.originalUrl, 'response', 'error', e.message));
+      response.status(400).send('Unable to update order');
+    });
+});
+
 module.exports = router;

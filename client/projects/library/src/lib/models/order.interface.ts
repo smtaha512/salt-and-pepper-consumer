@@ -11,4 +11,5 @@ export interface OrderInterface extends BaseEntityInterface {
   status: OrderStatausEnum;
   total: number;
   userId: string | ConsumerInterface;
+  printed: boolean;
 }
