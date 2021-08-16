@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
 import { Stripe, StripePlugin } from '@capacitor-community/stripe';
 import { AlertController, LoadingController } from '@ionic/angular';
-import { from } from 'rxjs';
+import { EMPTY, from } from 'rxjs';
+import { catchError } from 'rxjs/operators';
 import { environment } from '../../../../../environments/environment';
 import { StripeResponse } from '../../models/stripe-response.interface';
 
@@ -22,8 +23,14 @@ export class StripeService {
         paymentIntentClientSecret: paymentIntent,
       })
       .then(() => this.stripePlugin.presentPaymentFlow())
-      .then(() => this.stripePlugin.confirmPaymentFlow());
+      .then(() => this.stripePlugin.confirmPaymentFlow())
+      .catch(console.log);
 
-    return from(stripePaymentFlowPromise);
+    return from(stripePaymentFlowPromise).pipe(
+      catchError((e) => {
+        console.log(e);
+        return EMPTY;
+      })
+    );
   }
 }
