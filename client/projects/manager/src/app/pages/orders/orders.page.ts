@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { OrderInterface } from 'dist/library';
 import { OrdersHistoryService } from '../orders-history/services/orders-history.service';
+import { switchMap } from 'rxjs/operators';
 
 @Component({
   selector: 'app-orders',
@@ -19,10 +20,14 @@ export class OrdersPage implements OnInit {
   constructor(private readonly router: Router, private readonly ordersHistoryService: OrdersHistoryService) {
     this.startOfCurrentDay.setHours(0, 0, 0, 0);
     this.endOfCurrentDay.setHours(23, 59, 59, 999);
-    this.orders$ = this.ordersHistoryService.getAllOrdersByDateRange({
-      from: this.startOfCurrentDay.toISOString(),
-      to: this.endOfCurrentDay.toISOString(),
-    });
+    this.orders$ = this.ordersHistoryService.shouldRefetch$.pipe(
+      switchMap(() =>
+        this.ordersHistoryService.getAllOrdersByDateRange({
+          from: this.startOfCurrentDay.toISOString(),
+          to: this.endOfCurrentDay.toISOString(),
+        })
+      )
+    );
   }
 
   ngOnInit() {}

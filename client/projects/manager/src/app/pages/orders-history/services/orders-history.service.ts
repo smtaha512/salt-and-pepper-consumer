@@ -3,8 +3,8 @@ import { Injectable } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { AdminInterface, BaseCrudService, isNotEmpty, OrderInterface, generateQueryParams } from 'dist/library';
 import { orderBy } from 'lodash';
-import { from, Observable, of } from 'rxjs';
-import { delay, exhaustMap, filter, map, switchMap } from 'rxjs/operators';
+import { BehaviorSubject, from, Observable, of } from 'rxjs';
+import { delay, exhaustMap, filter, map, switchMap, tap } from 'rxjs/operators';
 import { updateUser } from '../../../+state/user/user.actions';
 import { user } from '../../../+state/user/user.selectors';
 import { Printer } from '../../../services/printer/printer';
@@ -13,6 +13,7 @@ import { GetOrdersQueryInterface } from '../models/get-orders-query.interface';
 @Injectable({ providedIn: 'root' })
 export class OrdersHistoryService extends BaseCrudService<OrderInterface> {
   protected base = '/orders';
+  readonly shouldRefetch$ = new BehaviorSubject(true);
   constructor(protected readonly httpClient: HttpClient, private readonly store: Store<any>, private readonly printer: Printer) {
     super(httpClient);
   }
@@ -34,6 +35,7 @@ export class OrdersHistoryService extends BaseCrudService<OrderInterface> {
       }),
       switchMap(({ to: endOfCurrentDay, from: startOfCurrentDay, userId }) =>
         this.getAllOrdersByDateRange({ from: startOfCurrentDay.toISOString(), to: endOfCurrentDay.toISOString() }).pipe(
+          tap(() => this.shouldRefetch$.next(true)),
           map((orders) => orders.filter((order) => !order.printed)),
           exhaustMap((orders) => from(this.printer.sequentialPrints(orders))),
           map((printedOrders) => printedOrders.map((order) => order._id)),
