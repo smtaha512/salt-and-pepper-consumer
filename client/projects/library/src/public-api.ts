@@ -60,5 +60,6 @@ export { BaseCrudService } from './lib/services/base-curd/base-crud.service';
 export { InterceptorsModule } from './lib/services/interceptors/interceptors.module';
 export { NetworkService } from './lib/services/network/network.service';
 export { StorageService } from './lib/services/storage/storage.service';
+export { generateQueryParams, AllowedValue, ParamType } from './lib/services/utils/generate-query-params';
 
 export { isNotEmpty } from './lib/utils/is-not-empty';

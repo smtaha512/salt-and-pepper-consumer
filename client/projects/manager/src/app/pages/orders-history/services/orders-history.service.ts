@@ -1,13 +1,12 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { AdminInterface, BaseCrudService, isNotEmpty, OrderInterface } from 'dist/library';
+import { AdminInterface, BaseCrudService, isNotEmpty, OrderInterface, generateQueryParams } from 'dist/library';
 import { orderBy } from 'lodash';
 import { from, Observable } from 'rxjs';
 import { delay, exhaustMap, filter, map, switchMap } from 'rxjs/operators';
 import { updateUser } from '../../../+state/user/user.actions';
 import { user } from '../../../+state/user/user.selectors';
-import { generateQueryParams } from '../../../../../../../dist/library/lib/services/utils/generate-query-params';
 import { Printer } from '../../../services/printer/printer';
 import { GetOrdersQueryInterface } from '../models/get-orders-query.interface';
 
