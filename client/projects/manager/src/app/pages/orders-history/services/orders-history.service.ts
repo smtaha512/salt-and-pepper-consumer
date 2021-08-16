@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { AdminInterface, BaseCrudService, isNotEmpty, OrderInterface, generateQueryParams } from 'dist/library';
 import { orderBy } from 'lodash';
-import { from, Observable } from 'rxjs';
+import { from, Observable, of } from 'rxjs';
 import { delay, exhaustMap, filter, map, switchMap } from 'rxjs/operators';
 import { updateUser } from '../../../+state/user/user.actions';
 import { user } from '../../../+state/user/user.selectors';
@@ -37,7 +37,7 @@ export class OrdersHistoryService extends BaseCrudService<OrderInterface> {
           map((orders) => orders.filter((order) => !order.printed)),
           exhaustMap((orders) => from(this.printer.sequentialPrints(orders))),
           map((printedOrders) => printedOrders.map((order) => order._id)),
-          exhaustMap((printedOrdersIds) => this.updatePrintedOrders(printedOrdersIds)),
+          exhaustMap((printedOrdersIds) => (printedOrdersIds.length ? this.updatePrintedOrders(printedOrdersIds) : of([]))),
           exhaustMap(() => this.httpClient.put(`/users/${userId}/polled`, {}, { headers })),
           exhaustMap(() => this.httpClient.get<AdminInterface>(`/users/${userId}`, { headers })),
           map((userFromAPI) => this.store.dispatch(updateUser({ user: userFromAPI })))
