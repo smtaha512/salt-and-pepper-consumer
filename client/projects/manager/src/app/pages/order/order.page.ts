@@ -106,7 +106,8 @@ export class OrderPage implements OnInit, OnDestroy {
                           ? EMPTY
                           : this.ordersHistoryService.update(order._id, { status: item.text as OrderStatausEnum }).pipe(first())
                       ),
-                      tap(() => this.refetch$.next(true))
+                      tap(() => this.refetch$.next(true)),
+                      tap(() => this.ordersHistoryService.shouldRefetch$.next(true))
                     )
                     .subscribe();
                 },
