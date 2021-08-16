@@ -90,7 +90,7 @@ export class OrderPage implements OnInit, OnDestroy {
             : {
                 ...item,
                 handler: () => {
-                  if (item.cssClass.includes(disableButtonClass) || item.text === currentStatus) {
+                  if (item?.cssClass?.includes(disableButtonClass) || item.text === currentStatus) {
                     return false;
                   }
                   this.currentOrder$
