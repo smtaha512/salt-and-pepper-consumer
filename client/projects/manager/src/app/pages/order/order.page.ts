@@ -3,7 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { ActionSheetController, ToastController } from '@ionic/angular';
 import { ActionSheetButton } from '@ionic/core';
 import { OrderInterface, OrderStatausEnum } from 'dist/library';
-import { BehaviorSubject, EMPTY, from, Observable } from 'rxjs';
+import { BehaviorSubject, EMPTY, from, Observable, of } from 'rxjs';
 import { first, map, repeatWhen, shareReplay, switchMap, tap } from 'rxjs/operators';
 import { Printer } from '../../services/printer/printer';
 import { OrdersHistoryService } from '../orders-history/services/orders-history.service';
@@ -63,6 +63,7 @@ export class OrderPage implements OnInit, OnDestroy {
       [OrderStatausEnum.PREPARED]: [OrderStatausEnum.CANCELLED, OrderStatausEnum.PICKED],
       [OrderStatausEnum.PREPARING]: [OrderStatausEnum.CANCELLED, OrderStatausEnum.PICKED, OrderStatausEnum.PREPARED],
     };
+    const disableButtonClass = 'disable-action-sheet-btns';
     const statusButtons: ActionSheetButton[] = [
       { text: OrderStatausEnum.CANCELLED, icon: 'trash-outline', role: 'destructive', cssClass: 'ion-button-text-color-danger' },
       { text: OrderStatausEnum.PREPARING, icon: 'flame-sharp', cssClass: ['ion-button-text-color-light'] },
@@ -72,7 +73,7 @@ export class OrderPage implements OnInit, OnDestroy {
       .map((button) => ({ ...button, cssClass: Array.isArray(button.cssClass) ? [...button.cssClass] : [button.cssClass] }))
       .map((button) => ({
         ...button,
-        cssClass: [...button.cssClass, ...(disableStatusMap[button.text].includes(currentStatus) ? ['disable-action-sheet-btns'] : [])],
+        cssClass: [...button.cssClass, ...(disableStatusMap[button.text].includes(currentStatus) ? [disableButtonClass] : [])],
       }));
     const actionSheet = await this.actionSheetController.create({
       cssClass: 'ion-color-light',
@@ -89,10 +90,17 @@ export class OrderPage implements OnInit, OnDestroy {
             : {
                 ...item,
                 handler: () => {
+                  if (item.cssClass.includes(disableButtonClass) || item.text === currentStatus) {
+                    return false;
+                  }
                   this.currentOrder$
                     .pipe(
                       first(),
-                      switchMap((order) => from(this.cancelOrderConfirmation().then((role) => (role === 'cancel-order' ? order : null)))),
+                      switchMap((order) =>
+                        item.role === OrderStatausEnum.CANCELLED
+                          ? from(this.cancelOrderConfirmation().then((role) => (role === 'cancel-order' ? order : null)))
+                          : of(order)
+                      ),
                       switchMap((order) =>
                         !order
                           ? EMPTY
