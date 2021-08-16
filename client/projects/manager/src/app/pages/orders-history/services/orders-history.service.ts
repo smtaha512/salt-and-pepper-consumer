@@ -58,7 +58,7 @@ export class OrdersHistoryService extends BaseCrudService<OrderInterface> {
 
   updatePrintedOrders(ids: string[]): Observable<OrderInterface> {
     const headers = new HttpHeaders({ 'show-loader': 'false' });
-    const params = generateQueryParams({ ids });
+    const params = generateQueryParams({ ids: Array.isArray(ids) ? ids : [ids] });
     return this.httpClient.put<OrderInterface>(`/orders`, { printed: true }, { params, headers });
   }
 }
