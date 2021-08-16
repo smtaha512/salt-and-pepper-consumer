@@ -12,6 +12,7 @@ export class ErrorInterceptor implements HttpInterceptor {
     return next.handle(req).pipe(
       catchError((errorResponse: HttpErrorResponse) => {
         if (errorResponse instanceof HttpErrorResponse) {
+          console.log(errorResponse, errorResponse.error);
           this.toastController
             .create({ message: errorResponse.error, buttons: [{ text: 'Dismiss', role: 'cancel' }], duration: 2500 })
             .then((toast) => toast.present());
