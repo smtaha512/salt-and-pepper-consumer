@@ -4,7 +4,7 @@
       <ion-text>{{ item.quantity }} x {{ item.title }}</ion-text>
     </ion-card-subtitle>
     <div *ngIf="item.preference">
-      <ion-badge color="light" mode="ios" class="ion-padding-horizontal ion-text-center" style="width: 5rem">
+      <ion-badge color="light" mode="ios" class="ion-text-wrap" style="width: 5rem">
         <ion-text [color]="preferenceColor(item)" class="ion-text-capitalize">
           {{ item.preference }}
         </ion-text>
