@@ -61,7 +61,7 @@ function updateOrder(models, options) {
     try {
       const order = await models.OrderModel.findById(orderId).select({ paymentData: 1 }).exec();
       let refund = null;
-      if (orderDetails.status === 'cancelled') {
+      if (orderDetails.status.toLowerCase() === 'cancelled') {
         // @ts-ignore
         refund = await stripe().refund({ charge: order.paymentData.charge, paymentIntent: order.paymentData.paymentIntent });
       }
