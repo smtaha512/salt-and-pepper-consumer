@@ -29,7 +29,7 @@ export const tip = createSelector(currentOrderItemState, (state) => state.tip);
 
 export const subTotal = createSelector(currentOrderItems, (state) => state.reduce((acc, curr) => acc + curr.price * curr.quantity, 0));
 
-export const TAX_PERCENT = 6.5;
+export const TAX_PERCENT = 6.75;
 
 export const taxCalculator = calculateTaxCurry(TAX_PERCENT);
 

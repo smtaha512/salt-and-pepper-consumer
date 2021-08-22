@@ -18,6 +18,7 @@ export class OrderPage implements OnInit, OnDestroy {
   readonly currentOrder$: Observable<OrderInterface>;
   readonly subTotal$: Observable<number>;
   readonly tax$: Observable<number>;
+  readonly TAX_PERCENT = 6.75;
   private readonly refetch$ = new BehaviorSubject(null);
   private readonly destroyed$: BehaviorSubject<boolean> = new BehaviorSubject(false);
 
