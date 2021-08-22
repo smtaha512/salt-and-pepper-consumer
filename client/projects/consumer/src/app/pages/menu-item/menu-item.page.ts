@@ -6,6 +6,7 @@ import { select, Store } from '@ngrx/store';
 import { isNotEmpty, ItemInterface, PreferencesEnum } from 'dist/library';
 import { Observable, Subject } from 'rxjs';
 import { filter, map, pluck, shareReplay, switchMap, takeUntil, tap } from 'rxjs/operators';
+import { CloseAlertService } from '../../services/close-alert/close-alert.service';
 import { upsertCurrentOrderItem } from '../cart/+state/current-order-item.actions';
 import { currentOrderItemById } from '../cart/+state/current-order-item.selectors';
 
@@ -26,7 +27,8 @@ export class MenuItemPage implements OnInit, OnDestroy {
     private readonly route: ActivatedRoute,
     private readonly store: Store<any>,
     private readonly toastController: ToastController,
-    private readonly navController: NavController
+    private readonly navController: NavController,
+    private readonly closeAlertService: CloseAlertService
   ) {}
 
   ngOnInit() {
@@ -77,6 +79,10 @@ export class MenuItemPage implements OnInit, OnDestroy {
   }
 
   onSubmit(menuItem: ItemInterface) {
+    if (this.closeAlertService.isRestaurantClosed) {
+      this.closeAlertService.showCloseTimings();
+      return;
+    }
     if (this.form.invalid) {
       return;
     }

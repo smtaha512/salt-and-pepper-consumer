@@ -53,6 +53,7 @@
     "cordova-plugin-starprnt": "^2.2.0",
     "core-js": "^2.5.4",
     "lodash-es": "^4.17.15",
+    "luxon": "^2.0.2",
     "rxjs": "~6.5.1",
     "tslib": "^1.10.0",
     "zone.js": "~0.10.2"
@@ -72,6 +73,7 @@
     "@types/jasmine": "~3.3.8",
     "@types/jasminewd2": "~2.0.3",
     "@types/lodash-es": "^4.17.3",
+    "@types/luxon": "^2.0.0",
     "@types/node": "^12.11.1",
     "codelyzer": "^5.1.2",
     "firebase-tools": "^8.0.0",

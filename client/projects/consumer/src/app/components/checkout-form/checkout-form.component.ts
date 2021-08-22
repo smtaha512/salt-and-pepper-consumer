@@ -6,6 +6,7 @@ import { isNotEmpty } from 'dist/library';
 import { Subject } from 'rxjs';
 import { filter, map, takeUntil, tap } from 'rxjs/operators';
 import { user } from '../../+state/user/user.selectors';
+import { CloseAlertService } from '../../services/close-alert/close-alert.service';
 import * as checkoutActions from './+state/checkout.actions';
 
 @Component({
@@ -18,7 +19,12 @@ export class CheckoutFormComponent implements OnInit, OnDestroy {
   form: FormGroup;
   private readonly destroyed$ = new Subject();
 
-  constructor(private readonly fb: FormBuilder, private readonly alertController: AlertController, private readonly store: Store<any>) {}
+  constructor(
+    private readonly fb: FormBuilder,
+    private readonly alertController: AlertController,
+    private readonly store: Store<any>,
+    private readonly closeAlertService: CloseAlertService
+  ) {}
 
   ngOnInit() {
     this.buildForm();
@@ -52,6 +58,10 @@ export class CheckoutFormComponent implements OnInit, OnDestroy {
   }
 
   onSubmit() {
+    if (this.closeAlertService.isRestaurantClosed) {
+      this.closeAlertService.showCloseTimings();
+      return;
+    }
     this.form.markAsUntouched();
     this.form.updateValueAndValidity();
     const { firstname, lastname, email, mobileNumber } = this.form.value;
