@@ -14,12 +14,6 @@ router.post('/stripe', (request, response) => {
     const event = stripe().constructEvent(payload, stripeSignature);
     console.log(new Date().toISOString(), 16, JSON.stringify(event, null, 2));
     switch (event.type) {
-      case 'payment_intent.created': {
-        // @ts-ignore
-        const paymentIntentId = event.data.object.id;
-        stripe().confirmPaymentIntent({ id: paymentIntentId });
-        break;
-      }
       case 'payment_intent.succeeded': {
         // @ts-ignore
         const orderId = new ObjectId(event.data.object.metadata.orderId);
