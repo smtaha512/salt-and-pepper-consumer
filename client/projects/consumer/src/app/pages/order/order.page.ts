@@ -27,7 +27,7 @@ export class OrderPage implements OnInit {
       shareReplay({ refCount: true, bufferSize: 1 })
     );
     this.subTotal$ = this.currentOrder$.pipe(
-      map((order) => order.items.reduce((acc, item) => acc + item.price, 0)),
+      map((order) => order.items.reduce((acc, item) => acc + item.price * item.quantity, 0)),
       shareReplay({ refCount: true, bufferSize: 1 })
     );
     this.tax$ = this.subTotal$.pipe(map(taxCalculator));
