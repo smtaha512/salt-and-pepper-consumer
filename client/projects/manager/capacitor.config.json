@@ -1,5 +1,5 @@
 {
-  "appId": "com.saltanpepper.manager.app",
+  "appId": "com.saltandpepper.manager.app",
   "appName": "Salt and pepper",
   "bundledWebRuntime": false,
   "npmClient": "npm",
