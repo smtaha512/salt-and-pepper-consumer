@@ -9,3 +9,11 @@
   transition: transform 150ms cubic-bezier(0.6, -0.28, 0.735, 0.045);
   width: 96px;
 }
+
+ion-tabs {
+  height: 98%;
+}
+
+ion-tab-bar {
+  position: relative;
+}
