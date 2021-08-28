@@ -115,12 +115,19 @@
   }
 }
 
-ion-navbar.toolbar.toolbar-ios.statusbar-padding,
-ion-navbar.toolbar-ios ion-title.title-ios,
-ion-toolbar.toolbar.toolbar-ios.statusbar-padding,
-ion-toolbar.toolbar-ios ion-title.title-ios {
+ion-content {
   padding-top: constant(safe-area-inset-top);
   padding-top: env(safe-area-inset-top);
+}
+
+.plt-ios {
+  ion-tab-bar {
+    padding-top: var(--ion-safe-area-top);
+  }
+
+  ion-header ion-toolbar.no-safe-area-padding-top {
+    padding-top: 0 !important;
+  }
 }
 
 .disable-action-sheet-btns {
